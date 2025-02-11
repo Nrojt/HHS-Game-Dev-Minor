@@ -1,0 +1,71 @@
+[gd_scene load_steps=9 format=3 uid="uid://doqmldscj30lt"]
+
+[ext_resource type="Texture2D" uid="uid://8k4f8gshnegl" path="res://assets/female_tilesheet.png" id="1_77ul3"]
+[ext_resource type="Script" path="res://player/scripts/player.gd" id="1_p6x77"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8midg"]
+atlas = ExtResource("1_77ul3")
+region = Rect2(0, 0, 80, 110)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rr2qx"]
+atlas = ExtResource("1_77ul3")
+region = Rect2(240, 110, 80, 110)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jgo56"]
+atlas = ExtResource("1_77ul3")
+region = Rect2(240, 220, 80, 110)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0lswm"]
+atlas = ExtResource("1_77ul3")
+region = Rect2(400, 220, 80, 110)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0e5up"]
+animations = [{
+"frames": [{
+"duration": 8.0,
+"texture": SubResource("AtlasTexture_8midg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rr2qx")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_jgo56")
+}, {
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_0lswm")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 2.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ua4im"]
+size = Vector2(71, 89)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_p6x77")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0e5up")
+animation = &"Idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 10.5)
+shape = SubResource("RectangleShape2D_ua4im")
+
+[node name="PlayerStateMachine" type="Node" parent="."]
+
+[node name="Idle" type="Node" parent="PlayerStateMachine"]
+
+[node name="Walk" type="Node" parent="PlayerStateMachine"]
+
+[node name="Run" type="Node" parent="PlayerStateMachine"]
+
+[node name="Jump" type="Node" parent="PlayerStateMachine"]
+
+[node name="Slide" type="Node" parent="PlayerStateMachine"]
