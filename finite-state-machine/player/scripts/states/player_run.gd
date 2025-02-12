@@ -4,10 +4,10 @@ class_name PlayerRun
 @export var MOVE_SPEED: float = 150.0
 
 
-func _physics_process(delta):
+func physics_update(delta):
 	# Get the input direction and handle the movement/deceleration.
 	var direction: float = Input.get_axis("left", "right")
 	if direction:
-		PLAYER.velocity.x = direction * MOVE_SPEED
+		player.velocity.x = direction * MOVE_SPEED * delta
 	else:
-		PLAYER.velocity.x = move_toward(PLAYER.velocity.x, 0, MOVE_SPEED)
+		player.velocity.x = move_toward(player.velocity.x, 0, MOVE_SPEED * delta)

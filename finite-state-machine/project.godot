@@ -15,6 +15,10 @@ run/main_scene="res://levels/level.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameEnums="*res://autoload/game_enums.gd"
+
 [display]
 
 window/size/viewport_width=1920
