@@ -1,7 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://doqmldscj30lt"]
+[gd_scene load_steps=17 format=3 uid="uid://doqmldscj30lt"]
 
 [ext_resource type="Texture2D" uid="uid://8k4f8gshnegl" path="res://assets/female_tilesheet.png" id="1_77ul3"]
 [ext_resource type="Script" path="res://player/scripts/player.gd" id="1_p6x77"]
+[ext_resource type="Script" path="res://player/scripts/player_state_machine.gd" id="3_n408d"]
+[ext_resource type="Script" path="res://player/scripts/states/player_idle.gd" id="4_k7kal"]
+[ext_resource type="Script" path="res://player/scripts/states/player_walk.gd" id="5_2bxls"]
+[ext_resource type="Script" path="res://player/scripts/states/player_run.gd" id="6_hm8d3"]
+[ext_resource type="Script" path="res://player/scripts/states/player_jump.gd" id="7_jgfgs"]
+[ext_resource type="Script" path="res://player/scripts/states/player_slide.gd" id="8_l07wl"]
+[ext_resource type="Script" path="res://player/scripts/states/player_hurt.gd" id="9_n383v"]
+[ext_resource type="Script" path="res://player/scripts/states/player_dash.gd" id="10_sdrb6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8midg"]
 atlas = ExtResource("1_77ul3")
@@ -58,20 +66,31 @@ animation = &"Idle"
 position = Vector2(0.5, 10.5)
 shape = SubResource("RectangleShape2D_ua4im")
 
-[node name="PlayerStateMachine" type="Node" parent="."]
+[node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
+script = ExtResource("3_n408d")
+starting_state = NodePath("idle")
 
-[node name="Idle" type="Node" parent="PlayerStateMachine"]
+[node name="idle" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("4_k7kal")
 
-[node name="Walk" type="Node" parent="PlayerStateMachine"]
+[node name="walk" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("5_2bxls")
 
-[node name="Run" type="Node" parent="PlayerStateMachine"]
+[node name="run" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("6_hm8d3")
 
-[node name="Jump" type="Node" parent="PlayerStateMachine"]
+[node name="jump" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("7_jgfgs")
 
-[node name="Slide" type="Node" parent="PlayerStateMachine"]
+[node name="CoyoteTimer" type="Timer" parent="PlayerStateMachine/jump"]
 
-[node name="Hurt" type="Node" parent="PlayerStateMachine"]
+[node name="slide" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("8_l07wl")
 
-[node name="CoyoteTimer" type="Timer" parent="."]
+[node name="hurt" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("9_n383v")
 
-[connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
+[node name="dash" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("10_sdrb6")
+
+[connection signal="timeout" from="PlayerStateMachine/jump/CoyoteTimer" to="." method="_on_coyote_timer_timeout"]

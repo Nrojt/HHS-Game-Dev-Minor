@@ -324,3 +324,13 @@ tile_set = SubResource("TileSet_em4l3")
 [node name="Player" parent="." instance=ExtResource("2_85w51")]
 position = Vector2(816, 135)
 scale = Vector2(0.474717, 0.474717)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
+remote_path = NodePath("../../Camera2D")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(816, 135)
+scale = Vector2(0.474717, 0.474717)
+zoom = Vector2(1.5, 1.5)
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0
