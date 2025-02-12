@@ -69,3 +69,9 @@ shape = SubResource("RectangleShape2D_ua4im")
 [node name="Jump" type="Node" parent="PlayerStateMachine"]
 
 [node name="Slide" type="Node" parent="PlayerStateMachine"]
+
+[node name="Hurt" type="Node" parent="PlayerStateMachine"]
+
+[node name="CoyoteTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
