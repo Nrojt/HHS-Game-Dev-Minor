@@ -19,14 +19,13 @@ func _ready() -> void:
 		printerr(owner.name + ": No player reference set. Defaulting to the owner.")
 		player = owner as CharacterBody2D
 
-	# Give every state a reference to the state machine.
+	# Get all states in the scene tree
 	for state_node: PlayerState in find_children("*", "res://player/scripts/player_state.gd"):
 		states[state_node.STATE_TYPE] = state_node
-		state_node.transition.connect(_transition_to_next_state)
+		state_node.transition.connect(_transition_to_next_state) # connecting all the transitions to the state machine
 		state_node.init(player)
 
-	# State machines usually access data from the root node of the scene they're part of: the owner.
-	# We wait for the owner to be ready to guarantee all the data and nodes the states may need are available.
+	# We wait for the owner to be ready to guarantee all the data and nodes are available.
 	await owner.ready
 
 	print(states)
@@ -48,9 +47,9 @@ func _physics_process(delta: float) -> void:
 		printerr(owner.name + ": No state set.")
 		return
 	current_state.physics_update(delta)
-	
 
-func _transition_to_next_state(target_state: StateEnums.PlayerStateType, data: Dictionary = {}) -> void:
+
+func _transition_to_next_state(target_state: StateEnums.PlayerStateType) -> void:
 	var previous_state := current_state
 	current_state.exit()
 	current_state = states.get(target_state)
