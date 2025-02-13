@@ -1,10 +1,16 @@
 extends PlayerState
 class_name PlayerIdle
 
-## Called by the state machine when receiving unhandled input events.
-func handle_input(_event: InputEvent) -> void:
-	pass
-
-
-func enter(_previous_state: GameEnums.PlayerStateType = GameEnums.PlayerStateType.UNDEFINED, _data: Dictionary = {}) -> void:
+func enter(_previous_state: StateEnums.PlayerStateType = StateEnums.PlayerStateType.UNDEFINED, _data: Dictionary = {}) -> void:
 	player.velocity.x = 0
+
+
+func physics_update(_delta: float) -> void:
+	if !player.is_on_floor():
+		transition.emit(StateEnums.PlayerStateType.FALL)
+
+	if Input.is_action_just_pressed("jump") && player.is_on_floor():
+		transition.emit(StateEnums.PlayerStateType.JUMP)
+
+	if(Input.get_action_strength("left") != 0 || Input.get_action_strength("right") != 0):
+		transition.emit(StateEnums.PlayerStateType.WALK)

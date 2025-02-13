@@ -13,13 +13,13 @@ func physics_update(delta):
 	# Handle jump
 	if Input.is_action_just_pressed("jump") and jump_available:
 		jump_available = false
-		player.velocity.y = JUMP_VELOCITY
+		player.velocity.y = JUMP_VELOCITY * delta
 
 	# Add the gravity.
 	if not player.is_on_floor():
 		if jump_available and coyote_timer.is_stopped():
 			coyote_timer.start(COYOTE_TIME)
-		player.velocity += player.get_gravity() * delta
+
 	else:
 		coyote_timer.stop()
 		jump_available = true

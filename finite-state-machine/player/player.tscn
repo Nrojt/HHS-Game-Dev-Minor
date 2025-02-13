@@ -206,14 +206,17 @@ player = NodePath("..")
 [node name="dash" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("10_sdrb6")
 ANIMATION_NAME = "dash"
+STATE_TYPE = 7
 
 [node name="fall" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("11_5g6wv")
 ANIMATION_NAME = "fall"
+STATE_TYPE = 5
 
 [node name="hurt" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("9_n383v")
 ANIMATION_NAME = "hurt"
+STATE_TYPE = 6
 
 [node name="idle" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("4_k7kal")
@@ -222,22 +225,27 @@ ANIMATION_NAME = "idle"
 [node name="jump" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("7_jgfgs")
 ANIMATION_NAME = "jump"
+STATE_TYPE = 4
 
 [node name="CoyoteTimer" type="Timer" parent="PlayerStateMachine/jump"]
 
 [node name="run" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("6_hm8d3")
 ANIMATION_NAME = "run"
+STATE_TYPE = 2
 
 [node name="slide" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("8_l07wl")
 ANIMATION_NAME = "slide"
+STATE_TYPE = 3
 
 [node name="walk" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("5_2bxls")
 ANIMATION_NAME = "walk"
+STATE_TYPE = 1
 
 [node name="RunTimer" type="Timer" parent="PlayerStateMachine/walk"]
+one_shot = true
 
 [connection signal="timeout" from="PlayerStateMachine/jump/CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
 [connection signal="timeout" from="PlayerStateMachine/walk/RunTimer" to="PlayerStateMachine/walk" method="_on_run_timer_timeout"]
