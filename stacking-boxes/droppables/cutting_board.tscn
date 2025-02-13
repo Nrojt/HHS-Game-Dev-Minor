@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2djcixoinjg4"]
+
+[ext_resource type="PackedScene" uid="uid://cyct7cc6p1of7" path="res://assets/cutting-board.glb" id="1_5bbky"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cdel8"]
+points = PackedVector3Array(0.289943, 0.06, 0.362322, 0.276034, 0.06, 0.396034, 0.289943, 0, 0.362322, 0.289943, 0.06, -0.362482, 0.276034, 0, 0.396034, 0.242367, 0.06, 0.41, 0.289943, 0, -0.362482, 0.276034, 0.06, -0.396114, 0.242367, 0, 0.41, -0.242424, 0.06, 0.41, 0.276034, 0, -0.396114, 0.242367, 0.06, -0.41, -0.242424, 0, 0.41, -0.27609, 0.06, 0.396034, 0.242367, 0, -0.41, -0.242424, 0.06, -0.41, -0.27609, 0, 0.396034, -0.29, 0.06, 0.362322, -0.242424, 0, -0.41, -0.27609, 0.06, -0.396114, -0.29, 0, 0.362322, -0.29, 0.06, -0.362482, -0.27609, 0, -0.396114, -0.29, 0, -0.362482)
+
+[node name="CuttingBoard" type="RigidBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_cdel8")
+
+[node name="cutting-board2" parent="." instance=ExtResource("1_5bbky")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)

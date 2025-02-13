@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0wp5dmkvu3p5"]
+
+[ext_resource type="PackedScene" uid="uid://dyc2n7n6o27dl" path="res://assets/cooking-spatula.glb" id="1_v1nvp"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_tq3fp"]
+points = PackedVector3Array(-0.319752, 0.0663139, -0.095, -0.319752, 0.0663139, 0.095, -0.341336, 0.0721166, -0.0726077, 0.316077, 0.0199987, -0.0324912, -0.131175, 0.0157914, -0.095, -0.144406, 0.019328, -0.062453, -0.341336, 0.0721166, 0.0725891, -0.144406, 0.019328, 0.0624344, -0.131175, 0.0157914, 0.095, 0.316077, 0.0199987, 0.0324726, 0.341336, 0.0199987, -1.85966e-05, 0.316077, 0, -0.0324912, -0.109524, 0.0099958, -0.0726077, -0.109524, 0.0099958, 0.0725891, 0.316077, 0, 0.0324726, 0.341336, 0, -1.85966e-05, 0.0944221, 0.0021954, -0.0253495, 0.0944221, 0.0021954, 0.0253309)
+
+[node name="Spatula" type="RigidBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_tq3fp")
+
+[node name="cooking-spatula2" parent="." instance=ExtResource("1_v1nvp")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
