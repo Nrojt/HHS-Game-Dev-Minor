@@ -12,9 +12,11 @@ mono_crash.*.json
 # Idea
 .idea
 
-# Ignore everything in .addons except .md files
-.addons/**
-# Allow directory traversal (needed to reach nested .md files)
-!.addons/**/
-# Whitelist all .md files at any depth
-!.addons/**/*.md
+# Ignore everything in the addons directory
+.addons/*
+
+
+# Compiled binaries
+*.so
+*.dll
+*.exe
