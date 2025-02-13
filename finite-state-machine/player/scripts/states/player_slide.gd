@@ -6,7 +6,7 @@ class_name PlayerSlide
 @export var MIN_SLIDE_SPEED: float = 100.0
 
 
-func enter(_previous_state: StateEnums.PlayerStateType = StateEnums.PlayerStateType.UNDEFINED, _data := {}) -> void:
+func enter(_previous_state: StateEnums.PlayerStateType = StateEnums.PlayerStateType.UNDEFINED) -> void:
 	player.velocity.x = SLIDE_SPEED * sign(player.velocity.x)
 
 
