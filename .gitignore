@@ -12,9 +12,16 @@ mono_crash.*.json
 # Idea
 .idea
 
-# Ignore everything in .addons except .md files
-.addons/**
-# Allow directory traversal (needed to reach nested .md files)
-!.addons/**/
-# Whitelist all .md files at any depth
-!.addons/**/*.md
+# Ignore everything in any addons directory
+**/addons/*
+
+# But, specifically allow markdown files in any addons directory
+!**/addons/*.md
+
+# Temp files
+*.TMP
+
+# Compiled binaries
+*.so
+*.dll
+*.exe
