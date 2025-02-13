@@ -207,11 +207,13 @@ player = NodePath("..")
 script = ExtResource("10_sdrb6")
 ANIMATION_NAME = "dash"
 STATE_TYPE = 7
+MOVE_SPEED = 5000.0
 
 [node name="fall" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("11_5g6wv")
 ANIMATION_NAME = "fall"
 STATE_TYPE = 5
+MOVE_SPEED = 750.0
 
 [node name="hurt" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("9_n383v")
@@ -226,6 +228,7 @@ ANIMATION_NAME = "idle"
 script = ExtResource("7_jgfgs")
 ANIMATION_NAME = "jump"
 STATE_TYPE = 4
+MOVE_SPEED = 500.0
 
 [node name="CoyoteTimer" type="Timer" parent="PlayerStateMachine/jump"]
 
@@ -233,16 +236,19 @@ STATE_TYPE = 4
 script = ExtResource("6_hm8d3")
 ANIMATION_NAME = "run"
 STATE_TYPE = 2
+MOVE_SPEED = 3000.0
 
 [node name="slide" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("8_l07wl")
 ANIMATION_NAME = "slide"
 STATE_TYPE = 3
+MOVE_SPEED = 5000.0
 
 [node name="walk" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("5_2bxls")
 ANIMATION_NAME = "walk"
 STATE_TYPE = 1
+MOVE_SPEED = 2000.0
 
 [node name="RunTimer" type="Timer" parent="PlayerStateMachine/walk"]
 one_shot = true

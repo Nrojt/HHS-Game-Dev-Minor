@@ -3,6 +3,7 @@ class_name PlayerState
 
 @export var ANIMATION_NAME: String
 @export var STATE_TYPE: StateEnums.PlayerStateType
+@export var MOVE_SPEED: float = 150.0
 
 @onready var animated_sprite := $AnimatedSprite2D
 
@@ -22,8 +23,13 @@ func update(_delta: float) -> void:
 
 
 ## Called by the state machine on the engine's physics update tick.
-func physics_update(_delta: float) -> void:
-	pass
+func physics_update(delta: float) -> void:
+	# Get the input direction and handle the movement/deceleration.
+	var direction: float = Input.get_axis("left", "right")
+	if direction:
+		player.velocity.x = direction * MOVE_SPEED * delta
+	else:
+		player.velocity.x = move_toward(player.velocity.x, 0, MOVE_SPEED * delta)
 
 
 ## Called by the state machine upon changing the active state. The `data` parameter

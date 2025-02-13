@@ -1,13 +1,15 @@
 extends PlayerState
 class_name PlayerRun
 
-@export var MOVE_SPEED: float = 150.0
-
+func update(_delta: float) -> void:
+	# going into the slide
+	if (Input.is_action_just_pressed("slide")):
+		transition.emit(StateEnums.PlayerStateType.SLIDE)
 
 func physics_update(delta):
-	# Get the input direction and handle the movement/deceleration.
-	var direction: float = Input.get_axis("left", "right")
-	if direction:
-		player.velocity.x = direction * MOVE_SPEED * delta
-	else:
-		player.velocity.x = move_toward(player.velocity.x, 0, MOVE_SPEED * delta)
+	super(delta)
+
+	if player.is_on_floor()    &&  player.velocity.x == 0:
+		transition.emit(StateEnums.PlayerStateType.IDLE)
+	elif not player.is_on_floor():
+		transition.emit(StateEnums.PlayerStateType.FALL)
