@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bwlnqybrlb18m"]
 
 [ext_resource type="Script" path="res://scripts/free_look_camera.gd" id="1_87h1s"]
-[ext_resource type="PackedScene" uid="uid://b6dp40nyuba4e" path="res://droppables/apple.tscn" id="2_4affi"]
+[ext_resource type="PackedScene" uid="uid://cpevvw33t7duw" path="res://droppables/spawner/droppable_spawner.tscn" id="2_6pmga"]
 
 [node name="Level" type="Node3D"]
 
@@ -24,7 +24,7 @@ size = Vector3(1.7, 3.5, 1)
 transform = Transform3D(1.6, 0, 0, 0, 1, 0, 0, 0, 1.7, 0, 1.1, -0.2)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(0.575585, 0.0220088, -0.787568, 0.378522, -0.0925417, 0.0180282, 0.724861, 0.0308489, 0.615964, 1.05, 2.9, 1.6)
+transform = Transform3D(0.5343, 0.0341787, -0.876617, 0.351372, -0.143713, 0.0200667, 0.672869, 0.0479069, 0.68561, 1.05, 2.9, 1.6)
 size = Vector3(4.3, 1, 1)
 
 [node name="CSGTorus3D" type="CSGTorus3D" parent="CSGCombiner3D"]
@@ -45,5 +45,4 @@ script = ExtResource("1_87h1s")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.642788, 0.766044, 0, -0.766044, 0.642788, 8.8, 24.6772, 7.24638)
 
-[node name="Apple" parent="." instance=ExtResource("2_4affi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.6715, 0)
+[node name="DroppableSpawner" parent="." instance=ExtResource("2_6pmga")]

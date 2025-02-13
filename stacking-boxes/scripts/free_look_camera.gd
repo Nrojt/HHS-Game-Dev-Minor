@@ -1,4 +1,3 @@
-#Copyright © 2022 Marc Nahr: https://github.com/MarcPhi/godot-free-look-camera
 extends Camera3D
 
 @export_range(0, 10, 0.01) var sensitivity : float = 3
@@ -8,9 +7,9 @@ extends Camera3D
 @export var max_speed : float = 1000
 @export var min_speed : float = 0.2
 
-@onready var _velocity = default_velocity
+@onready var _velocity: float = default_velocity
 
-func _input(event):
+func _input(event) -> void:
 	if not current:
 		return
 		
@@ -28,12 +27,14 @@ func _input(event):
 				_velocity = clamp(_velocity * speed_scale, min_speed, max_speed)
 			MOUSE_BUTTON_WHEEL_DOWN: # decrease fly velocity
 				_velocity = clamp(_velocity / speed_scale, min_speed, max_speed)
+			MOUSE_BUTTON_LEFT:
+				SignalManager.spawn_droppable.emit(global_transform.origin)
 
-func _process(delta):
+func _process(delta) -> void:
 	if not current:
 		return
 		
-	var direction = Vector3(
+	var direction := Vector3(
 		float(Input.is_physical_key_pressed(KEY_D)) - float(Input.is_physical_key_pressed(KEY_A)),
 		float(Input.is_physical_key_pressed(KEY_E)) - float(Input.is_physical_key_pressed(KEY_Q)), 
 		float(Input.is_physical_key_pressed(KEY_S)) - float(Input.is_physical_key_pressed(KEY_W))
