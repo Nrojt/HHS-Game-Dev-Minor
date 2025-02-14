@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0kck4ef5mkdt"]
+
+[ext_resource type="Script" path="res://scripts/free_look_camera.gd" id="1_22jd0"]
+[ext_resource type="PackedScene" uid="uid://cpevvw33t7duw" path="res://droppables/spawner/droppable_spawner.tscn" id="2_8prfm"]
+
+[node name="Player" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+script = ExtResource("1_22jd0")
+
+[node name="DroppableSpawner" parent="." instance=ExtResource("2_8prfm")]

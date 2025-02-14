@@ -28,7 +28,9 @@ func _input(event) -> void:
 			MOUSE_BUTTON_WHEEL_DOWN: # decrease fly velocity
 				_velocity = clamp(_velocity / speed_scale, min_speed, max_speed)
 			MOUSE_BUTTON_LEFT:
-				SignalManager.spawn_droppable.emit(global_transform.origin)
+				# spawn droppable in front of camera
+				var spawn_location := global_position - global_transform.basis.z * 2
+				SignalManager.spawn_droppable.emit(spawn_location)
 
 func _process(delta) -> void:
 	if not current:

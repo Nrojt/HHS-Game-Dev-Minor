@@ -7,6 +7,7 @@ height = 0.2
 radius = 0.1
 
 [node name="Apple" type="RigidBody3D"]
+gravity_scale = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0.6, 0)
