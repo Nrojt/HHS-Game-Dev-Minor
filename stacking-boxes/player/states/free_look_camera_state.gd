@@ -1,5 +1,6 @@
-extends Camera3D
+extends CameraState
 
+# TODO move these over to a settings menu
 @export_range(0, 10, 0.01) var sensitivity : float = 3
 @export_range(0, 1000, 0.1) var default_velocity : float = 5
 @export_range(0, 10, 0.01) var speed_scale : float = 1.17
@@ -9,16 +10,14 @@ extends Camera3D
 
 @onready var _velocity: float = default_velocity
 
-func _input(event) -> void:
-	if not current:
-		return
-		
+func handle_input(event : InputEvent) -> void:
+
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
-			rotation.y -= event.relative.x / 1000 * sensitivity
-			rotation.x -= event.relative.y / 1000 * sensitivity
-			rotation.x = clamp(rotation.x, PI/-2, PI/2)
-	
+			camera_transformer.rotation.y -= event.relative.x / 1000 * sensitivity
+			camera_transformer.rotation.x -= event.relative.y / 1000 * sensitivity
+			camera_transformer.rotation.x = clamp(camera_transformer.rotation.x, PI/-2, PI/2)
+
 	if event is InputEventMouseButton:
 		match event.button_index:
 			MOUSE_BUTTON_RIGHT:
@@ -29,12 +28,10 @@ func _input(event) -> void:
 				_velocity = clamp(_velocity / speed_scale, min_speed, max_speed)
 			MOUSE_BUTTON_LEFT:
 				# spawn droppable in front of camera
-				var spawn_location := global_position - global_transform.basis.z * 2
+				var spawn_location := camera_transformer.global_position - camera_transformer.global_transform.basis.z * 2
 				SignalManager.spawn_droppable.emit(spawn_location)
 
-func _process(delta) -> void:
-	if not current:
-		return
+func update(delta) -> void:
 		
 	var direction := Vector3(
 		float(Input.is_physical_key_pressed(KEY_D)) - float(Input.is_physical_key_pressed(KEY_A)),
@@ -43,6 +40,6 @@ func _process(delta) -> void:
 	).normalized()
 	
 	if Input.is_physical_key_pressed(KEY_SHIFT): # boost
-		translate(direction * _velocity * delta * boost_speed_multiplier)
+		camera_transformer.translate(direction * _velocity * delta * boost_speed_multiplier)
 	else:
-		translate(direction * _velocity * delta)
+		camera_transformer.translate(direction * _velocity * delta)
