@@ -8,23 +8,15 @@ extends CameraState
 @export var max_speed : float = 1000
 @export var min_speed : float = 0.2
 
-func enter() -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-
 func exit() -> void:
 	_velocity = default_velocity
 
 func handle_input(event : InputEvent) -> void:
-	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		if event is InputEventMouseMotion:
-			camera_transformer.rotation.y -= event.relative.x / 1000 * sensitivity
-			camera_transformer.rotation.x -= event.relative.y / 1000 * sensitivity
-			camera_transformer.rotation.x = clamp(camera_transformer.rotation.x, -PI/2, PI/2)
-		
-	if event is InputEventMouseButton:
-		match event.button_index:
-			MOUSE_BUTTON_RIGHT:
-				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED if event.pressed else Input.MOUSE_MODE_VISIBLE)
+	# Handling mouse input here to have more control
+	if event is InputEventMouseMotion:
+		camera_transformer.rotation.y -= event.relative.x / 1000 * sensitivity
+		camera_transformer.rotation.x -= event.relative.y / 1000 * sensitivity
+		camera_transformer.rotation.x = clamp(camera_transformer.rotation.x, -PI/2, PI/2)
 			
 
 func update(delta) -> void:

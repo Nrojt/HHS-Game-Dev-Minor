@@ -2,14 +2,14 @@ extends Node
 
 var droppable_scenes: Array[PackedScene] = []
 const DROPPABLE_SCRIPT_PATH: String = "res://scripts/droppable_base.gd"
-var current_droppable: DroppableBase = null
+
 
 func _ready() -> void:
 	SignalManager.spawn_droppable.connect(_on_spawn_droppable)
 	droppable_scenes = _get_droppable_scenes()
 
 func _on_spawn_droppable(location: Vector3) -> void:
-	if(current_droppable):
+	if(GameManager.current_droppable):
 		print("Cannot spawn droppable while another is still active")
 		return
 	
@@ -31,14 +31,15 @@ func _on_spawn_droppable(location: Vector3) -> void:
 
 	droppable.gravity_scale = 0
 	
-	current_droppable = droppable
-	current_droppable.spawn_new_enabled.connect(_on_droppable_static)
+	droppable.spawn_new_enabled.connect(_on_droppable_static)
 	get_tree().root.add_child(droppable)
 	droppable.global_transform.origin = location
+	
+	GameManager.current_droppable = droppable
 
 func _on_droppable_static() -> void:
 	print("You can spawn new droppables now")
-	current_droppable = null
+	GameManager.current_droppable = null
 
 func _get_droppable_scenes() -> Array[PackedScene]:
 	var scenes: Array[PackedScene] = []

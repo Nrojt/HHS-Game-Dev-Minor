@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 SignalManager="*res://autoload/signal_manager.gd"
+GameManager="*res://autoload/game_manager.gd"
 DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
 
 [editor_plugins]

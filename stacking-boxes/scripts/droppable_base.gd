@@ -9,6 +9,7 @@ class_name DroppableBase
 
 var time_since_moved: float = 0.0
 var time_raycasted: float = 0.0
+var is_holding: bool = true
 var is_static: bool = false
 var ground_ray: RayCast3D
 
@@ -28,7 +29,7 @@ func _ready():
 	ground_ray.enabled = true
 
 func _physics_process(delta: float) -> void:
-	if is_static:
+	if is_static || is_holding:
 		return
 
 	# Update raycast position while maintaining world-space orientation
