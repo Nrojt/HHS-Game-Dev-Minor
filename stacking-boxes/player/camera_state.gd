@@ -2,6 +2,9 @@
 class_name CameraState
 
 @export var STATE_TYPE: CreatedEnums.CameraStateType
+@export_range(0, 10, 0.01) var speed_scale : float = 1.17
+@export_range(0, 1000, 0.1) var default_velocity : float = 5
+@onready var _velocity: float = default_velocity
 
 var camera_transformer: RemoteTransform3D
 

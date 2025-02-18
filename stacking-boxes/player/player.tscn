@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://d0kck4ef5mkdt"]
+[gd_scene load_steps=6 format=3 uid="uid://d0kck4ef5mkdt"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_kgvvs"]
 [ext_resource type="PackedScene" uid="uid://cpevvw33t7duw" path="res://droppables/spawner/droppable_spawner.tscn" id="2_8prfm"]
 [ext_resource type="Script" path="res://player/camera_state_machine.gd" id="3_fwmcg"]
 [ext_resource type="Script" path="res://player/states/free_look_camera_state.gd" id="4_ri2fv"]
+[ext_resource type="Script" path="res://player/states/gameplaycam.gd" id="5_do5eg"]
 
 [node name="Player" type="Node3D"]
 script = ExtResource("1_kgvvs")
@@ -15,8 +16,12 @@ remote_path = NodePath("..")
 
 [node name="CameraStateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state", "camera_transformer")]
 script = ExtResource("3_fwmcg")
-starting_state = NodePath("freecam")
+starting_state = NodePath("gameplaycam")
 camera_transformer = NodePath("../CameraTransformer")
 
 [node name="freecam" type="Node" parent="CameraStateMachine"]
 script = ExtResource("4_ri2fv")
+
+[node name="gameplaycam" type="Node" parent="CameraStateMachine"]
+script = ExtResource("5_do5eg")
+STATE_TYPE = 1
