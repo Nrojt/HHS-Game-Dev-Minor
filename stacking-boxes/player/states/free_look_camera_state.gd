@@ -25,11 +25,6 @@ func update(delta) -> void:
 		0,
 		Input.get_action_strength("backward") - Input.get_action_strength("forward")
 	)
-
-	if Input.is_action_just_pressed("spawn_droppable_button"):
-		# spawn droppable in front of camera
-		var spawn_location := camera_transformer.global_position - camera_transformer.global_transform.basis.z * 2
-		SignalManager.spawn_droppable.emit(spawn_location)
 		
 	if Input.is_action_pressed("speed_up"):
 		_velocity = clamp(_velocity * speed_scale, min_speed, max_speed)
@@ -50,3 +45,5 @@ func update(delta) -> void:
 		
 	if Input.is_action_just_pressed("switch_camera_state"):
 		transition.emit(CreatedEnums.CameraStateType.GAMEPLAY)
+
+	super(delta)

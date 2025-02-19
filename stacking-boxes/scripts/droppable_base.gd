@@ -13,10 +13,7 @@ var is_holding: bool = true
 var is_static: bool = false
 var ground_ray: RayCast3D
 
-signal spawn_new_enabled
-
 # TODO: Ray cast is not always working, why?
-
 
 func _ready():
 	# Create raycast as child
@@ -98,14 +95,16 @@ func make_static():
 	for child in get_children():
 		if child is Node3D and child is not RayCast3D:
 			var duplicated_child: Node = child.duplicate()
-			
+
 			static_body.add_child(duplicated_child)
 			duplicated_child.transform = child.transform
 			duplicated_child.owner = static_body
+		
 		child.queue_free()
+
 	enable_new_spawn()
 
 # Removing ourselves from the scene
 func enable_new_spawn() -> void:
-	spawn_new_enabled.emit()
+	GameManager.current_droppable = null
 	queue_free()
