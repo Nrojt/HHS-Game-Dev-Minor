@@ -26,6 +26,10 @@ DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
 
 enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg")
 
+[global_group]
+
+pile_item="Static bodies"
+
 [input]
 
 spawn_droppable_button={

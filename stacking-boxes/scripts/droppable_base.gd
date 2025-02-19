@@ -5,6 +5,7 @@ class_name DroppableBase
 @export var time_until_static: float = 4.0
 @export var ground_check_additional_ray_length: float = 0.6
 @export var raycast_timeout: float = 4.0
+
 @export_flags_3d_physics var ground_collision_layer: int = 1
 
 var time_since_moved: float = 0.0
@@ -12,6 +13,7 @@ var time_raycasted: float = 0.0
 var is_holding: bool = true
 var is_static: bool = false
 var ground_ray: RayCast3D
+
 
 # TODO: Ray cast is not always working, why?
 
@@ -24,6 +26,7 @@ func _ready():
 	# Calculate ray length based on object height
 	ground_ray.target_position = Vector3(0, -get_object_height(), 0)
 	ground_ray.enabled = true
+
 
 func _physics_process(delta: float) -> void:
 	if is_static || is_holding:
@@ -42,7 +45,6 @@ func _physics_process(delta: float) -> void:
 		time_raycasted += delta
 
 		var colliding: bool = ground_ray.is_colliding()
-		
 
 		if time_since_moved >= time_until_static and colliding:
 			print("Raycast colliding: %s, with: %s" % [colliding, ground_ray.get_collider() if colliding else "nothing"])
@@ -52,7 +54,8 @@ func _physics_process(delta: float) -> void:
 			make_static()
 
 	if global_transform.origin.y < -10:
-		enable_new_spawn()
+		enable_new_spawn() # TODO: Death state
+
 
 func get_object_height() -> float:
 	var max_height: float = 0.0
@@ -81,9 +84,13 @@ func get_object_height() -> float:
 	# Calculate total height with buffer
 	return (max_height - min_height) + ground_check_additional_ray_length
 
+
 func make_static():
 	is_static = true
 	var static_body = StaticBody3D.new()
+
+	# adding the static body to a group
+	static_body.add_to_group("pile_items")
 
 	# Add to scene tree
 	get_parent().add_child(static_body)
@@ -91,7 +98,7 @@ func make_static():
 	# Set global transform before adding children
 	static_body.global_transform = global_transform
 
-	# Copy all relevant children
+	# Copy all relevant children @formatter:off
 	for child in get_children():
 		if child is Node3D and child is not RayCast3D:
 			var duplicated_child: Node = child.duplicate()
@@ -102,7 +109,10 @@ func make_static():
 		
 		child.queue_free()
 
+	print(GameManager.calculate_max_height(static_body)) #TODO move somewhere else
 	enable_new_spawn()
+
+# @formatter:on
 
 # Removing ourselves from the scene
 func enable_new_spawn() -> void:
