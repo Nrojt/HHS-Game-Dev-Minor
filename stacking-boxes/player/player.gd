@@ -21,6 +21,9 @@ func _process(_delta: float) -> void:
 	if(GameManager.current_droppable.is_holding):
 		var under_camera_location: Vector3 = remote_transform.global_position - remote_transform.global_transform.basis.z * 2
 		SignalManager.move_current_droppable.emit(under_camera_location)
-		
 
+	# TODO: Move somwhere else, most likely menu
+	if Input.is_action_just_pressed("escape"):
+		# change mouse mode to opposite of current
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		

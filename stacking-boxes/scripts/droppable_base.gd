@@ -24,7 +24,8 @@ func _ready():
 	ground_ray.collision_mask = ground_collision_layer
 	ground_ray.exclude_parent = true
 	# Calculate ray length based on object height
-	ground_ray.target_position = Vector3(0, -get_object_height(), 0)
+	var object_height: float = GameManager.get_object_height(self) + ground_check_additional_ray_length
+	ground_ray.target_position = Vector3(0, -object_height, 0)
 	ground_ray.enabled = true
 
 
@@ -55,34 +56,6 @@ func _physics_process(delta: float) -> void:
 
 	if global_transform.origin.y < -10:
 		enable_new_spawn() # TODO: Death state
-
-
-func get_object_height() -> float:
-	var max_height: float = 0.0
-	var min_height: float = 0.0
-
-	# Check all collision shapes to find vertical bounds
-	for child in get_children():
-		if child is CollisionShape3D:
-			var shape: Shape3D = child.shape
-			var global_pos: Vector3 = child.global_transform.origin
-
-			if shape is BoxShape3D:
-				var extents: float = shape.size.y / 2
-				max_height = max(max_height, global_pos.y + extents)
-				min_height = min(min_height, global_pos.y - extents)
-			elif shape is SphereShape3D:
-				var radius: float = shape.radius
-				max_height = max(max_height, global_pos.y + radius)
-				min_height = min(min_height, global_pos.y - radius)
-			elif shape is CapsuleShape3D:
-				var height: float = shape.height
-				var radius: float = shape.radius
-				max_height = max(max_height, global_pos.y + height/2 + radius)
-				min_height = min(min_height, global_pos.y - height/2 - radius)
-
-	# Calculate total height with buffer
-	return (max_height - min_height) + ground_check_additional_ray_length
 
 
 func make_static():

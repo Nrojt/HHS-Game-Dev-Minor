@@ -1,4 +1,4 @@
-﻿extends Node
+extends Node
 
 var current_droppable: DroppableBase = null
 var max_height: float = -INF
@@ -25,14 +25,59 @@ func get_max_pile_height_unkown() -> float:
 	for item in get_tree().get_nodes_in_group("pile_items"):
 		if item is StaticBody3D:
 			calculate_max_height(item)
-	print(max_height)
-
 	return max_height
 
 
-# TODO: Actually calculate the height of the pile, dont just take the origin (thats in the middle)
 func calculate_max_height(item: StaticBody3D) -> float:
-	var item_height = item.global_transform.origin.y
+	var item_height: float = get_object_height(item)
 	if item_height > max_height:
+		if max_height != -INF:
+			SignalManager.update_camera_height.emit(item_height - max_height)
 		max_height = item_height
 	return max_height
+
+# TODO: figure out his math
+func get_object_height(item: Node3D) -> float:
+	var item_max_height: float = 0.0
+	var item_min_height: float = 0.0
+
+	for child in item.get_children():
+		if child is CollisionShape3D:
+			var shape: Shape3D = child.shape
+			var global_pos: Vector3 = child.global_transform.origin
+
+			if shape is BoxShape3D:
+				var extents: float = shape.size.y / 2
+				item_max_height = max(item_max_height, global_pos.y + extents)
+				item_min_height = min(item_min_height, global_pos.y - extents)
+			elif shape is SphereShape3D:
+				var radius: float = shape.radius
+				item_max_height = max(item_max_height, global_pos.y + radius)
+				item_min_height = min(item_min_height, global_pos.y - radius)
+			elif shape is CapsuleShape3D:
+				var height: float = shape.height
+				var radius: float = shape.radius
+				item_max_height = max(item_max_height, global_pos.y + height/2 + radius)
+				item_min_height = min(item_min_height, global_pos.y - height/2 - radius)
+			elif shape is CylinderShape3D:
+				var height: float = shape.height
+				var radius: float = shape.radius
+				item_max_height = max(item_max_height, global_pos.y + height/2 + radius)
+				item_min_height = min(item_min_height, global_pos.y - height/2 - radius)
+			elif shape is ConvexPolygonShape3D:
+				var points: PackedVector3Array = shape.points
+				if points.size() > 0:
+					var local_bounds_min: float = points[0].y
+					var local_bounds_max: float = points[0].y
+					for point in points:
+						local_bounds_min = min(local_bounds_min, point.y)
+						local_bounds_max = max(local_bounds_max, point.y)
+					# Apply scale and rotation from global transform
+					var transformed_extents = child.global_transform.basis * Vector3(0, (local_bounds_max - local_bounds_min) / 2, 0)
+					var center_offset: float = (local_bounds_max + local_bounds_min) / 2
+					item_max_height = max(item_max_height, global_pos.y + center_offset + abs(transformed_extents.y))
+					item_min_height = min(item_min_height, global_pos.y + center_offset - abs(transformed_extents.y))
+			else:
+				print("Unknown shape: ", shape)
+
+	return (item_max_height - item_min_height)
