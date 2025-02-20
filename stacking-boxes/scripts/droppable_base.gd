@@ -5,13 +5,13 @@ class_name DroppableBase
 @export var time_until_static: float = 4.0
 @export var ground_check_additional_ray_length: float = 0.6
 @export var raycast_timeout: float = 4.0
+@export var death_y: float = -10
 
 @export_flags_3d_physics var ground_collision_layer: int = 1
 
 var time_since_moved: float = 0.0
 var time_raycasted: float = 0.0
 var is_holding: bool = true
-
 var is_static: bool = false
 var ground_ray: RayCast3D
 
@@ -55,6 +55,11 @@ func _physics_process(delta: float) -> void:
 			print("Raycast timeout - forcing static : ", colliding)
 			make_static()
 
+	if (global_position.y <= death_y):
+		print("Droppable off the map")
+		SignalManager.player_death.emit()
+		queue_free()
+
 
 func make_static():
 	is_static = true
@@ -79,8 +84,7 @@ func make_static():
 			duplicated_child.owner = static_body
 		
 		child.queue_free()
-
-	print(GameManager.calculate_max_height(static_body)) #TODO move somewhere else
+	GameManager.calculate_max_height(static_body)
 	enable_new_spawn()
 
 # @formatter:on

@@ -32,7 +32,7 @@ func _on_spawn_droppable(location: Vector3) -> void:
 
 	droppable.gravity_scale = 0
 
-	get_tree().root.add_child(droppable)
+	get_parent().add_child(droppable)
 	droppable.global_transform.origin = location
 
 	GameManager.current_droppable = droppable

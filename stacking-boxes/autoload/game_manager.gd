@@ -7,12 +7,14 @@ var current_droppable: DroppableBase = null:
 		return current_droppable
 	set(value):
 		current_droppable = value
+
 var max_height: float = -INF
 
 
 func _ready() -> void:
 	SignalManager.move_current_droppable.connect(_on_move_current_droppable)
 	SignalManager.drop_current_droppable.connect(_on_drop_current_droppable)
+	SignalManager.player_death.connect(reset_variables)
 
 
 func _on_move_current_droppable(location: Vector3) -> void:
@@ -41,6 +43,7 @@ func calculate_max_height(item: StaticBody3D) -> float:
 			SignalManager.update_camera_height.emit(item_height - max_height)
 		max_height = item_height
 	return max_height
+
 
 # TODO: figure out his math
 func get_object_height(item: Node3D) -> float:
@@ -87,3 +90,13 @@ func get_object_height(item: Node3D) -> float:
 				print("Unknown shape: ", shape)
 
 	return (item_max_height - item_min_height)
+
+
+func reset_variables() -> void:
+	if current_droppable != null:
+		print("droppable null")
+		current_droppable.queue_free()
+	print("droppable not null") # TODO why is the held one not despawning
+	# TODO: why is the current droppable in a different orientation
+	current_droppable = null
+	max_height = -INF

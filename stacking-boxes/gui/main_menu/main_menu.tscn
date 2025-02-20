@@ -1,0 +1,60 @@
+[gd_scene load_steps=3 format=3 uid="uid://cb33156u20b8o"]
+
+[ext_resource type="Script" path="res://gui/main_menu/main_menu.gd" id="1_3rmqa"]
+[ext_resource type="PackedScene" uid="uid://bgjxwe6sxs6mn" path="res://scenemanager/child_manager.tscn" id="3_osshj"]
+
+[node name="Main Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3rmqa")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="MainMenuTitle" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 100
+bbcode_enabled = true
+text = "BOX GAME
+"
+fit_content = true
+scroll_active = false
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+
+[node name="ButtonsVBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 25
+
+[node name="StartGameButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/ButtonsVBox"]
+layout_mode = 2
+text = "Start Game"
+
+[node name="SettingsButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/ButtonsVBox"]
+layout_mode = 2
+text = "Settings
+"
+
+[node name="ChildManager" parent="." instance=ExtResource("3_osshj")]
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/ButtonsVBox/StartGameButton" to="." method="_on_start_game_button_pressed"]
