@@ -12,7 +12,7 @@ config_version=5
 
 config/name="stacking-boxes"
 config/version="1.0.0"
-run/main_scene="res://levels/level.tscn"
+run/main_scene="res://gui/hud.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 SignalManager="*res://autoload/signal_manager.gd"
 GameManager="*res://autoload/game_manager.gd"
+SceneManager="*res://autoload/scene_manager.gd"
 DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
 
 [editor_plugins]

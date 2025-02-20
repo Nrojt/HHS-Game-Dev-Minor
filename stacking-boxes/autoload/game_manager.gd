@@ -1,6 +1,12 @@
 extends Node
 
-var current_droppable: DroppableBase = null
+var current_droppable: DroppableBase = null:
+	get:
+		if (current_droppable != null && current_droppable.is_queued_for_deletion()):
+			current_droppable = null
+		return current_droppable
+	set(value):
+		current_droppable = value
 var max_height: float = -INF
 
 
@@ -15,7 +21,7 @@ func _on_move_current_droppable(location: Vector3) -> void:
 
 
 func _on_drop_current_droppable() -> void:
-	if current_droppable and current_droppable.is_holding:
+	if current_droppable != null and current_droppable.is_holding:
 		current_droppable.gravity_scale = 1
 		current_droppable.is_holding = false
 

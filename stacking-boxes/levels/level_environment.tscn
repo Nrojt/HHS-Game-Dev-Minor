@@ -1,6 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bwlnqybrlb18m"]
-
-[ext_resource type="PackedScene" uid="uid://d0kck4ef5mkdt" path="res://player/player.tscn" id="1_q7cl6"]
+[gd_scene load_steps=2 format=3 uid="uid://bwlnqybrlb18m"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3sw1r"]
 albedo_color = Color(0.421329, 0.975614, 0.673653, 1)
@@ -52,10 +50,3 @@ size = Vector3(1, 0.2, 4.7)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.642788, 0.766044, 0, -0.766044, 0.642788, 8.8, 24.6772, 10.7464)
-
-[node name="Player" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("1_q7cl6")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 14.6, 0)
-camera = NodePath("../Camera3D")
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.0190434, 11.7745, -0.0110078)

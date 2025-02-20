@@ -11,6 +11,7 @@ class_name DroppableBase
 var time_since_moved: float = 0.0
 var time_raycasted: float = 0.0
 var is_holding: bool = true
+
 var is_static: bool = false
 var ground_ray: RayCast3D
 
@@ -53,9 +54,6 @@ func _physics_process(delta: float) -> void:
 		elif time_raycasted >= raycast_timeout:
 			print("Raycast timeout - forcing static : ", colliding)
 			make_static()
-
-	if global_transform.origin.y < -10:
-		enable_new_spawn() # TODO: Death state
 
 
 func make_static():

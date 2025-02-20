@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2tjtn7p8hl0u"]
+
+[ext_resource type="PackedScene" uid="uid://bwlnqybrlb18m" path="res://levels/level_environment.tscn" id="1_fhjts"]
+[ext_resource type="PackedScene" uid="uid://d0kck4ef5mkdt" path="res://player/player.tscn" id="2_m7n14"]
+
+[node name="GameplayMain" type="Node3D"]
+
+[node name="Level" parent="." instance=ExtResource("1_fhjts")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.0190434, 11.7745, -0.0110078)
+
+[node name="Player" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("2_m7n14")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 14.6, 0)
+camera = NodePath("../Camera3D")
