@@ -32,7 +32,7 @@ func _ready() -> void:
 	print(states)
 
 	if current_state:
-		current_state.enter()
+		current_state.enter(StateEnums.PlayerStateType.IDLE)
 		animation_player.play(current_state.ANIMATION_NAME)
 
 
@@ -51,7 +51,10 @@ func _physics_process(delta: float) -> void:
 
 
 func _transition_to_next_state(target_state: StateEnums.PlayerStateType) -> void:
-	print(target_state)
+	if(target_state == current_state.STATE_TYPE):
+		push_error(owner.name + ": Trying to transition to the same state.")
+		return
+
 	var previous_state := current_state
 	current_state.exit()
 	current_state = states.get(target_state)

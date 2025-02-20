@@ -1,14 +1,15 @@
 extends PlayerState
 class_name PlayerFall
 
-var dashed : bool = false
+var dashed: bool = false
 
-func enter(previous_state: StateEnums.PlayerStateType = StateEnums.PlayerStateType.UNDEFINED) -> void:
+
+func enter(previous_state: StateEnums.PlayerStateType) -> void:
 	if previous_state == StateEnums.PlayerStateType.DASH:
 		dashed = true
 	else:
 		dashed = false
-	
+
 
 func update(_delta: float) -> void:
 	# switch to dash

@@ -4,7 +4,7 @@ class_name PlayerJump
 @export var JUMP_VELOCITY: float = -420.0
 
 
-func enter(_previous_state: StateEnums.PlayerStateType = StateEnums.PlayerStateType.UNDEFINED) -> void:
+func enter(_previous_state: StateEnums.PlayerStateType) -> void:
 	player.velocity.y += JUMP_VELOCITY
 
 

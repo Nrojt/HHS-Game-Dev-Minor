@@ -1,7 +1,7 @@
 extends PlayerState
 class_name PlayerIdle
 
-func enter(_previous_state: StateEnums.PlayerStateType = StateEnums.PlayerStateType.UNDEFINED) -> void:
+func enter(_previous_state: StateEnums.PlayerStateType) -> void:
 	player.velocity.x = 0
 
 

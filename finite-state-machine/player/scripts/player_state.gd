@@ -33,7 +33,7 @@ func physics_update(delta: float) -> void:
 
 
 ## Called by the state machine upon changing the active state.
-func enter(_previous_state: StateEnums.PlayerStateType = StateEnums.PlayerStateType.UNDEFINED) -> void:
+func enter(_previous_state: StateEnums.PlayerStateType) -> void:
 	pass
 
 

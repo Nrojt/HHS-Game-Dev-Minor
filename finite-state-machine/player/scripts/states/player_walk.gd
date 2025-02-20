@@ -6,7 +6,7 @@ class_name PlayerWalk
 @onready var run_timer: Timer = $RunTimer
 
 
-func enter(_previous_state: StateEnums.PlayerStateType = StateEnums.PlayerStateType.UNDEFINED) -> void:
+func enter(_previous_state: StateEnums.PlayerStateType) -> void:
 	run_timer.start(RUN_TIMER_TIMEOUT)
 
 
