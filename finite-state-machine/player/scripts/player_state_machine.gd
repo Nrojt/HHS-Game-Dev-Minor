@@ -21,6 +21,7 @@ func _ready() -> void:
 
 	# Get all states in the scene tree
 	for state_node: PlayerState in find_children("*", "res://player/scripts/player_state.gd"):
+		print("adding state %s" % state_node.STATE_TYPE)
 		states[state_node.STATE_TYPE] = state_node
 		state_node.transition.connect(_transition_to_next_state) # connecting all the transitions to the state machine
 		state_node.init(player)
@@ -50,6 +51,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _transition_to_next_state(target_state: StateEnums.PlayerStateType) -> void:
+	print(target_state)
 	var previous_state := current_state
 	current_state.exit()
 	current_state = states.get(target_state)

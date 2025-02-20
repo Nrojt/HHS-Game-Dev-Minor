@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://doqmldscj30lt"]
+[gd_scene load_steps=30 format=3 uid="uid://doqmldscj30lt"]
 
 [ext_resource type="Texture2D" uid="uid://8k4f8gshnegl" path="res://assets/female_tilesheet.png" id="1_77ul3"]
 [ext_resource type="Script" path="res://player/scripts/player.gd" id="1_p6x77"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://player/scripts/states/player_run.gd" id="6_hm8d3"]
 [ext_resource type="Script" path="res://player/scripts/states/player_jump.gd" id="7_jgfgs"]
 [ext_resource type="Script" path="res://player/scripts/states/player_slide.gd" id="8_l07wl"]
-[ext_resource type="Script" path="res://player/scripts/states/player_hurt.gd" id="9_n383v"]
 [ext_resource type="Script" path="res://player/scripts/states/player_dash.gd" id="10_sdrb6"]
 [ext_resource type="Script" path="res://player/scripts/states/player_fall.gd" id="11_5g6wv"]
 
@@ -31,10 +30,6 @@ region = Rect2(560, 0, 80, 110)
 [sub_resource type="AtlasTexture" id="AtlasTexture_14wef"]
 atlas = ExtResource("1_77ul3")
 region = Rect2(640, 0, 80, 110)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_u0axf"]
-atlas = ExtResource("1_77ul3")
-region = Rect2(320, 0, 80, 110)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8midg"]
 atlas = ExtResource("1_77ul3")
@@ -112,14 +107,6 @@ animations = [{
 "speed": 1.0
 }, {
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_u0axf")
-}],
-"loop": true,
-"name": &"hurt",
-"speed": 0.0
-}, {
-"frames": [{
 "duration": 8.0,
 "texture": SubResource("AtlasTexture_8midg")
 }, {
@@ -191,8 +178,7 @@ script = ExtResource("1_p6x77")
 texture_filter = 1
 texture_repeat = 2
 sprite_frames = SubResource("SpriteFrames_0e5up")
-animation = &"fall"
-frame_progress = 0.760369
+animation = &"dash"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 10.5)
@@ -216,11 +202,6 @@ ANIMATION_NAME = "fall"
 STATE_TYPE = 5
 MOVE_SPEED = 1500.0
 
-[node name="hurt" type="Node" parent="PlayerStateMachine"]
-script = ExtResource("9_n383v")
-ANIMATION_NAME = "hurt"
-STATE_TYPE = 6
-
 [node name="idle" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("4_k7kal")
 ANIMATION_NAME = "idle"
@@ -235,7 +216,7 @@ MOVE_SPEED = 4000.0
 script = ExtResource("6_hm8d3")
 ANIMATION_NAME = "run"
 STATE_TYPE = 2
-MOVE_SPEED = 4000.0
+MOVE_SPEED = 5000.0
 
 [node name="slide" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("8_l07wl")
@@ -247,7 +228,7 @@ MOVE_SPEED = 1000.0
 script = ExtResource("5_2bxls")
 ANIMATION_NAME = "walk"
 STATE_TYPE = 1
-MOVE_SPEED = 2000.0
+MOVE_SPEED = 3000.0
 
 [node name="RunTimer" type="Timer" parent="PlayerStateMachine/walk"]
 one_shot = true

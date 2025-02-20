@@ -6,10 +6,7 @@ extends CharacterBody2D
 
 func _process(_delta: float) -> void:
 	# flipping the sprite
-	if velocity.x < 0:
-		animated_sprite.flip_h = true
-	elif velocity.x > 0:
-		animated_sprite.flip_h = false
+	animated_sprite.flip_h = velocity.x < 0
 
 
 func _physics_process(_delta):

@@ -1,4 +1,4 @@
-﻿extends Node
+extends Node
 class_name StateEnums
 
 enum PlayerStateType {
@@ -8,7 +8,7 @@ enum PlayerStateType {
 	SLIDE,
 	JUMP,
 	FALL,
-	HURT,
+	HURT, #FIX: why does removing hurt mess with the swithing to dash state?
 	DASH,
-	UNDEFINED
+	UNDEFINED,
 }

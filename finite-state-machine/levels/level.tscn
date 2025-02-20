@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=4 uid="uid://o30yqfjh3g3d"]
+[gd_scene load_steps=6 format=4 uid="uid://o30yqfjh3g3d"]
 
 [ext_resource type="Texture2D" uid="uid://bwerwpnj87erq" path="res://assets/tilemap_packed.png" id="1_7oh5o"]
 [ext_resource type="PackedScene" uid="uid://doqmldscj30lt" path="res://player/player.tscn" id="2_85w51"]
+[ext_resource type="Script" path="res://levels/state_label.gd" id="3_4e7ih"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_es28n"]
 resource_name = "Tiles"
@@ -334,3 +335,12 @@ scale = Vector2(0.474717, 0.474717)
 zoom = Vector2(1.5, 1.5)
 position_smoothing_enabled = true
 position_smoothing_speed = 3.0
+
+[node name="Control" type="CanvasLayer" parent="."]
+
+[node name="StateLabel" type="Label" parent="Control"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 48
+text = "aaaa"
+script = ExtResource("3_4e7ih")
