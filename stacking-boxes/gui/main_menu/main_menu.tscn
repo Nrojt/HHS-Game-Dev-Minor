@@ -55,6 +55,11 @@ layout_mode = 2
 text = "Settings
 "
 
+[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/ButtonsVBox"]
+layout_mode = 2
+text = "Quit"
+
 [node name="ChildManager" parent="." instance=ExtResource("3_osshj")]
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/ButtonsVBox/StartGameButton" to="." method="_on_start_game_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/ButtonsVBox/QuitButton" to="." method="_on_quit_button_pressed"]

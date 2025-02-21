@@ -97,6 +97,5 @@ func reset_variables() -> void:
 		print("droppable null")
 		current_droppable.queue_free()
 	print("droppable not null") # TODO why is the held one not despawning
-	# TODO: why is the current droppable in a different orientation
 	current_droppable = null
 	max_height = -INF

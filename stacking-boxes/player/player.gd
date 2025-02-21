@@ -19,7 +19,8 @@ func _process(_delta: float) -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 	if GameManager.current_droppable == null:
-		SignalManager.spawn_droppable.emit(remote_transform.global_transform.origin)
+		var drop_location: Vector3 = remote_transform.global_transform.origin - remote_transform.global_transform.basis.z * 2
+		SignalManager.spawn_droppable.emit(drop_location)
 		return
 
 	if Input.is_action_just_pressed("spawn_droppable_button"):

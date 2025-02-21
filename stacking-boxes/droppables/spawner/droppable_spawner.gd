@@ -10,6 +10,7 @@ func _ready() -> void:
 
 
 func _on_spawn_droppable(location: Vector3) -> void:
+	print("Spawning droppable at: ", location)
 	if(GameManager.current_droppable):
 		print("Cannot spawn droppable while another is still active")
 		return
@@ -34,6 +35,7 @@ func _on_spawn_droppable(location: Vector3) -> void:
 
 	get_parent().add_child(droppable)
 	droppable.global_transform.origin = location
+	droppable.global_transform.basis = Transform3D.IDENTITY.basis
 
 	GameManager.current_droppable = droppable
 
