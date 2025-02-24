@@ -9,4 +9,4 @@ signal update_camera_height(height: float)
 # Player signals
 signal player_death()
 # Scene signals
-signal add_child_scene(path: String)
+signal add_child_scene(path: String, clear_other : bool)

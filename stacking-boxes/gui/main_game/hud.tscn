@@ -1,9 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://b14icr4kflsvi"]
+[gd_scene load_steps=3 format=3 uid="uid://b14icr4kflsvi"]
 
 [ext_resource type="Script" path="res://gui/main_game/hud.gd" id="1_hdnp3"]
 [ext_resource type="Script" path="res://gui/main_game/height_label.gd" id="1_vhcgd"]
-[ext_resource type="PackedScene" uid="uid://bgjxwe6sxs6mn" path="res://scenemanager/child_manager.tscn" id="4_mi1pf"]
-[ext_resource type="Script" path="res://gui/main_game/game_over.gd" id="4_x7m4n"]
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -20,60 +18,3 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "Height: todo"
 script = ExtResource("1_vhcgd")
-
-[node name="GameOver" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("4_x7m4n")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GameOver"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 50
-
-[node name="GameOverRTL" type="RichTextLabel" parent="GameOver/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/normal_font_size = 100
-bbcode_enabled = true
-text = "[center][color=#FF0000]G[/color][color=#FFBF00]a[/color][color=#80FF00]m[/color][color=#00FF40]e[/color] [color=#00FFFF]O[/color][color=#0040FF]v[/color][color=#7F00FF]e[/color][color=#FF00BF]r[/color][/center]"
-fit_content = true
-scroll_active = false
-shortcut_keys_enabled = false
-
-[node name="ScoreLabel" type="Label" parent="GameOver/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Score:"
-horizontal_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="GameOver/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 50
-alignment = 1
-
-[node name="TryAgainButton" type="Button" parent="GameOver/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Try Again"
-
-[node name="MainMenuButton" type="Button" parent="GameOver/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Main Menu"
-
-[node name="QuitButton" type="Button" parent="GameOver/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Quit
-"
-
-[node name="ChildManager" parent="." instance=ExtResource("4_mi1pf")]
-
-[connection signal="pressed" from="GameOver/VBoxContainer/HBoxContainer/TryAgainButton" to="GameOver" method="_on_try_again_button_pressed"]
-[connection signal="pressed" from="GameOver/VBoxContainer/HBoxContainer/MainMenuButton" to="GameOver" method="_on_main_menu_button_pressed"]
-[connection signal="pressed" from="GameOver/VBoxContainer/HBoxContainer/QuitButton" to="GameOver" method="_on_quit_button_pressed"]

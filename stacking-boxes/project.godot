@@ -12,7 +12,7 @@ config_version=5
 
 config/name="stacking-boxes"
 config/version="1.0.0"
-run/main_scene="res://gui/main_menu/main_menu.tscn"
+run/main_scene="res://scenemanager/child_manager.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/show_image=false
 config/icon="res://icon.svg"

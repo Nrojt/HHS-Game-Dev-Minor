@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dlnvdqqw7kash"]
 
-[ext_resource type="Script" path="res://gui/main_menu/background.gd" id="1_y2p1o"]
-[ext_resource type="PackedScene" uid="uid://bwlnqybrlb18m" path="res://levels/level_environment.tscn" id="2_3ja1u"]
+[ext_resource type="Script" path="res://levels/main_menu_background/background.gd" id="1_y2p1o"]
+[ext_resource type="PackedScene" uid="uid://bwlnqybrlb18m" path="res://levels/environment/level_environment.tscn" id="2_3ja1u"]
 [ext_resource type="PackedScene" uid="uid://cpevvw33t7duw" path="res://droppables/spawner/droppable_spawner.tscn" id="3_bgw2r"]
 
 [node name="MainMenuBackground" type="Node"]

@@ -4,6 +4,7 @@ extends Node3D
 
 @onready var remote_transform := $CameraTransformer
 
+# TODO: fix, the first droppable immediatly drops instead of holding state first
 
 func _ready():
 	if (!camera):
