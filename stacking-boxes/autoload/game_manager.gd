@@ -38,7 +38,7 @@ func calculate_max_height(item: StaticBody3D) -> float:
 
 
 # TODO: figure out his math
-# Method generated using generative AI (Deepseek, 2025)
+# Method generated using generative AI (Deepseek, 2025a) (Deepseek, 2025b)
 func get_object_height(item: Node3D) -> float:
 	var item_max_height: float = 0.0
 	var item_min_height: float = 0.0
@@ -87,8 +87,6 @@ func get_object_height(item: Node3D) -> float:
 
 func reset_variables() -> void:
 	if current_droppable != null:
-		print("droppable null")
 		current_droppable.queue_free()
-	print("droppable not null") # TODO why is the held one not despawning
 	current_droppable = null
 	max_height = -INF

@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cb33156u20b8o"]
+[gd_scene load_steps=2 format=3 uid="uid://cb33156u20b8o"]
 
 [ext_resource type="Script" path="res://gui/main_menu/main_menu.gd" id="1_3rmqa"]
-[ext_resource type="PackedScene" uid="uid://bgjxwe6sxs6mn" path="res://scenemanager/child_manager.tscn" id="3_osshj"]
 
 [node name="Main Menu" type="Control"]
 layout_mode = 3
@@ -58,8 +57,6 @@ text = "Settings
 [node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/ButtonsVBox"]
 layout_mode = 2
 text = "Quit"
-
-[node name="ChildManager" parent="." instance=ExtResource("3_osshj")]
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/ButtonsVBox/StartGameButton" to="." method="_on_start_game_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/ButtonsVBox/QuitButton" to="." method="_on_quit_button_pressed"]

@@ -1,16 +1,25 @@
 ﻿# Stacking Boxes
-A physics simulation of stacking objects, kind of like tetris but with 3D boxes. The goal is to stack as many boxes as possible without them falling over. The game is over when a box falls off the platform.
+
+A physics simulation of stacking objects, kind of like tetris but with 3D boxes. The goal is to stack as many boxes as
+possible without them falling over. The game is over when a box falls off the platform.
 Made for the game dev minor at Zoetemeer
 
 ## Assets
+
 - [Food](https://kenney.nl/assets/food-kit)
 - [Free look camera](https://github.com/MarcPhi/godot-free-look-camera) (has been modified)
 
 ## GenAI usage
+
 ### GameManager.get_object_height()
-This function is used to get the height of an object.  It was written by Deepseek R1, with little to no adjustment by me. It is used to get the height of an object, which is needed for collision detection.  The function is used in the `GameManager` script.
-While I had considered using Raycasts before asking Deepseek R1, I had originally dropped the idea due to the varying sizes of the droppable items, making the raycast lenght unpredictable.
-For the complete chat, see `gen_ai_conversations/Godot raycast collision detection.html`. (Deepseek, 2025)
+
+This function is used to get the height of an object. It was written by Deepseek R1, with little to no adjustment by me.
+It is used to get the height of an object, which is needed for collision detection. The function is used in the
+`GameManager` script.
+While I had considered using Raycasts before asking Deepseek R1, I had originally dropped the idea due to the varying
+sizes of the droppable items, making the raycast lenght unpredictable.
+For the complete chats, see `gen_ai_conversations/Godot raycast collision detection.html` (Deepseek, 2025a) and
+`gen_ai_conversations/Godot raycast collision detection 2.html` (Deepseek, 2025b).
 
 ```gdscript
 func get_object_height(item: Node3D) -> float:
@@ -60,4 +69,6 @@ func get_object_height(item: Node3D) -> float:
 ```
 
 #### Reference
-Deepseek. (2025, February 14)[Large Language Model Deepseek R1]. https://t3.chat/chat/.
+
+Deepseek. (2025a, February 14)[Large Language Model Deepseek R1]. https://t3.chat/.
+Deepseek. (2025b, February 19)[Large Language Model Deepseek R1]. https://t3.chat/.

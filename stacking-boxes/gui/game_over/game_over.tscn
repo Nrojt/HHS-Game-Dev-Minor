@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvoiws1lo4t50"]
+
+[ext_resource type="Script" path="res://gui/game_over/game_over.gd" id="1_xoatx"]
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xoatx")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+
+[node name="GameOverRTL" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 100
+bbcode_enabled = true
+text = "[center][color=#FF0000]G[/color][color=#FFBF00]a[/color][color=#80FF00]m[/color][color=#00FF40]e[/color] [color=#00FFFF]O[/color][color=#0040FF]v[/color][color=#7F00FF]e[/color][color=#FF00BF]r[/color][/center]"
+fit_content = true
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="ScoreLabel" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Score:"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="TryAgainButton" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Try Again"
+
+[node name="MainMenuButton" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit
+"
+
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/TryAgainButton" to="." method="_on_try_again_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
