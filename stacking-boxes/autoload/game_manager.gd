@@ -28,14 +28,6 @@ func _on_drop_current_droppable() -> void:
 		current_droppable.is_holding = false
 
 
-# This function calculates the maximum height of the pile from the items in the "pile_items" group.
-func get_max_pile_height_unkown() -> float:
-	for item in get_tree().get_nodes_in_group("pile_items"):
-		if item is StaticBody3D:
-			calculate_max_height(item)
-	return max_height
-
-
 func calculate_max_height(item: StaticBody3D) -> float:
 	var item_height: float = get_object_height(item)
 	if item_height > max_height:
@@ -46,6 +38,7 @@ func calculate_max_height(item: StaticBody3D) -> float:
 
 
 # TODO: figure out his math
+# Method generated using generative AI (Deepseek, 2025)
 func get_object_height(item: Node3D) -> float:
 	var item_max_height: float = 0.0
 	var item_min_height: float = 0.0
