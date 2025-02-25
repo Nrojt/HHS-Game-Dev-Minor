@@ -1,12 +1,17 @@
-[gd_scene format=3 uid="uid://cc7esd6v5t8g2"]
+[gd_scene load_steps=3 format=3 uid="uid://cc7esd6v5t8g2"]
+
+[ext_resource type="Script" path="res://gui/pause_screen/pause_screen.gd" id="1_c5d2p"]
+[ext_resource type="PackedScene" uid="uid://dgn0aobw3f5sx" path="res://gui/menu_buttons_vbox/menu_buttons_vbox.tscn" id="2_jgfoe"]
 
 [node name="PauseScreen" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_c5d2p")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -33,21 +38,10 @@ text = "[center]Pause[/center]
 fit_content = true
 scroll_active = false
 
-[node name="ButtonsVBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="ButtonsVBox" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_jgfoe")]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/separation = 25
-alignment = 1
-
-[node name="SettingsButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonsVBox"]
-layout_mode = 2
-text = "Settings
-"
-
-[node name="MainMenuButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonsVBox"]
-layout_mode = 2
-text = "Main Menu"
-
-[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonsVBox"]
-layout_mode = 2
-text = "Quit"
+settings_button_visible = true
+quit_button_visible = true
+main_menu_button_visible = true
+resume_game_button_visible = true

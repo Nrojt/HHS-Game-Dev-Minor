@@ -3,7 +3,6 @@ extends Node3D
 
 @onready var remote_transform := $CameraTransformer
 
-# TODO: fix, the first droppable immediatly drops instead of holding state first
 
 # TODO: fix, the first droppable immediatly drops instead of holding state first
 
@@ -16,11 +15,6 @@ func _ready():
 
 
 func _process(_delta: float) -> void:
-	# TODO: Move somwhere else, most likely menu
-	if Input.is_action_just_pressed("escape"):
-		# change mouse mode to opposite of current #TODO
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-
 	if GameManager.current_droppable == null:
 		var drop_location: Vector3 = remote_transform.global_transform.origin - remote_transform.global_transform.basis.z * 2
 		SignalManager.spawn_droppable.emit(drop_location)

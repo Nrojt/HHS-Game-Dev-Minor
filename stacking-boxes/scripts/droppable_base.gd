@@ -49,7 +49,6 @@ func _physics_process(delta: float) -> void:
 		var colliding: bool = ground_ray.is_colliding()
 
 		if time_since_moved >= time_until_static and colliding:
-			print("Raycast colliding: %s, with: %s" % [colliding, ground_ray.get_collider() if colliding else "nothing"])
 			make_static()
 		elif time_raycasted >= raycast_timeout:
 			print("Raycast timeout - forcing static : ", colliding)

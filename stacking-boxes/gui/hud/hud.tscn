@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b14icr4kflsvi"]
 
-[ext_resource type="Script" path="res://gui/main_game/hud.gd" id="1_hdnp3"]
-[ext_resource type="Script" path="res://gui/main_game/height_label.gd" id="1_vhcgd"]
+[ext_resource type="Script" path="res://gui/hud/hud.gd" id="1_hdnp3"]
+[ext_resource type="Script" path="res://gui/hud/height_label.gd" id="1_vhcgd"]
 
 [node name="Hud" type="Control"]
 layout_mode = 3

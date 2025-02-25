@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgn0aobw3f5sx"]
+
+[ext_resource type="Script" path="res://gui/menu_buttons_vbox/menu_buttons_vbox.gd" id="1_i1tej"]
+
+[node name="ButtonsVBox" type="VBoxContainer"]
+size_flags_horizontal = 0
+theme_override_constants/separation = 25
+script = ExtResource("1_i1tej")
+
+[node name="StartGameButton" type="Button" parent="."]
+layout_mode = 2
+text = "Start Game"
+
+[node name="ResumeButton" type="Button" parent="."]
+layout_mode = 2
+text = "Resume
+"
+
+[node name="MainMenuButton" type="Button" parent="."]
+layout_mode = 2
+text = "Main Menu"
+
+[node name="SettingsButton" type="Button" parent="."]
+layout_mode = 2
+text = "Settings
+"
+
+[node name="TryAgainButton" type="Button" parent="."]
+layout_mode = 2
+text = "Try Again"
+
+[node name="QuitButton" type="Button" parent="."]
+layout_mode = 2
+text = "Quit"
+
+[connection signal="pressed" from="StartGameButton" to="." method="_on_start_game_button_pressed"]
+[connection signal="pressed" from="ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="TryAgainButton" to="." method="_on_try_again_button_pressed"]
+[connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]

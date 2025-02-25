@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cb33156u20b8o"]
+[gd_scene load_steps=3 format=3 uid="uid://cb33156u20b8o"]
 
 [ext_resource type="Script" path="res://gui/main_menu/main_menu.gd" id="1_3rmqa"]
+[ext_resource type="PackedScene" uid="uid://dgn0aobw3f5sx" path="res://gui/menu_buttons_vbox/menu_buttons_vbox.tscn" id="2_aqde3"]
 
 [node name="Main Menu" type="Control"]
 layout_mode = 3
@@ -40,23 +41,8 @@ scroll_active = false
 layout_mode = 2
 theme_override_constants/margin_left = 25
 
-[node name="ButtonsVBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer"]
+[node name="ButtonsVBox" parent="MarginContainer/VBoxContainer/MarginContainer" instance=ExtResource("2_aqde3")]
 layout_mode = 2
-size_flags_horizontal = 0
-theme_override_constants/separation = 25
-
-[node name="StartGameButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/ButtonsVBox"]
-layout_mode = 2
-text = "Start Game"
-
-[node name="SettingsButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/ButtonsVBox"]
-layout_mode = 2
-text = "Settings
-"
-
-[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/ButtonsVBox"]
-layout_mode = 2
-text = "Quit"
-
-[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/ButtonsVBox/StartGameButton" to="." method="_on_start_game_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/ButtonsVBox/QuitButton" to="." method="_on_quit_button_pressed"]
+start_game_button_visible = true
+settings_button_visible = true
+quit_button_visible = true

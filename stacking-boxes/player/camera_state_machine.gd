@@ -11,11 +11,13 @@ var states: Dictionary = {}
 func get_initial_state() -> CameraState:
 	return starting_state if starting_state != null else get_child(0)
 
+
 func _input(event: InputEvent) -> void:
 	if current_state == null:
-		printerr(owner.name + ": No state set.")
+		push_error(owner.name + ": No state set.")
 		return
 	current_state.handle_input(event)
+
 
 func _ready() -> void:
 	if camera_transformer == null:
@@ -38,14 +40,14 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if current_state == null:
-		printerr(owner.name + ": No state set.")
+		push_error(owner.name + ": No state set.")
 		return
 	current_state.update(delta)
 
 
 func _physics_process(delta: float) -> void:
 	if current_state == null:
-		printerr(owner.name + ": No state set.")
+		push_error(owner.name + ": No state set.")
 		return
 	current_state.physics_update(delta)
 
@@ -55,6 +57,6 @@ func _transition_to_next_state(target_state: CreatedEnums.CameraStateType) -> vo
 	current_state.exit()
 	current_state = states.get(target_state)
 	if current_state == null:
-		printerr(owner.name + ": Trying to transition to state " + str(target_state) + " but it does not exist. Falling back to: " + str(previous_state))
+		push_error(owner.name + ": Trying to transition to state " + str(target_state) + " but it does not exist. Falling back to: " + str(previous_state))
 		current_state = previous_state
 	current_state.enter()
