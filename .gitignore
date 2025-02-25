@@ -21,6 +21,9 @@ mono_crash.*.json
 # Temp files
 *.TMP
 
+# Any build directory
+**/build/
+
 # Compiled binaries
 *.so
 *.dll

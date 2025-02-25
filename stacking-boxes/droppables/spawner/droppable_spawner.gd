@@ -6,7 +6,7 @@ const DROPPABLE_SCRIPT_PATH: String = "res://scripts/droppable_base.gd"
 
 func _ready() -> void:
 	SignalManager.spawn_droppable.connect(_on_spawn_droppable)
-	droppable_scenes = _get_droppable_scenes()
+	get_droppable_scenes()
 
 
 func _on_spawn_droppable(location: Vector3) -> void:
@@ -40,16 +40,23 @@ func _on_spawn_droppable(location: Vector3) -> void:
 	GameManager.current_droppable = droppable
 
 
-func _get_droppable_scenes() -> Array[PackedScene]:
-	var scenes: Array[PackedScene] = []
-
+func get_droppable_scenes() -> void:
 	# Get all files in droppables directory
-	var files := DirAccess.get_files_at("res://droppables/")
-	for file in files:
-		if file.ends_with(".tscn"):
-			var scene_path := "res://droppables/%s" % file
-			var scene: PackedScene = load(scene_path)
-			if scene:
-				scenes.append(scene)
+	var dir := DirAccess.open("res://droppables/")
+	if dir:
+		dir.list_dir_begin()
+		var file_name: String = dir.get_next()
+		while file_name != "":
+			# Remove .remap suffix if present
+			file_name = file_name.replace('.remap', '')
 
-	return scenes
+			if file_name.get_extension() == "tscn":
+				var scene_path := "res://droppables/%s" % file_name
+				# Use ResourceLoader
+				var scene: PackedScene = ResourceLoader.load(scene_path)
+				if scene:
+					droppable_scenes.append(scene)
+			file_name = dir.get_next()
+		dir.list_dir_end()
+
+		
