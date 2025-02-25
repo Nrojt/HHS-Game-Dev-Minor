@@ -25,6 +25,14 @@ func _ready():
 	main_menu_button.visible = main_menu_button_visible
 	resume_game_button.visible = resume_game_button_visible
 
+	focus_first_visible_button()
+
+func focus_first_visible_button():
+	for button in get_children():
+		if button.visible:
+			button.grab_focus()
+			break
+
 
 func _on_start_game_button_pressed():
 	SceneManager.go_to_game()

@@ -39,6 +39,7 @@ fit_content = true
 scroll_active = false
 
 [node name="ButtonsVBox" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_jgfoe")]
+process_mode = 3
 layout_mode = 2
 size_flags_horizontal = 4
 settings_button_visible = true

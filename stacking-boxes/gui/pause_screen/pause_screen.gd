@@ -1,5 +1,7 @@
 extends Control
 
+# TODO figure out why controller/keyboard navigation doesnt work when paused
+
 func _ready():
 	hide()
 	SignalManager.resume_game.connect(on_resume)
