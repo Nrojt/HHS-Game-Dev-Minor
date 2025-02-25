@@ -4,10 +4,29 @@ A physics simulation of stacking objects, kind of like tetris but with 3D boxes.
 possible without them falling over. The game is over when a box falls off the platform.
 Made for the game dev minor at Zoetemeer
 
+## Builds
+
+Windows and linux builds are in the `build` folder.
+
+## Controls
+
+Controller support works, except for the pause menu.
+Mouse and keyboard controls are standard WASD and mouse look.
+Drop the droppable by pressing the left mouse button (Bottom button on controller, 'A' on Xbox, 'X' on Playstation).
+Pause the game with the escape key (Start button on controller).
+There is a debug menu available by clicking F3, using an asset.
+By pressing TAB, you can switch between the free look camera and the player camera.
+
 ## Assets
 
 - [Food](https://kenney.nl/assets/food-kit)
 - [Free look camera](https://github.com/MarcPhi/godot-free-look-camera) (has been modified)
+
+## Addons
+
+- [debug menu](https://github.com/godot-extended-libraries/godot-debug-menu) - For performance and debug information
+  during development
+- [godot-jolt](https://github.com/godot-jolt/godot-jolt) - For improved physics
 
 ## GenAI usage
 
