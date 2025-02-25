@@ -29,7 +29,7 @@ theme_override_constants/margin_bottom = 25
 layout_mode = 2
 theme_override_constants/separation = 50
 
-[node name="MainMenuTitle" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+[node name="PauseScreenTitle" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 100
 bbcode_enabled = true
@@ -43,5 +43,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 settings_button_visible = true
 quit_button_visible = true
+try_again_button_visible = true
 main_menu_button_visible = true
 resume_game_button_visible = true

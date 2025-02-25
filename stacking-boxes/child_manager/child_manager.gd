@@ -21,6 +21,8 @@ func _on_reload_children(caller: Node, delete_caller: bool) -> void:
 	if delete_caller:
 		if caller.is_inside_tree():
 			remove_child(caller)
+		else:
+			printerr("Caller is not in tree")
 		caller.queue_free()
 		print("Children: " + str(get_children()))
 
@@ -34,4 +36,5 @@ func _on_reload_children(caller: Node, delete_caller: bool) -> void:
 			child.queue_free()
 
 			var new_child = load(scene_path).instantiate()
+			print("Adding to scene: %s" % new_child)
 			add_child(new_child)

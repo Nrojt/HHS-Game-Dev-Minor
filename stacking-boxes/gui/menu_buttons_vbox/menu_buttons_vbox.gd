@@ -27,7 +27,7 @@ func _ready():
 
 
 func _on_start_game_button_pressed():
-	SignalManager.add_child_scene.emit("uid://b14icr4kflsvi", true)
+	SceneManager.go_to_game()
 
 
 func _on_quit_button_pressed():
@@ -40,7 +40,7 @@ func _on_settings_button_pressed():
 
 
 func _on_try_again_button_pressed():
-	SignalManager.reload_children.emit(self, true)
+	SceneManager.go_to_game()
 
 
 func _on_main_menu_button_pressed():
