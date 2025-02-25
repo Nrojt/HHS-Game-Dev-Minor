@@ -1,6 +1,7 @@
 extends Node
 
-@export var drop_location : Vector3
+@export var drop_location: Vector3
+
 
 func _process(delta):
 	if GameManager.current_droppable == null:

@@ -16,7 +16,7 @@ func update(delta) -> void:
 		0
 	)
 
-	if Input.is_action_just_released("spawn_droppable_button"):
+	if Input.is_action_just_pressed("spawn_droppable_button"):
 		SignalManager.drop_current_droppable.emit()
 
 	camera_transformer.translate(direction * _velocity * delta)
