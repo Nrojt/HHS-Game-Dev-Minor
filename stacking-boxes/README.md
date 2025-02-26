@@ -6,7 +6,7 @@ Made for the game dev minor at Zoetemeer
 
 ## Builds
 
-Windows and linux builds are in the `build` folder.
+Windows and linux builds are exported to the `build` folder.
 
 ## Controls
 
