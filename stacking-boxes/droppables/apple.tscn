@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b6dp40nyuba4e"]
 
-[ext_resource type="PackedScene" uid="uid://dptk2quel6b2f" path="res://assets/apple.glb" id="1_dekwy"]
+[ext_resource type="PackedScene" uid="uid://dptk2quel6b2f" path="res://assets/models/apple.glb" id="1_dekwy"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_325oy"]
 height = 0.2

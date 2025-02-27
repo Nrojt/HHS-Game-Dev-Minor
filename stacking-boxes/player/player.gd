@@ -3,6 +3,7 @@ extends Node3D
 
 @onready var remote_transform := $CameraTransformer
 
+
 func _ready():
 	if (!camera):
 		push_error("No Camera3D set")
@@ -12,17 +13,8 @@ func _ready():
 
 
 func _process(_delta: float) -> void:
-	if GameManager.current_droppable == null:
-		var drop_location: Vector3 = remote_transform.global_transform.origin - remote_transform.global_transform.basis.z * 2
-		SignalManager.spawn_droppable.emit(drop_location)
-		return
-
-	if Input.is_action_just_pressed("spawn_droppable_button"):
+	if GameManager.current_droppable != null && Input.is_action_just_pressed("spawn_droppable_button"):
 		SignalManager.drop_current_droppable.emit()
-
-	if GameManager.current_droppable.is_holding:
-		var under_camera_location: Vector3 = remote_transform.global_position - remote_transform.global_transform.basis.z * 2
-		SignalManager.move_current_droppable.emit(under_camera_location)
 
 
 func _on_player_death() -> void:

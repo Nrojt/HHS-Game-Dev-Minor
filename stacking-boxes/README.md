@@ -19,8 +19,18 @@ By pressing TAB, you can switch between the free look camera and the player came
 
 ## Assets
 
+### Textures and Models
+
 - [Food](https://kenney.nl/assets/food-kit)
+
+### Scripts
+
 - [Free look camera](https://github.com/MarcPhi/godot-free-look-camera) (has been modified)
+
+### Music and Sound
+
+- All music made by me
+- Sounds TODO
 
 ## Addons
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b14icr4kflsvi"]
+[gd_scene load_steps=4 format=3 uid="uid://b14icr4kflsvi"]
 
 [ext_resource type="Script" path="res://gui/hud/hud.gd" id="1_hdnp3"]
 [ext_resource type="Script" path="res://gui/hud/height_label.gd" id="1_vhcgd"]
+[ext_resource type="AudioStream" uid="uid://clxoltiac12kh" path="res://assets/music/game_music.wav" id="3_qpkdk"]
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -18,3 +19,8 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "Height: todo"
 script = ExtResource("1_vhcgd")
+
+[node name="GameMusic" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("3_qpkdk")
+autoplay = true

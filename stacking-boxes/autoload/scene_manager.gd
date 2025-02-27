@@ -11,6 +11,7 @@ func go_to_main_menu() -> void:
 
 
 func go_to_game() -> void:
+	print("going to game")
 	GameManager.reset_variables()
 	SignalManager.add_child_scene.emit("uid://b14icr4kflsvi", true)
 	SignalManager.add_child_scene.emit("uid://cc7esd6v5t8g2", false)
