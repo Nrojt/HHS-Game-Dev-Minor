@@ -7,6 +7,14 @@ extends CameraState
 @export var max_speed: float = 1000
 @export var min_speed: float = 0.2
 
+@export var rotation_limits : float = PI/2
+
+func enter() -> void:
+	# Resetting the camera_transformer to its initial position and rotation
+	camera_transformer.global_position = camera_transformer_location + Vector3(0, 0.5, 0)
+	clamp( camera_transformer.global_position,camera_transformer_location ,GameManager.max_height)
+	camera_transformer.global_rotation = camera_transformer_initial_rotation
+
 
 func exit() -> void:
 	_velocity = default_velocity
@@ -17,7 +25,7 @@ func handle_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		camera_transformer.rotation.y -= event.relative.x / 1000 * sensitivity
 		camera_transformer.rotation.x -= event.relative.y / 1000 * sensitivity
-		camera_transformer.rotation.x = clamp(camera_transformer.rotation.x, -PI/2, PI/2)
+		camera_transformer.rotation.x = clamp(camera_transformer.rotation.x, -rotation_limits, rotation_limits)
 
 
 func update(delta) -> void:
@@ -40,7 +48,7 @@ func update(delta) -> void:
 
 	camera_transformer.rotation.y -= right_stick_h * delta * sensitivity
 	camera_transformer.rotation.x -= right_stick_v * delta * sensitivity
-	camera_transformer.rotation.x = clamp(camera_transformer.rotation.x, -PI/2, PI/2)
+	camera_transformer.rotation.x = clamp(camera_transformer.rotation.x, -rotation_limits, rotation_limits)
 
 	if Input.is_action_pressed("sprint"):
 		camera_transformer.translate(direction * _velocity * delta * boost_speed_multiplier)

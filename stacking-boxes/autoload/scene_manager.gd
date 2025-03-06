@@ -13,6 +13,7 @@ func go_to_main_menu() -> void:
 func go_to_game() -> void:
 	print("going to game")
 	GameManager.reset_variables()
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	SignalManager.add_child_scene.emit("uid://b14icr4kflsvi", true)
 	SignalManager.add_child_scene.emit("uid://cc7esd6v5t8g2", false)
 	SignalManager.add_child_scene.emit("uid://b2tjtn7p8hl0u", false)

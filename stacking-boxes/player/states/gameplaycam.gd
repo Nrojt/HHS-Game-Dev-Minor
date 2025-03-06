@@ -4,7 +4,6 @@ extends CameraState
 
 
 func enter() -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera_transformer.global_position = camera_transformer_location
 	camera_transformer.global_rotation = camera_transformer_initial_rotation
 	SignalManager.update_camera_height.connect(_on_update_camera_height)

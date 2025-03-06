@@ -3,5 +3,6 @@ class_name CreatedEnums
 
 enum CameraStateType {
 	FREECAM,
-	GAMEPLAY
+	GAMEPLAY,
+	GAMEPLAY_STATIC,
 }
