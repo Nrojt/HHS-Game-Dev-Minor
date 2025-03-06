@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ckt8iuaa45ug3"
-path.s3tc="res://.godot/imported/colormap.png-8189f3c9e30f86aaa136872b6ce58318.s3tc.ctex"
+path.s3tc="res://.godot/imported/colormap.png-b8cf4c1c331cffbc3b8583a534780dd9.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/models/Textures/colormap.png"
-dest_files=["res://.godot/imported/colormap.png-8189f3c9e30f86aaa136872b6ce58318.s3tc.ctex"]
+source_file="res://assets/models/food/Textures/colormap.png"
+dest_files=["res://.godot/imported/colormap.png-b8cf4c1c331cffbc3b8583a534780dd9.s3tc.ctex"]
 
 [params]
 

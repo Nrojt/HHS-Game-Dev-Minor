@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://p6hs72x41q2f"
-path="res://.godot/imported/bowl-soup.glb-53c6ec126c949911bda69e523a98e348.scn"
+path="res://.godot/imported/bowl-soup.glb-13963a3f6ad88539cde3dfd423272f8f.scn"
 
 [deps]
 
-source_file="res://assets/models/bowl-soup.glb"
-dest_files=["res://.godot/imported/bowl-soup.glb-53c6ec126c949911bda69e523a98e348.scn"]
+source_file="res://assets/models/food/bowl-soup.glb"
+dest_files=["res://.godot/imported/bowl-soup.glb-13963a3f6ad88539cde3dfd423272f8f.scn"]
 
 [params]
 

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b8ygppg27vvq6"
-path="res://.godot/imported/avocado.glb-1f0aa11c1e2c234a90460c3c18851aba.scn"
+uid="uid://okvkyqdmb4fb"
+path="res://.godot/imported/bacon.glb-08dfcffcf20c794fe6cd0990cdcf48b7.scn"
 
 [deps]
 
-source_file="res://assets/models/avocado.glb"
-dest_files=["res://.godot/imported/avocado.glb-1f0aa11c1e2c234a90460c3c18851aba.scn"]
+source_file="res://assets/models/food/bacon.glb"
+dest_files=["res://.godot/imported/bacon.glb-08dfcffcf20c794fe6cd0990cdcf48b7.scn"]
 
 [params]
 

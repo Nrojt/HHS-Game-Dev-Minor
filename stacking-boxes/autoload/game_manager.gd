@@ -14,7 +14,6 @@ var max_height: float = -INF
 func _ready() -> void:
 	SignalManager.move_current_droppable.connect(_on_move_current_droppable)
 	SignalManager.drop_current_droppable.connect(_on_drop_current_droppable)
-	SignalManager.player_death.connect(reset_variables)
 
 
 func _on_move_current_droppable(location: Vector3) -> void:

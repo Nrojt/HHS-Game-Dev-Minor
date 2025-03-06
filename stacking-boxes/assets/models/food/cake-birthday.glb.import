@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dyc2n7n6o27dl"
-path="res://.godot/imported/cooking-spatula.glb-82fc847f5d759e14a1f00b23d5f2c32b.scn"
+uid="uid://bfrupyob18303"
+path="res://.godot/imported/cake-birthday.glb-79d0b21c69d79a8c598c4aa0989a3747.scn"
 
 [deps]
 
-source_file="res://assets/models/cooking-spatula.glb"
-dest_files=["res://.godot/imported/cooking-spatula.glb-82fc847f5d759e14a1f00b23d5f2c32b.scn"]
+source_file="res://assets/models/food/cake-birthday.glb"
+dest_files=["res://.godot/imported/cake-birthday.glb-79d0b21c69d79a8c598c4aa0989a3747.scn"]
 
 [params]
 

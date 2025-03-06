@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://4aqdh5hd5gcb"]
 
-[ext_resource type="PackedScene" uid="uid://doxgtx0bgosd0" path="res://assets/models/advocado-half.glb" id="1_o3dg1"]
+[ext_resource type="PackedScene" uid="uid://doxgtx0bgosd0" path="res://assets/models/food/advocado-half.glb" id="1_o3dg1"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ynkq3"]
 points = PackedVector3Array(0, 0.116117, 0.0867173, 0, 0.21374, 0.0433417, -0.037557, 0.21374, 0.0216623, -0.0750993, 0.116117, 0.0433417, 0, 0.0457984, 0.0867173, 0, 0.21374, -0.0433756, -0.037557, 0.21374, -0.0216963, -0.0750993, 0.116117, -0.0433756, -0.0750993, 0.0457984, 0.0433417, -0.0528915, 0, 0.0305242, 0, 0, 0.0610654, 0, 0.116117, -0.0867173, -0.0750993, 0.0457984, -0.0433756, -0.0528915, 0, -0.0305412, 0, 0, -0.0610824, 0, 0.0457984, -0.0867173)

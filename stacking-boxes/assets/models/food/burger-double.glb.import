@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dptk2quel6b2f"
-path="res://.godot/imported/apple.glb-e37a1988b0b05ceb0357a356c2726bde.scn"
+uid="uid://c1qpu2amid88v"
+path="res://.godot/imported/burger-double.glb-0df2626cd94fea9b6e5c98f824618470.scn"
 
 [deps]
 
-source_file="res://assets/models/apple.glb"
-dest_files=["res://.godot/imported/apple.glb-e37a1988b0b05ceb0357a356c2726bde.scn"]
+source_file="res://assets/models/food/burger-double.glb"
+dest_files=["res://.godot/imported/burger-double.glb-0df2626cd94fea9b6e5c98f824618470.scn"]
 
 [params]
 

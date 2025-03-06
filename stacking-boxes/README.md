@@ -22,6 +22,7 @@ By pressing TAB, you can switch between the free look camera and the player came
 ### Textures and Models
 
 - [Food](https://kenney.nl/assets/food-kit)
+- [Level Assets](https://kaylousberg.itch.io/kaykit-dungeon-remastered) - Free version
 
 ### Scripts
 
@@ -36,7 +37,6 @@ By pressing TAB, you can switch between the free look camera and the player came
 
 - [debug menu](https://github.com/godot-extended-libraries/godot-debug-menu) - For performance and debug information
   during development
-- [godot-jolt](https://github.com/godot-jolt/godot-jolt) - For improved physics
 
 ## GenAI usage
 

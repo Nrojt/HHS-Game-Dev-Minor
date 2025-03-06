@@ -21,6 +21,9 @@ func handle_input(event: InputEvent) -> void:
 
 
 func update(delta) -> void:
+	if GameManager.current_droppable == null:
+		SignalManager.spawn_droppable.emit(camera_transformer_location)
+		
 	var direction := Vector3(
 		Input.get_action_strength("right") - Input.get_action_strength("left"),
 		0,
@@ -45,4 +48,4 @@ func update(delta) -> void:
 		camera_transformer.translate(direction * _velocity * delta)
 
 	if Input.is_action_just_pressed("switch_camera_state"):
-		transition.emit(CreatedEnums.CameraStateType.GAMEPLAY)
+		transition_next.emit()

@@ -29,7 +29,7 @@ func update(delta) -> void:
 	camera_transformer.global_position.y = camera_transformer_location.y
 
 	if Input.is_action_just_pressed("switch_camera_state"):
-		transition.emit(CreatedEnums.CameraStateType.FREECAM)
+		transition_next.emit()
 
 
 func _on_update_camera_height(height: float) -> void:

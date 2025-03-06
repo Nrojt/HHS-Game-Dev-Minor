@@ -14,6 +14,7 @@ var camera_transformer_location: Vector3
 var camera_transformer_initial_rotation: Vector3
 ## Emitted when the state finishes and wants to transition to another state.
 signal transition(next_state: CreatedEnums.CameraStateType)
+signal transition_next()
 
 
 func handle_input(event: InputEvent) -> void:

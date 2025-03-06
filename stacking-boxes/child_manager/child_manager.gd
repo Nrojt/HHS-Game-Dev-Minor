@@ -8,7 +8,6 @@ func _ready():
 
 func _on_add_child_scene(scene_path: String, clear_other: bool) -> void:
 	print("Adding to scene: %s, replacing: %s" % [scene_path, clear_other])
-	GameManager.reset_variables()
 	# Clear existing children
 	if clear_other:
 		for child in get_children():

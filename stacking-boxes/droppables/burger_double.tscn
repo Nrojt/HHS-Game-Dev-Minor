@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwwjxsjccqmm6"]
+
+[ext_resource type="PackedScene" uid="uid://c1qpu2amid88v" path="res://assets/models/food/burger-double.glb" id="1_kibsx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uwwj2"]
+size = Vector3(1.61285, 1.60797, 1.56653)
+
+[node name="BurgerDouble" type="RigidBody3D"]
+
+[node name="burger-double2" parent="." instance=ExtResource("1_kibsx")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0305824, 0.651215, -0.0307007)
+shape = SubResource("BoxShape3D_uwwj2")
