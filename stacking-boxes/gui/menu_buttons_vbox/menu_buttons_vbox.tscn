@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dgn0aobw3f5sx"]
 
-[ext_resource type="Script" path="res://gui/menu_buttons_vbox/menu_buttons_vbox.gd" id="1_i1tej"]
+[ext_resource type="Script" uid="uid://c5sgrycaur7co" path="res://gui/menu_buttons_vbox/menu_buttons_vbox.gd" id="1_i1tej"]
 
 [node name="ButtonsVBox" type="VBoxContainer"]
 size_flags_horizontal = 0

@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://d0kck4ef5mkdt"]
 
-[ext_resource type="Script" path="res://player/player.gd" id="1_kgvvs"]
+[ext_resource type="Script" uid="uid://baal004v76tlq" path="res://player/player.gd" id="1_kgvvs"]
 [ext_resource type="PackedScene" uid="uid://cpevvw33t7duw" path="res://droppables/spawner/droppable_spawner.tscn" id="2_8prfm"]
-[ext_resource type="Script" path="res://player/camera_state_machine.gd" id="3_fwmcg"]
-[ext_resource type="Script" path="res://player/states/free_look_camera_state.gd" id="4_ri2fv"]
-[ext_resource type="Script" path="res://player/states/gameplaycam.gd" id="5_do5eg"]
+[ext_resource type="Script" uid="uid://bj26c5r4hvnaa" path="res://player/camera_state_machine.gd" id="3_fwmcg"]
+[ext_resource type="Script" uid="uid://bhc84ra8tunbv" path="res://player/states/free_look_camera_state.gd" id="4_ri2fv"]
+[ext_resource type="Script" uid="uid://dmyogn2kimr0t" path="res://player/states/gameplaycam.gd" id="5_do5eg"]
 
 [node name="Player" type="Node3D"]
 script = ExtResource("1_kgvvs")

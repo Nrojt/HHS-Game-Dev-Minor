@@ -13,7 +13,7 @@ config_version=5
 config/name="stacking-boxes"
 config/version="1.0.0"
 run/main_scene="res://child_manager/child_manager.tscn"
-config/features=PackedStringArray("4.3", "Forward Plus")
+config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/show_image=false
 config/icon="res://icon.svg"
 
@@ -137,4 +137,4 @@ escape={
 [physics]
 
 3d/run_on_separate_thread=true
-3d/physics_engine="JoltPhysics3D"
+3d/physics_engine="Jolt Physics"

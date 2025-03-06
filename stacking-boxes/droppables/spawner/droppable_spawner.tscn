@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cpevvw33t7duw"]
 
-[ext_resource type="Script" path="res://droppables/spawner/droppable_spawner.gd" id="1_s85ea"]
+[ext_resource type="Script" uid="uid://68rqhcaue8re" path="res://droppables/spawner/droppable_spawner.gd" id="1_s85ea"]
 
 [node name="DroppableSpawner" type="Node"]
 script = ExtResource("1_s85ea")
