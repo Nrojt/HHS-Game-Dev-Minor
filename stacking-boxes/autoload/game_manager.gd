@@ -1,5 +1,7 @@
 extends Node
 
+var is_remapping: bool = false
+
 var current_droppable: DroppableBase = null:
 	get:
 		if (current_droppable != null && current_droppable.is_queued_for_deletion()):
