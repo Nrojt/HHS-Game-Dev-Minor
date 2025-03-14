@@ -6,3 +6,8 @@ enum CameraStateType {
 	GAMEPLAY,
 	GAMEPLAY_STATIC,
 }
+enum InputType {
+	PRIMARY,
+	SECONDARY,
+	CONTROLLER
+}

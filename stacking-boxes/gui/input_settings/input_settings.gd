@@ -1,11 +1,10 @@
 extends Control
 
-# TODO save input settings to a file
-
 @onready var input_button_scene: PackedScene = preload("uid://c742rhgrg2wc2")
 @onready var action_list: GridContainer = %ActionList
 
 var config_path: String = "user://input_settings.cfg"
+var remapping_event: InputEvent = null ## This somehow has to be set to the correct input event
 
 
 func _ready():
@@ -13,20 +12,21 @@ func _ready():
 
 
 func _input(event: InputEvent) -> void:
-	if GameManager.is_remapping:
+	if SaveManager.is_remapping:
+		# Split this out by CreatedEnums.InputType, the contoller input should not be put in primary slot for example
 		if event is InputEventKey || event is InputEventJoypadButton || (event is InputEventMouseButton and event.pressed) || event is InputEventJoypadMotion:
 			if event is InputEventMouseButton && event.double_click:
 				# converting double click to single click
 				event.double_click = false
+				
 
-			#InputMap.action_erase_event(action_to_remap, old_event)
-			#InputMap.action_add_event(action_to_remap, event)
+			InputMap.action_erase_event(SaveManager.action_to_remap, remapping_event)
+			InputMap.action_add_event(SaveManager.action_to_remap, event)
 			_save_input_settings()
-			GameManager.is_remapping = false
+			SaveManager.is_remapping = false
+			SaveManager.action_to_remap = ""
 			_create_action_list()
-
-
-# TODO: probably put the saving code somewhere else
+			
 
 func _save_input_settings():
 	var config = ConfigFile.new()
@@ -36,34 +36,33 @@ func _save_input_settings():
 			continue
 
 		var events: Array[InputEvent] = InputMap.action_get_events(action)
-		var event_strings: Array[Variant] = []
 
-		for event in events:
-			event_strings.append(event.as_text())
-
-		config.set_value("input", action, event_strings)
+		config.set_value("input", action, events)
 
 	config.save(config_path)
 
 
 func _load_input_settings():
+	# getting the default input map from project settings
+	InputMap.load_from_project_settings()
+
+	# loading the custom input map from the config file
 	var config = ConfigFile.new()
 	var error = config.load(config_path)
 
 	if error == OK:
 		for action in config.get_section_keys("input"):
 			InputMap.action_erase_events(action)
-			var event_strings = config.get_value("input", action)
-
-			for event_str in event_strings:
-				# TODO: actually load in the events
-				print(event_str)
+			var events: Array[InputEvent] = config.get_value("input", action)
+			# load events into input map
+			InputMap.action_erase_events(action)
+			for event in events:
+				InputMap.action_add_event(action, event)
 
 	_create_action_list()
 
 
 func _create_action_list():
-	InputMap.load_from_project_settings()
 	for item in action_list.get_children():
 		item.queue_free()
 
@@ -122,7 +121,7 @@ func _trim_mapping_suffix(mapping: String) -> String:
 
 
 func _on_back_button_pressed():
-	GameManager.is_remapping = false
+	SaveManager.is_remapping = false
 	_save_input_settings()
 	queue_free()
 

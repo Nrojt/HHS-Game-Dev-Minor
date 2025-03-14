@@ -1,7 +1,8 @@
 extends Node
 
-var is_remapping: bool = false
+# TODO: bug: if the droppable drops off on the home screen, game over screen still pops up
 
+# Handling droppable objects
 var current_droppable: DroppableBase = null:
 	get:
 		if (current_droppable != null && current_droppable.is_queued_for_deletion()):

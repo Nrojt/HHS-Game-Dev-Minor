@@ -55,6 +55,7 @@ layout_mode = 2
 script = ExtResource("1_jghxt")
 label_path = NodePath("SecondaryInputLabel")
 button_path = NodePath("SecondaryInputButton")
+input_type = 1
 
 [node name="SecondaryInputLabel" type="Label" parent="GridContainer/SecondaryPanelContainer"]
 layout_mode = 2
@@ -75,6 +76,7 @@ layout_mode = 2
 script = ExtResource("1_jghxt")
 label_path = NodePath("ControllerInputLabel")
 button_path = NodePath("InputButton")
+input_type = 2
 
 [node name="ControllerInputLabel" type="Label" parent="GridContainer/ControllerPanelContainer"]
 layout_mode = 2
