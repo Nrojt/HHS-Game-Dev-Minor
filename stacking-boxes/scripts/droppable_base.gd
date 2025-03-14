@@ -5,7 +5,6 @@ class_name DroppableBase
 @export var time_until_static: float = 4.0
 @export var ground_check_additional_ray_length: float = 0.6
 @export var raycast_timeout: float = 4.0
-@export var death_y: float = -10
 
 @export_flags_3d_physics var ground_collision_layer: int = 1
 
@@ -53,11 +52,6 @@ func _physics_process(delta: float) -> void:
 		elif time_raycasted >= raycast_timeout:
 			print("Raycast timeout - forcing static : ", colliding)
 			make_static()
-
-	if (global_position.y <= death_y):
-		print("Droppable off the map")
-		SignalManager.player_death.emit()
-		queue_free()
 
 
 func make_static():

@@ -1,7 +1,5 @@
 extends Node
 
-# TODO: bug: if the droppable drops off on the home screen, game over screen still pops up
-
 # Handling droppable objects
 var current_droppable: DroppableBase = null:
 	get:
