@@ -4,7 +4,7 @@ extends Control
 @onready var action_list: GridContainer = %ActionList
 
 var config_path: String = "user://input_settings.cfg"
-var remapping_event: InputEvent = null ## This somehow has to be set to the correct input event
+
 
 
 func _ready():
@@ -13,12 +13,39 @@ func _ready():
 
 func _input(event: InputEvent) -> void:
 	if SaveManager.is_remapping:
-		# Split this out by CreatedEnums.InputType, the contoller input should not be put in primary slot for example
+		# TODO Split this out by CreatedEnums.InputType, the contoller input should not be put in primary slot for example
+		# TODO check if the event is already assigned to another action
+		# TODO clean up
 		if event is InputEventKey || event is InputEventJoypadButton || (event is InputEventMouseButton and event.pressed) || event is InputEventJoypadMotion:
 			if event is InputEventMouseButton && event.double_click:
 				# converting double click to single click
 				event.double_click = false
 				
+			var remapping_event: InputEvent = null
+
+			## get the action to remap
+			var events: Array[InputEvent] = InputMap.action_get_events(SaveManager.action_to_remap)
+			# Based on the SaveManager.input_type, we need to set the remapping_event to the correct event
+			var primary_event: InputEvent = null
+			var secondary_event: InputEvent = null
+			var controller_event: InputEvent = null
+
+			for rem_event in events:
+				if rem_event is InputEventJoypadButton or event is InputEventJoypadMotion:
+					if not controller_event:
+						controller_event = rem_event
+				else:
+					if not primary_event:
+						primary_event = rem_event
+					elif not secondary_event:
+						secondary_event = rem_event
+
+			if SaveManager.input_type == CreatedEnums.InputType.PRIMARY:
+				remapping_event = primary_event
+			elif SaveManager.input_type == CreatedEnums.InputType.SECONDARY:
+				remapping_event = secondary_event
+			elif SaveManager.input_type == CreatedEnums.InputType.CONTROLLER:
+				remapping_event = controller_event
 
 			InputMap.action_erase_event(SaveManager.action_to_remap, remapping_event)
 			InputMap.action_add_event(SaveManager.action_to_remap, event)
@@ -26,7 +53,7 @@ func _input(event: InputEvent) -> void:
 			SaveManager.is_remapping = false
 			SaveManager.action_to_remap = ""
 			_create_action_list()
-			
+
 
 func _save_input_settings():
 	var config = ConfigFile.new()
