@@ -6,53 +6,37 @@ extends Control
 var config_path: String = "user://input_settings.cfg"
 
 
-
 func _ready():
 	_load_input_settings()
 
 
 func _input(event: InputEvent) -> void:
-	if SaveManager.is_remapping:
-		# TODO Split this out by CreatedEnums.InputType, the contoller input should not be put in primary slot for example
-		# TODO check if the event is already assigned to another action
-		# TODO clean up
-		if event is InputEventKey || event is InputEventJoypadButton || (event is InputEventMouseButton and event.pressed) || event is InputEventJoypadMotion:
-			if event is InputEventMouseButton && event.double_click:
-				# converting double click to single click
-				event.double_click = false
-				
-			var remapping_event: InputEvent = null
+	if not SaveManager.is_remapping:
+		return
 
-			## get the action to remap
-			var events: Array[InputEvent] = InputMap.action_get_events(SaveManager.action_to_remap)
-			# Based on the SaveManager.input_type, we need to set the remapping_event to the correct event
-			var primary_event: InputEvent = null
-			var secondary_event: InputEvent = null
-			var controller_event: InputEvent = null
+	var input_type = SaveManager.input_type
+	var action = SaveManager.action_to_remap
 
-			for rem_event in events:
-				if rem_event is InputEventJoypadButton or event is InputEventJoypadMotion:
-					if not controller_event:
-						controller_event = rem_event
-				else:
-					if not primary_event:
-						primary_event = rem_event
-					elif not secondary_event:
-						secondary_event = rem_event
+	if not _is_valid_event_for_input_type(event, input_type):
+		return
 
-			if SaveManager.input_type == CreatedEnums.InputType.PRIMARY:
-				remapping_event = primary_event
-			elif SaveManager.input_type == CreatedEnums.InputType.SECONDARY:
-				remapping_event = secondary_event
-			elif SaveManager.input_type == CreatedEnums.InputType.CONTROLLER:
-				remapping_event = controller_event
+	if event is InputEventMouseButton and event.double_click:
+		event = event.duplicate()
+		event.double_click = false
 
-			InputMap.action_erase_event(SaveManager.action_to_remap, remapping_event)
-			InputMap.action_add_event(SaveManager.action_to_remap, event)
-			_save_input_settings()
-			SaveManager.is_remapping = false
-			SaveManager.action_to_remap = ""
-			_create_action_list()
+	if _is_event_already_assigned(event, action):
+		print("Input event already assigned to another action")
+		return
+
+	var current_events: Array[InputEvent] = InputMap.action_get_events(action)
+	var split_events: Dictionary = _split_events_by_type(current_events)
+
+	var old_event: InputEvent = _get_event_to_replace(split_events, input_type)
+	if old_event:
+		InputMap.action_erase_event(action, old_event)
+
+	InputMap.action_add_event(action, event)
+	_finalize_remapping()
 
 
 func _save_input_settings():
@@ -62,88 +46,54 @@ func _save_input_settings():
 		if action.begins_with("ui_"):
 			continue
 
-		var events: Array[InputEvent] = InputMap.action_get_events(action)
-
-		config.set_value("input", action, events)
+		config.set_value("input", action, InputMap.action_get_events(action))
 
 	config.save(config_path)
 
 
 func _load_input_settings():
-	# getting the default input map from project settings
 	InputMap.load_from_project_settings()
-
-	# loading the custom input map from the config file
 	var config = ConfigFile.new()
-	var error = config.load(config_path)
 
-	if error == OK:
+	if config.load(config_path) == OK:
 		for action in config.get_section_keys("input"):
 			InputMap.action_erase_events(action)
-			var events: Array[InputEvent] = config.get_value("input", action)
-			# load events into input map
-			InputMap.action_erase_events(action)
-			for event in events:
+			for event in config.get_value("input", action):
 				InputMap.action_add_event(action, event)
 
 	_create_action_list()
 
 
 func _create_action_list():
-	for item in action_list.get_children():
-		item.queue_free()
+	for child in action_list.get_children():
+		child.queue_free()
 
 	for action in InputMap.get_actions():
 		if action.begins_with("ui_"):
 			continue
-		var action_row: MarginContainer = input_button_scene.instantiate()
-		var action_label: Label = action_row.find_child("ActionLabel")
-		var primary_input_label: Label = action_row.find_child("PrimaryInputLabel")
-		var secondary_input_label: Label = action_row.find_child("SecondaryInputLabel")
-		var controller_input_label: Label = action_row.find_child("ControllerInputLabel")
 
-		action_label.text = action
+		var action_row: Node = input_button_scene.instantiate()
+		var split_events: Dictionary = _split_events_by_type(InputMap.action_get_events(action))
 
-		var events: Array[InputEvent] = InputMap.action_get_events(action)
-
-		var primary_event: InputEvent = null
-		var secondary_event: InputEvent = null
-		var controller_event: InputEvent = null
-
-		for event in events:
-			if event is InputEventJoypadButton or event is InputEventJoypadMotion:
-				if not controller_event:
-					controller_event = event
-			else:
-				if not primary_event:
-					primary_event = event
-				elif not secondary_event:
-					secondary_event = event
-
-		primary_input_label.text = _trim_mapping_suffix(primary_event.as_text()) if primary_event else "Unassigned"
-		secondary_input_label.text = _trim_mapping_suffix(secondary_event.as_text()) if secondary_event else "Unassigned"
-		controller_input_label.text = _trim_mapping_suffix(controller_event.as_text()) if controller_event else "Unassigned"
+		action_row.find_child("ActionLabel").text = action
+		_set_label_text(action_row, "PrimaryInputLabel", split_events.primary)
+		_set_label_text(action_row, "SecondaryInputLabel", split_events.secondary)
+		_set_label_text(action_row, "ControllerInputLabel", split_events.controller)
 
 		action_list.add_child(action_row)
 
 
 func _trim_mapping_suffix(mapping: String) -> String:
-	var cleaned := mapping
+	var cleaned: String = mapping.replace(" (Physical)", "")
 
-	# Remove physical suffix
-	if cleaned.ends_with(" (Physical)"):
-		cleaned = cleaned.trim_suffix(" (Physical)")
-
-	# If controller, remove everything outside of the brackets
 	if cleaned.begins_with("Joypad"):
-		var start_index: int = cleaned.find("(")
-		var end_index: int = cleaned.find(")")
-		if start_index != -1 and end_index != -1:
-			cleaned = cleaned.substr(start_index + 1, end_index - start_index - 1)
+		var start: int = cleaned.find("(")
+		var end: int = cleaned.find(")")
+		if start != -1 and end != -1:
+			cleaned = cleaned.substr(start + 1, end - start - 1)
 		else:
 			cleaned = cleaned.substr(0, cleaned.find(" "))
 
-	# Trim any remaining whitespace
 	return cleaned.strip_edges()
 
 
@@ -154,12 +104,72 @@ func _on_back_button_pressed():
 
 
 func _on_reset_button_pressed():
-	# Load default input map from project settings
 	InputMap.load_from_project_settings()
 
-	# Remove any saved custom input configuration
 	if FileAccess.file_exists(config_path):
 		DirAccess.remove_absolute(config_path)
 
-	# Refresh the UI
 	_create_action_list()
+
+
+func _is_valid_event_for_input_type(event: InputEvent, input_type: int) -> bool:
+	match input_type:
+		CreatedEnums.InputType.CONTROLLER:
+			return event is InputEventJoypadButton or event is InputEventJoypadMotion
+		_:
+			return event is InputEventMouseButton or event is InputEventKey
+
+
+func _split_events_by_type(events: Array[InputEvent]) -> Dictionary:
+	var result: Dictionary = {
+		primary = null,
+		secondary = null,
+		controller = null
+	}
+
+	for event in events:
+		if event is InputEventJoypadButton or event is InputEventJoypadMotion:
+			if not result.controller:
+				result.controller = event
+		else:
+			if not result.primary:
+				result.primary = event
+			elif not result.secondary:
+				result.secondary = event
+
+	return result
+
+
+func _is_event_already_assigned(event: InputEvent, current_action: String) -> bool:
+	for action in InputMap.get_actions():
+		if action == current_action:
+			continue
+
+		for existing_event in InputMap.action_get_events(action):
+			if existing_event.is_match(event):
+				return true
+
+	return false
+
+
+func _get_event_to_replace(split_events: Dictionary, input_type: int) -> InputEvent:
+	match input_type:
+		CreatedEnums.InputType.PRIMARY: return split_events.primary
+		CreatedEnums.InputType.SECONDARY: return split_events.secondary
+		CreatedEnums.InputType.CONTROLLER: return split_events.controller
+		_: return null
+
+
+func _finalize_remapping():
+	_save_input_settings()
+	SaveManager.is_remapping = false
+	SaveManager.action_to_remap = ""
+	_create_action_list()
+
+
+func _set_label_text(row: MarginContainer, label_name: String, event: InputEvent):
+	var label: Node = row.find_child(label_name)
+	if event:
+		label.text = _trim_mapping_suffix(event.as_text())
+	else:
+		label.text = "Unassigned"
