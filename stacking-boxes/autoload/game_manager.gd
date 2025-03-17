@@ -28,7 +28,7 @@ func _on_drop_current_droppable() -> void:
 		current_droppable.is_holding = false
 
 
-func calculate_max_height(item: StaticBody3D) -> float:
+func calculate_max_height(item: PhysicsBody3D) -> float:
 	var item_height: float = get_object_height(item)
 	if item_height > max_height:
 		if max_height != -INF:

@@ -1,12 +1,15 @@
 extends RigidBody3D
 class_name DroppableBase
 
+@export_group("Physics")
 @export var stillness_threshold: int = 10
 @export var time_until_static: float = 4.0
 @export var ground_check_additional_ray_length: float = 0.6
 @export var raycast_timeout: float = 4.0
 
 @export_flags_3d_physics var ground_collision_layer: int = 1
+@export_group("Sound")
+@export var drop_sound: AudioStream = preload("res://assets/sounds/generic_hit.ogg")
 
 var time_since_moved: float = 0.0
 var time_raycasted: float = 0.0
@@ -14,10 +17,15 @@ var is_holding: bool = true
 var is_static: bool = false
 var ground_ray: RayCast3D
 
+@onready var audio_player: AudioStreamPlayer3D = %AudioPlayer
+
 
 # TODO: Ray cast is not always working, why?
 
 func _ready():
+	# add the sound
+	audio_player.stream = drop_sound
+
 	# Create raycast as child
 	ground_ray = RayCast3D.new()
 	add_child(ground_ray)
@@ -54,7 +62,8 @@ func _physics_process(delta: float) -> void:
 			make_static()
 
 
-func make_static():
+func make_static() -> void:
+
 	is_static = true
 	var static_body = StaticBody3D.new()
 
@@ -79,6 +88,7 @@ func make_static():
 		child.queue_free()
 	GameManager.calculate_max_height(static_body)
 	enable_new_spawn()
+	
 
 # @formatter:on
 
@@ -86,3 +96,8 @@ func make_static():
 func enable_new_spawn() -> void:
 	GameManager.current_droppable = null
 	queue_free()
+
+
+func _on_body_entered(body):
+	# play the sound
+	audio_player.play()

@@ -1,15 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://cmtegffx8jo1e"]
+[gd_scene load_steps=5 format=3 uid="uid://dh825abk6qb7n"]
 
+[ext_resource type="PackedScene" uid="uid://b0paa1uv081k5" path="res://droppables/droppable_base/droppable_base.tscn" id="1_7clmr"]
 [ext_resource type="PackedScene" uid="uid://dpk40dy16eby4" path="res://assets/models/food/wine-white.glb" id="1_ql7i5"]
+[ext_resource type="AudioStream" uid="uid://do8ykcec0nyc" path="res://assets/sounds/glass.ogg" id="2_7clmr"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_s2fp7"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_qr5nd"]
 points = PackedVector3Array(-0.1014, -3.75863e-05, -1.71885e-05, -0.0507198, -3.75863e-05, -0.087815, -0.0783924, -0.0216, -1.71885e-05, -0.0507198, -3.75863e-05, 0.087815, -0.1014, 0.311976, -1.71885e-05, 0.0506802, -3.75863e-05, -0.087815, -0.0392061, -0.0216, -0.0678898, -0.0507198, 0.311976, -0.087815, -0.0392061, -0.0216, 0.0678555, 0.0506802, -3.75863e-05, 0.087815, -0.0507198, 0.311976, 0.087815, -0.0471665, 0.58157, -1.71885e-05, 0.1014, -3.75863e-05, -1.71885e-05, 0.0391664, -0.0216, -0.0678898, 0.0506802, 0.311976, -0.087815, -0.0235832, 0.58157, -0.0408474, 0.0391664, -0.0216, 0.0678555, 0.0506802, 0.311976, 0.087815, -0.0235832, 0.58157, 0.0408302, -0.0334691, 0.634, -1.71885e-05, 0.0783527, -0.0216, -1.71885e-05, 0.1014, 0.311976, -1.71885e-05, 0.0235634, 0.58157, -0.0408474, -0.0167346, 0.634, -0.0289851, 0.0235634, 0.58157, 0.0408302, -0.0167346, 0.634, 0.0289679, 0.0471466, 0.58157, -1.71885e-05, 0.0167147, 0.634, -0.0289851, 0.0334493, 0.634, -1.71885e-05, 0.0167147, 0.634, 0.0289679)
 
-[node name="WhiteWine" type="RigidBody3D"]
+[node name="WhiteWhine" instance=ExtResource("1_7clmr")]
+drop_sound = ExtResource("2_7clmr")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_s2fp7")
+shape = SubResource("ConvexPolygonShape3D_qr5nd")
 
-[node name="wine-white2" parent="." instance=ExtResource("1_ql7i5")]
+[node name="wine-white2" parent="." index="2" instance=ExtResource("1_ql7i5")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)

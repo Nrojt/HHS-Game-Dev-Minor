@@ -20,16 +20,7 @@ func _on_spawn_droppable(location: Vector3) -> void:
 		return
 
 	var random_scene: PackedScene = droppable_scenes.pick_random()
-	var droppable := random_scene.instantiate()
-
-	# Validate node type before adding script
-	if droppable is RigidBody3D:
-		var script: GDScript = load(DROPPABLE_SCRIPT_PATH)
-		droppable.set_script(script)
-	else:
-		push_error("Droppable root node must be RigidBody3D")
-		droppable.queue_free()
-		return
+	var droppable: DroppableBase = random_scene.instantiate()
 
 	droppable.gravity_scale = 0
 
@@ -37,6 +28,7 @@ func _on_spawn_droppable(location: Vector3) -> void:
 	droppable.global_transform.origin = location
 	droppable.global_transform.basis = Transform3D.IDENTITY.basis
 
+	print("setting the droppable to: ", droppable)
 	GameManager.current_droppable = droppable
 
 

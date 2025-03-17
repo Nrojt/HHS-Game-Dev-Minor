@@ -1,15 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://b2djcixoinjg4"]
+[gd_scene load_steps=5 format=3 uid="uid://b0wqmpsvxvmtf"]
 
 [ext_resource type="PackedScene" uid="uid://cyct7cc6p1of7" path="res://assets/models/food/cutting-board.glb" id="1_5bbky"]
+[ext_resource type="PackedScene" uid="uid://b0paa1uv081k5" path="res://droppables/droppable_base/droppable_base.tscn" id="1_d0djc"]
+[ext_resource type="AudioStream" uid="uid://dht37jypmskrp" path="res://assets/sounds/wood.ogg" id="2_d0djc"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cdel8"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_i116c"]
 points = PackedVector3Array(0.289943, 0.06, 0.362322, 0.276034, 0.06, 0.396034, 0.289943, 0, 0.362322, 0.289943, 0.06, -0.362482, 0.276034, 0, 0.396034, 0.242367, 0.06, 0.41, 0.289943, 0, -0.362482, 0.276034, 0.06, -0.396114, 0.242367, 0, 0.41, -0.242424, 0.06, 0.41, 0.276034, 0, -0.396114, 0.242367, 0.06, -0.41, -0.242424, 0, 0.41, -0.27609, 0.06, 0.396034, 0.242367, 0, -0.41, -0.242424, 0.06, -0.41, -0.27609, 0, 0.396034, -0.29, 0.06, 0.362322, -0.242424, 0, -0.41, -0.27609, 0.06, -0.396114, -0.29, 0, 0.362322, -0.29, 0.06, -0.362482, -0.27609, 0, -0.396114, -0.29, 0, -0.362482)
 
-[node name="CuttingBoard" type="RigidBody3D"]
+[node name="CuttingBoard" instance=ExtResource("1_d0djc")]
+drop_sound = ExtResource("2_d0djc")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_cdel8")
+shape = SubResource("ConvexPolygonShape3D_i116c")
 
-[node name="cutting-board2" parent="." instance=ExtResource("1_5bbky")]
+[node name="cutting-board2" parent="." index="2" instance=ExtResource("1_5bbky")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)

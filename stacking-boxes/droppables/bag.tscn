@@ -1,15 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://bna7vam4xd0jj"]
+[gd_scene load_steps=5 format=3 uid="uid://c4no6wk3ao07q"]
 
+[ext_resource type="PackedScene" uid="uid://b0paa1uv081k5" path="res://droppables/droppable_base/droppable_base.tscn" id="1_hqboi"]
 [ext_resource type="PackedScene" uid="uid://cijj8j1hsm1ap" path="res://assets/models/food/bag.glb" id="1_yafqh"]
+[ext_resource type="AudioStream" uid="uid://bnoc438xxr0qv" path="res://assets/sounds/bag.ogg" id="2_c4ohl"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_gqwsr"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_c4ohl"]
 points = PackedVector3Array(0.155, 0.109974, 0.289943, 0.12244, 0.719956, 0.229082, 0.0732518, 0.844731, 0.275125, -0.155, 0.109974, 0.289943, 0.144137, 0, 0.269675, 0.155, 0.109974, -0.29, 0.12244, 0.719956, -0.229139, 0.0832351, 0.844731, -0.275239, -0.0832958, 0.844731, 0.275125, -0.155, 0.109974, -0.29, -0.144167, 0, 0.269675, -0.122471, 0.719956, 0.229082, 0.144137, 0, -0.269732, -0.0732821, 0.844731, -0.275239, -0.122471, 0.719956, -0.229139, -0.144167, 0, -0.269732)
 
-[node name="Bag" type="RigidBody3D"]
+[node name="Bag" instance=ExtResource("1_hqboi")]
+drop_sound = ExtResource("2_c4ohl")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
 transform = Transform3D(1.42, 0, 0, 0, 1.42, 0, 0, 0, 1.42, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_gqwsr")
+shape = SubResource("ConvexPolygonShape3D_c4ohl")
 
-[node name="bag2" parent="." instance=ExtResource("1_yafqh")]
+[node name="bag2" parent="." index="2" instance=ExtResource("1_yafqh")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)

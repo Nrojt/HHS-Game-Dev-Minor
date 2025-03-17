@@ -31,7 +31,12 @@ By pressing TAB, you can switch between the free look camera and the player came
 ### Music and Sound
 
 - All music made by me
-- Sounds TODO
+- Sound effects are from [pixabay.com](https://pixabay.com/sound-effects), cut down and edited by me
+    - [wood.ogg](https://pixabay.com/sound-effects/hitting-wood-6791/)
+    - [apple.ogg](https://pixabay.com/sound-effects/apple-crunch-215258/)
+    - [generic_hit.ogg](https://pixabay.com/sound-effects/book-falling-81232/)
+    - [glass.ogg](https://pixabay.com/sound-effects/falling-glass-42739/)
+    - [bag.ogg](https://pixabay.com/sound-effects/dropping-bag-95101/)
 
 ## Addons
 

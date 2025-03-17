@@ -1,15 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://cgw3pxc4adqp4"]
+[gd_scene load_steps=4 format=3 uid="uid://71xaerfgt8xj"]
 
-[ext_resource type="PackedScene" uid="uid://bbjyj65amym2k" path="res://assets/models/food/banana.glb" id="1_gbunh"]
+[ext_resource type="PackedScene" uid="uid://b0paa1uv081k5" path="res://droppables/droppable_base/droppable_base.tscn" id="1_mx5sr"]
+[ext_resource type="PackedScene" uid="uid://bbjyj65amym2k" path="res://assets/models/food/banana.glb" id="2_2e661"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_u4f3w"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_rr7u5"]
 points = PackedVector3Array(-0.0344135, 0, -0.0273134, 0.0343865, 0, -0.0273134, -0.0302785, 0.0130904, 0.0704721, -0.0688, 0.0595681, -0.0273134, -0.0646785, 0.0681736, -0.130463, -0.0323392, 0.0121704, -0.130463, 0.0323258, 0.0121704, -0.130463, 0.0687865, 0.0595681, -0.0273134, 0.030265, 0.0130904, 0.0704721, -0.0218064, 0.0666404, 0.179664, -0.0605569, 0.0661229, 0.0704721, -0.0238537, 0.16847, -0.314936, -0.0253084, 0.173625, 0.314936, -0.046576, 0.102577, -0.234229, -0.023288, 0.0622513, -0.234229, 0.0232745, 0.0622513, -0.234229, 0.0465626, 0.102577, -0.234229, 0.064665, 0.0681736, -0.130463, 0.0252949, 0.173625, 0.314936, 0.06053, 0.0661229, 0.0704721, 0.0238402, 0.16847, -0.314936, 0.0435859, 0.104819, 0.179664, 0.0217929, 0.0666404, 0.179664, -0.0126609, 0.151469, 0.314936, -0.0435994, 0.104819, 0.179664, -0.0119336, 0.189131, -0.314936, -0.0119336, 0.147809, -0.314936, -0.0126609, 0.195781, 0.314936, 0.0119201, 0.147809, -0.314936, 0.0126475, 0.195781, 0.314936, 0.0126475, 0.151469, 0.314936, 0.0119201, 0.189131, -0.314936)
 
-[node name="Bannana" type="RigidBody3D"]
+[node name="Banana" instance=ExtResource("1_mx5sr")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
 transform = Transform3D(3, 0, 0, 0, -1.31134e-07, -3, 0, 3, -1.31134e-07, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_u4f3w")
+shape = SubResource("ConvexPolygonShape3D_rr7u5")
 
-[node name="banana2" parent="." instance=ExtResource("1_gbunh")]
+[node name="banana2" parent="." index="2" instance=ExtResource("2_2e661")]
 transform = Transform3D(3, 0, 0, 0, -1.31134e-07, -3, 0, 3, -1.31134e-07, 0, 0, 0)

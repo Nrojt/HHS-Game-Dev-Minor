@@ -1,15 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://3hviivs08sfa"]
+[gd_scene load_steps=4 format=3 uid="uid://clupa4htvtmxj"]
 
+[ext_resource type="PackedScene" uid="uid://b0paa1uv081k5" path="res://droppables/droppable_base/droppable_base.tscn" id="1_ru2ss"]
 [ext_resource type="PackedScene" uid="uid://bfrupyob18303" path="res://assets/models/food/cake-birthday.glb" id="1_xxi0p"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ru2ss"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_u22nt"]
 size = Vector3(1.31812, 0.966736, 1.37277)
 
-[node name="BirthdayCake" type="RigidBody3D"]
+[node name="BirthdayCake" instance=ExtResource("1_ru2ss")]
 
-[node name="cake-birthday" parent="." instance=ExtResource("1_xxi0p")]
+[node name="cake-birthday" parent="." index="1" instance=ExtResource("1_xxi0p")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00817871, 0.36911, -0.00779724)
-shape = SubResource("BoxShape3D_ru2ss")
+shape = SubResource("BoxShape3D_u22nt")

@@ -1,16 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://b6dp40nyuba4e"]
+[gd_scene load_steps=5 format=3 uid="uid://crbyr3abk3sam"]
 
+[ext_resource type="PackedScene" uid="uid://b0paa1uv081k5" path="res://droppables/droppable_base/droppable_base.tscn" id="1_biy03"]
 [ext_resource type="PackedScene" uid="uid://dptk2quel6b2f" path="res://assets/models/food/apple.glb" id="1_dekwy"]
+[ext_resource type="AudioStream" uid="uid://dydf3h2l2vsr" path="res://assets/sounds/apple.ogg" id="2_biy03"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_325oy"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7tlki"]
 height = 0.2
 radius = 0.1
 
-[node name="Apple" type="RigidBody3D"]
+[node name="Apple" instance=ExtResource("1_biy03")]
+drop_sound = ExtResource("2_biy03")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0.6, 0)
-shape = SubResource("CylinderShape3D_325oy")
+shape = SubResource("CylinderShape3D_7tlki")
 
-[node name="apple2" parent="." instance=ExtResource("1_dekwy")]
+[node name="apple2" parent="." index="2" instance=ExtResource("1_dekwy")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
