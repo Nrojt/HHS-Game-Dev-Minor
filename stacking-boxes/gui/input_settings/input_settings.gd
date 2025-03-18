@@ -88,9 +88,9 @@ func _create_action_list():
 		var split_events: Dictionary = _split_events_by_type(InputMap.action_get_events(action))
 
 		action_row.find_child("ActionLabel").text = action
-		_set_label_text(action_row, "PrimaryInputLabel", split_events.primary)
-		_set_label_text(action_row, "SecondaryInputLabel", split_events.secondary)
-		_set_label_text(action_row, "ControllerInputLabel", split_events.controller)
+		_set_label_text(action_row, "PrimaryPanelContainer", split_events.primary, action)
+		_set_label_text(action_row, "SecondaryPanelContainer", split_events.secondary, action)
+		_set_label_text(action_row, "ControllerPanelContainer", split_events.controller, action)
 
 		# Proper reparenting sequence
 		for button_child in action_row.get_children():
@@ -186,12 +186,14 @@ func _finalize_remapping():
 	_create_action_list()
 
 
-func _set_label_text(row: Node, label_name: String, event: InputEvent):
-	var label: Node = row.find_child(label_name)
+func _set_label_text(row: Node, container_name: String, event: InputEvent, action_to_remap: String = ""):
+	# Helper to safely set text on labels with fallback
+	var panel: RemapPanel = row.find_child(container_name)
 	if event:
-		label.text = _trim_mapping_suffix(event.as_text())
+		panel.label_path.text = _trim_mapping_suffix(event.as_text())
+		panel.action_to_remap = action_to_remap
 	else:
-		label.text = "Unassigned"
+		panel.label_path.text = "Unassigned"
 
 
 func _create_header_label(text: String, horizontal_alignment: HorizontalAlignment) -> Label:
