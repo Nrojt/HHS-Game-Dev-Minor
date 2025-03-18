@@ -121,6 +121,8 @@ func _on_back_button_pressed():
 
 
 func _on_reset_button_pressed():
+	SaveManager.is_remapping = false
+	SaveManager.action_to_remap = ""
 	InputMap.load_from_project_settings()
 
 	if FileAccess.file_exists(config_path):
