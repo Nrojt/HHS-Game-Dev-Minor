@@ -27,11 +27,14 @@ text = "action"
 vertical_alignment = 1
 
 [node name="PrimaryPanelContainer" type="PanelContainer" parent="." node_paths=PackedStringArray("label_path", "button_path")]
-layout_mode = 2
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 1148.0
-offset_bottom = 27.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -572.0
+offset_right = 572.0
+offset_bottom = 23.0
+grow_horizontal = 2
 script = ExtResource("1_jghxt")
 label_path = NodePath("PrimaryInputLabel")
 button_path = NodePath("PrimaryInputButton")
@@ -40,6 +43,7 @@ button_path = NodePath("PrimaryInputButton")
 layout_mode = 2
 mouse_filter = 1
 text = "input"
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="PrimaryInputButton" type="Button" parent="PrimaryPanelContainer"]
@@ -51,11 +55,14 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_j0ll4")
 theme_override_styles/normal = SubResource("StyleBoxFlat_jghxt")
 
 [node name="SecondaryPanelContainer" type="PanelContainer" parent="." node_paths=PackedStringArray("label_path", "button_path")]
-layout_mode = 2
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 1148.0
-offset_bottom = 27.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -572.0
+offset_right = 572.0
+offset_bottom = 23.0
+grow_horizontal = 2
 script = ExtResource("1_jghxt")
 label_path = NodePath("SecondaryInputLabel")
 button_path = NodePath("SecondaryInputButton")
@@ -65,6 +72,7 @@ input_type = 1
 layout_mode = 2
 mouse_filter = 1
 text = "input"
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="SecondaryInputButton" type="Button" parent="SecondaryPanelContainer"]
@@ -76,11 +84,13 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_j0ll4")
 theme_override_styles/normal = SubResource("StyleBoxFlat_jghxt")
 
 [node name="ControllerPanelContainer" type="PanelContainer" parent="." node_paths=PackedStringArray("label_path", "button_path")]
-layout_mode = 2
-offset_left = 1106.0
-offset_top = 4.0
-offset_right = 1148.0
-offset_bottom = 27.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -42.0
+offset_bottom = 23.0
+grow_horizontal = 0
 size_flags_horizontal = 8
 script = ExtResource("1_jghxt")
 label_path = NodePath("ControllerInputLabel")
@@ -91,6 +101,7 @@ input_type = 2
 layout_mode = 2
 mouse_filter = 1
 text = "input"
+horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="InputButton" type="Button" parent="ControllerPanelContainer"]

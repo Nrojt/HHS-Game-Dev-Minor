@@ -73,11 +73,11 @@ func _create_action_list():
 	for child in action_list.get_children():
 		child.queue_free()
 
-	# Add header labels directly to GridContainer
-	action_list.add_child(_create_header_label("Action"))
-	action_list.add_child(_create_header_label("Primary Input"))
-	action_list.add_child(_create_header_label("Secondary Input"))
-	action_list.add_child(_create_header_label("Controller Input"))
+	# Add header labels to GridContainer
+	action_list.add_child(_create_header_label("Action", HORIZONTAL_ALIGNMENT_LEFT))
+	action_list.add_child(_create_header_label("Primary Input", HORIZONTAL_ALIGNMENT_CENTER))
+	action_list.add_child(_create_header_label("Secondary Input", HORIZONTAL_ALIGNMENT_CENTER))
+	action_list.add_child(_create_header_label("Controller Input", HORIZONTAL_ALIGNMENT_RIGHT))
 
 	# Add action rows
 	for action in InputMap.get_actions():
@@ -98,7 +98,6 @@ func _create_action_list():
 			action_list.add_child(button_child)   # Add to new parent
 
 		action_row.queue_free()  # Clean up the empty container
-
 
 
 func _trim_mapping_suffix(mapping: String) -> String:
@@ -192,9 +191,11 @@ func _set_label_text(row: Node, label_name: String, event: InputEvent):
 	else:
 		label.text = "Unassigned"
 
-func _create_header_label(text: String) -> Label:
+
+func _create_header_label(text: String, horizontal_alignment: HorizontalAlignment) -> Label:
 	var label := Label.new()
 	label.text = text
+	label.horizontal_alignment = horizontal_alignment
+	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	label.add_theme_font_size_override("font_size", 20)
-	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	return label
