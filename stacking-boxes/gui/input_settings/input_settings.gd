@@ -69,9 +69,17 @@ func _load_input_settings():
 
 func _create_action_list():
 	error_text.text = ""
+	# Clear existing children
 	for child in action_list.get_children():
 		child.queue_free()
 
+	# Add header labels directly to GridContainer
+	action_list.add_child(_create_header_label("Action"))
+	action_list.add_child(_create_header_label("Primary Input"))
+	action_list.add_child(_create_header_label("Secondary Input"))
+	action_list.add_child(_create_header_label("Controller Input"))
+
+	# Add action rows
 	for action in InputMap.get_actions():
 		if action.begins_with("ui_"):
 			continue
@@ -84,7 +92,13 @@ func _create_action_list():
 		_set_label_text(action_row, "SecondaryInputLabel", split_events.secondary)
 		_set_label_text(action_row, "ControllerInputLabel", split_events.controller)
 
-		action_list.add_child(action_row)
+		# Proper reparenting sequence
+		for button_child in action_row.get_children():
+			action_row.remove_child(button_child)  # Remove from original parent
+			action_list.add_child(button_child)   # Add to new parent
+
+		action_row.queue_free()  # Clean up the empty container
+
 
 
 func _trim_mapping_suffix(mapping: String) -> String:
@@ -171,9 +185,16 @@ func _finalize_remapping():
 	_create_action_list()
 
 
-func _set_label_text(row: MarginContainer, label_name: String, event: InputEvent):
+func _set_label_text(row: Node, label_name: String, event: InputEvent):
 	var label: Node = row.find_child(label_name)
 	if event:
 		label.text = _trim_mapping_suffix(event.as_text())
 	else:
 		label.text = "Unassigned"
+
+func _create_header_label(text: String) -> Label:
+	var label := Label.new()
+	label.text = text
+	label.add_theme_font_size_override("font_size", 20)
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	return label
