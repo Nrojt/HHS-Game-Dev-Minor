@@ -2,8 +2,10 @@ extends Control
 
 @onready var input_button_scene: PackedScene = preload("uid://c742rhgrg2wc2")
 @onready var action_list: GridContainer = %ActionList
+@onready var error_text: Label = %ErrorText
 
 var config_path: String = "user://input_settings.cfg"
+var config_heading: String = "input"
 
 
 func _ready():
@@ -11,13 +13,14 @@ func _ready():
 
 
 func _input(event: InputEvent) -> void:
-	if not SaveManager.is_remapping:
+	if not SaveManager.is_remapping || event is InputEventMouseMotion:
 		return
 
 	var input_type = SaveManager.input_type
 	var action = SaveManager.action_to_remap
 
 	if not _is_valid_event_for_input_type(event, input_type):
+		error_text.text = "Invalid input event for this action"
 		return
 
 	if event is InputEventMouseButton and event.double_click:
@@ -25,7 +28,7 @@ func _input(event: InputEvent) -> void:
 		event.double_click = false
 
 	if _is_event_already_assigned(event, action):
-		print("Input event already assigned to another action")
+		error_text.text = "Input event already assigned to another action"
 		return
 
 	var current_events: Array[InputEvent] = InputMap.action_get_events(action)
@@ -46,7 +49,7 @@ func _save_input_settings():
 		if action.begins_with("ui_"):
 			continue
 
-		config.set_value("input", action, InputMap.action_get_events(action))
+		config.set_value(config_heading, action, InputMap.action_get_events(action))
 
 	config.save(config_path)
 
@@ -56,15 +59,16 @@ func _load_input_settings():
 	var config = ConfigFile.new()
 
 	if config.load(config_path) == OK:
-		for action in config.get_section_keys("input"):
+		for action in config.get_section_keys(config_heading):
 			InputMap.action_erase_events(action)
-			for event in config.get_value("input", action):
+			for event in config.get_value(config_heading, action):
 				InputMap.action_add_event(action, event)
 
 	_create_action_list()
 
 
 func _create_action_list():
+	error_text.text = ""
 	for child in action_list.get_children():
 		child.queue_free()
 
