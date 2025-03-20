@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqy1qfsxakkbd"]
+
+[ext_resource type="Script" uid="uid://w7fco8v74vh7" path="res://gui/settings_menu/drop_down.gd" id="1_rxl7r"]
+
+[node name="DropDown" type="HBoxContainer"]
+theme_override_constants/separation = 15
+script = ExtResource("1_rxl7r")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+
+[node name="OptionButton" type="OptionButton" parent="."]
+layout_mode = 2

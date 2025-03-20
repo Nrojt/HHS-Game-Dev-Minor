@@ -1,5 +1,4 @@
 # Scene with a checkbox to switch settings with boolean values
-@tool
 extends HBoxContainer
 
 # Emitted when the `CheckBox` state changes

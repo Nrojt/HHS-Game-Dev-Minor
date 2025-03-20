@@ -25,6 +25,12 @@ GameManager="*res://autoload/game_manager.gd"
 SceneManager="*res://autoload/scene_manager.gd"
 DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="viewport"
+
 [editor_plugins]
 
 enabled=PackedStringArray()

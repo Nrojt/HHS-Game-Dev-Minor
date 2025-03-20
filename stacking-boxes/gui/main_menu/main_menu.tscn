@@ -51,3 +51,4 @@ quit_button_visible = true
 [node name="MainMenuMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_caoyo")
 autoplay = true
+bus = &"Music"

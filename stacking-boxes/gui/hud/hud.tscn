@@ -24,3 +24,4 @@ script = ExtResource("1_vhcgd")
 process_mode = 3
 stream = ExtResource("3_qpkdk")
 autoplay = true
+bus = &"Music"

@@ -1,5 +1,4 @@
 # Scene with a horizontal slider for float value settings
-@tool
 extends HBoxContainer
 
 # Emitted when slider value changes

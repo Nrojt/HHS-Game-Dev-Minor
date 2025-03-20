@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://cyimkh1kw78at"]
+[gd_scene load_steps=5 format=3 uid="uid://cyimkh1kw78at"]
 
 [ext_resource type="Script" uid="uid://5axvhki5xx31" path="res://gui/settings_menu/settings_menu.gd" id="1_cehoh"]
 [ext_resource type="PackedScene" uid="uid://q8o4t7r6gi5g" path="res://gui/settings_menu/ui_settings_check_box.tscn" id="2_fasm0"]
 [ext_resource type="PackedScene" uid="uid://lcffax1d8w7w" path="res://gui/settings_menu/slider_hbox.tscn" id="2_vbnwq"]
+[ext_resource type="PackedScene" uid="uid://bqy1qfsxakkbd" path="res://gui/settings_menu/drop_down.tscn" id="3_vbnwq"]
 
 [node name="SettingsMenu" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -37,6 +39,11 @@ theme_override_constants/margin_bottom = 25
 layout_mode = 2
 theme_override_constants/separation = 25
 
+[node name="AudioTitle" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Audio"
+horizontal_alignment = 1
+
 [node name="MasterVolumeSlider" parent="Panel/MarginContainer/VBoxContainer" instance=ExtResource("2_vbnwq")]
 layout_mode = 2
 title = "Master:"
@@ -51,6 +58,22 @@ value = 100.0
 layout_mode = 2
 title = "Sound:"
 value = 100.0
+
+[node name="GraphicsTitle" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Graphics"
+horizontal_alignment = 1
+
+[node name="ResolutionsDropdown" parent="Panel/MarginContainer/VBoxContainer" instance=ExtResource("3_vbnwq")]
+unique_name_in_owner = true
+layout_mode = 2
+title = "Resolutions:"
+
+[node name="ScreenTypeDropdown" parent="Panel/MarginContainer/VBoxContainer" instance=ExtResource("3_vbnwq")]
+unique_name_in_owner = true
+layout_mode = 2
+title = "ScreenType:"
+options = Array[String](["FullScreen", "Windowed", "BorderlessWindowed"])
 
 [node name="VSyncToggle" parent="Panel/MarginContainer/VBoxContainer" instance=ExtResource("2_fasm0")]
 layout_mode = 2
@@ -87,6 +110,10 @@ layout_mode = 2
 text = "Change Keybinds"
 
 [connection signal="value_changed" from="Panel/MarginContainer/VBoxContainer/MasterVolumeSlider" to="." method="_on_master_volume_slider_value_changed"]
+[connection signal="value_changed" from="Panel/MarginContainer/VBoxContainer/MusicVolumeSlider" to="." method="_on_music_volume_slider_value_changed"]
+[connection signal="value_changed" from="Panel/MarginContainer/VBoxContainer/SoundVolumeSlider" to="." method="_on_sound_volume_slider_value_changed"]
+[connection signal="option_selected" from="Panel/MarginContainer/VBoxContainer/ResolutionsDropdown" to="." method="_on_resolutions_dropdown_option_selected"]
+[connection signal="option_selected" from="Panel/MarginContainer/VBoxContainer/ScreenTypeDropdown" to="." method="_on_screen_type_dropdown_option_selected"]
 [connection signal="toggled" from="Panel/MarginContainer/VBoxContainer/VSyncToggle" to="." method="_on_v_sync_toggle_toggled"]
 [connection signal="value_changed" from="Panel/MarginContainer/VBoxContainer/ScalingResolution" to="." method="_on_scaling_resolution_value_changed"]
 [connection signal="toggled" from="Panel/MarginContainer/VBoxContainer/FSRToggle" to="." method="_on_fsr_toggle_toggled"]
