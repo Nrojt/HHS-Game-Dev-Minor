@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bwox3q508ewxc"]
 
-[ext_resource type="Script" uid="uid://bfibpwpakip6s" path="res://gui/input_settings/input_settings.gd" id="1_v41sd"]
+[ext_resource type="Script" uid="uid://bfibpwpakip6s" path="res://gui/settings_menu/input_settings/input_settings.gd" id="1_v41sd"]
 
 [node name="InputSettings" type="Control"]
 process_mode = 3

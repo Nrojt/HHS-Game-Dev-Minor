@@ -45,7 +45,7 @@ func _on_quit_button_pressed():
 
 func _on_settings_button_pressed():
 	# TODO map to actual settings menu, not just remapping menu
-	SignalManager.add_child_scene.emit("uid://bwox3q508ewxc", false)
+	SignalManager.add_child_scene.emit("uid://cyimkh1kw78at", false)
 
 
 func _on_try_again_button_pressed():

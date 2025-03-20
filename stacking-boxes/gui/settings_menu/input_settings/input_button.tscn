@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c742rhgrg2wc2"]
 
-[ext_resource type="Script" uid="uid://bqs6tl225w47n" path="res://gui/input_settings/remap_pannel.gd" id="1_jghxt"]
+[ext_resource type="Script" uid="uid://bqs6tl225w47n" path="res://gui/settings_menu/input_settings/remap_pannel.gd" id="1_jghxt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j0ll4"]
 bg_color = Color(1, 1, 1, 0.588235)
