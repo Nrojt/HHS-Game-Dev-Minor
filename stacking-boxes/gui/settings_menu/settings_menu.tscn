@@ -45,16 +45,19 @@ text = "Audio"
 horizontal_alignment = 1
 
 [node name="MasterVolumeSlider" parent="Panel/MarginContainer/VBoxContainer" instance=ExtResource("2_vbnwq")]
+unique_name_in_owner = true
 layout_mode = 2
 title = "Master:"
 value = 75.0
 
 [node name="MusicVolumeSlider" parent="Panel/MarginContainer/VBoxContainer" instance=ExtResource("2_vbnwq")]
+unique_name_in_owner = true
 layout_mode = 2
 title = "Music:"
 value = 100.0
 
 [node name="SoundVolumeSlider" parent="Panel/MarginContainer/VBoxContainer" instance=ExtResource("2_vbnwq")]
+unique_name_in_owner = true
 layout_mode = 2
 title = "Sound:"
 value = 100.0
@@ -76,16 +79,18 @@ title = "ScreenType:"
 options = Array[String](["FullScreen", "Windowed", "BorderlessWindowed"])
 
 [node name="VSyncToggle" parent="Panel/MarginContainer/VBoxContainer" instance=ExtResource("2_fasm0")]
+unique_name_in_owner = true
 layout_mode = 2
 title = "VSync:"
-checked = true
 
 [node name="ScalingResolution" parent="Panel/MarginContainer/VBoxContainer" instance=ExtResource("2_vbnwq")]
+unique_name_in_owner = true
 layout_mode = 2
 title = "Scaling Resolution:"
 value = 100.0
 
 [node name="FSRToggle" parent="Panel/MarginContainer/VBoxContainer" instance=ExtResource("2_fasm0")]
+unique_name_in_owner = true
 layout_mode = 2
 title = "FSR2:"
 

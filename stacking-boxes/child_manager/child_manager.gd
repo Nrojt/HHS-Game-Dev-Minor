@@ -41,6 +41,7 @@ func _on_reload_children(caller: Node, delete_caller: bool) -> void:
 # function to check if the node is Control, and if so make a canvas layer as parent
 func child_scene_check_controll(child: Node) -> void:
 	if child is Control:
+		print("Child is Control, adding CanvasLayer")
 		var canvas_layer = CanvasLayer.new()
 		canvas_layer.add_child(child)
 		add_child(canvas_layer)

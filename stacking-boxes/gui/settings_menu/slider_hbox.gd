@@ -1,5 +1,5 @@
 # Scene with a horizontal slider for float value settings
-extends HBoxContainer
+class_name SliderHbox extends HBoxContainer
 
 # Emitted when slider value changes
 signal value_changed(value: float)
