@@ -40,7 +40,7 @@ func _populate_screen_types() -> void:
 func _on_resolutions_dropdown_option_selected(index: int) -> void:
 	var selected_res: Vector2i =  resolutions[index]
 	print(selected_res)
-	DisplayServer.window_set_size(selected_res)
+	get_window().set_size(selected_res)
 
 func _on_screen_type_dropdown_option_selected(index: int) -> void:
 	var mode : DisplayServer.WindowMode = screen_types.values()[index]
