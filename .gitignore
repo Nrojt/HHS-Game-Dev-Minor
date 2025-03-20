@@ -12,11 +12,6 @@ mono_crash.*.json
 # Idea
 .idea
 
-# Ignore everything in any addons directory
-**/addons/*
-
-# Specifically allow markdown files in any addons directory
-!**/addons/*.md
 
 # Temp files
 *.TMP
