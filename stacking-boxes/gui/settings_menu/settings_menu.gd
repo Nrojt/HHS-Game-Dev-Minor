@@ -1,5 +1,9 @@
 extends Control
 
+# TODO: fix issue with resolutions, it only applies to the window, not the viewport itself
+# TODO: move so it can run on load
+# TODO: refactor
+
 const CONFIG_PATH: String = "user://settings.cfg"
 @onready var resolutions_drop_down: SettingsDropDown = %ResolutionsDropdown
 @onready var screen_type_drop_down: SettingsDropDown = %ScreenTypeDropdown
@@ -14,12 +18,12 @@ const CONFIG_PATH: String = "user://settings.cfg"
 var resolutions: Array[Vector2i] = [
 								   Vector2i(3840, 2160),
 								   Vector2i(2560, 1440),
+	Vector2i(2440, 1400),
 								   Vector2i(1920, 1080),
 								   Vector2i(1280, 720),
-								   Vector2i(1366, 768),
 								   Vector2i(1600, 900),
 								   Vector2i(1440, 900),
-								   Vector2i(1280, 800),
+								   Vector2i(1280, 720),
 								   Vector2i(854, 480)
 								   ]
 
@@ -51,7 +55,7 @@ func _populate_screen_types() -> void:
 
 
 func save_settings(section: String, key: String, value: Variant) -> void:
-	var config = ConfigFile.new()
+	var config     = ConfigFile.new()
 	var load_error = config.load(CONFIG_PATH)
 	if load_error != OK and load_error != ERR_FILE_NOT_FOUND:
 		printerr("Failed to load settings from %s. Error code: %d" % [CONFIG_PATH, load_error])
@@ -64,12 +68,23 @@ func save_settings(section: String, key: String, value: Variant) -> void:
 func load_settings() -> void:
 	var config = ConfigFile.new()
 
+	var err : int = config.load(CONFIG_PATH)
+	if not err == OK:
+		# create empty config file
+		if err == ERR_FILE_NOT_FOUND:
+			config.save(CONFIG_PATH)
+		else:
+			push_error("Failed to load settings from %s. Error code: %d" % [CONFIG_PATH, err])
+			return
+
 	# Display settings
 	var resolution_from_save: Vector2i = config.get_value("display", "resolution_index", Vector2i(1920, 1080)) # Defaulting to 1920x1080
-	var resolution_index: int = resolutions.find(resolution_from_save)
+	var resolution_index: int          = resolutions.find(resolution_from_save)
 	if resolution_index < 0 or resolution_index >= resolutions.size():
 		resolution_index = 2
 	resolutions_drop_down.options_dropdown.select(resolution_index)
+	get_viewport().size = resolutions[resolution_index]
+	print(get_viewport().size)
 	get_window().set_size(resolutions[resolution_index])
 
 	var window_mode = config.get_value("display", "window_mode", DisplayServer.WINDOW_MODE_WINDOWED)
@@ -81,7 +96,7 @@ func load_settings() -> void:
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if vsync_enabled else DisplayServer.VSYNC_DISABLED)
 
 	var scaling_value = config.get_value("display", "scaling_resolution", 100.0)
-	scaling_resolution.slider.value = scaling_value
+	scaling_resolution.value = scaling_value
 	get_window().scaling_3d_scale = scaling_value / 100
 
 	var fsr_enabled = config.get_value("display", "fsr_enabled", false)
@@ -90,15 +105,15 @@ func load_settings() -> void:
 
 	# Audio settings
 	var master_vol = config.get_value("audio", "master_volume", 100.0)
-	master_volume_slider.slider.value = master_vol
+	master_volume_slider.value = master_vol
 	AudioServer.set_bus_volume_db(0, _calculate_audio_db(master_vol))
 
 	var music_vol = config.get_value("audio", "music_volume", 100.0)
-	music_volume_slider.slider.value = music_vol
+	music_volume_slider.value = music_vol
 	AudioServer.set_bus_volume_db(2, _calculate_audio_db(music_vol))
 
 	var sound_vol = config.get_value("audio", "sound_volume", 100.0)
-	sound_volume_slider.slider.value = sound_vol
+	sound_volume_slider.value = sound_vol
 	AudioServer.set_bus_volume_db(1, _calculate_audio_db(sound_vol))
 
 
@@ -117,27 +132,24 @@ func _on_screen_type_dropdown_option_selected(index: int) -> void:
 
 func _update_screen_type_selection() -> void:
 	var current_mode: int = DisplayServer.window_get_mode()
-	var index: int = screen_types.values().find(current_mode)
+	var index: int        = screen_types.values().find(current_mode)
 	if index >= 0:
 		screen_type_drop_down.options_dropdown.select(index)
 
 
 func _on_master_volume_slider_value_changed(value: float) -> void:
-	var db_value : float= _calculate_audio_db(value)
-	AudioServer.set_bus_volume_db(0, db_value)
-	save_settings("audio", "master_volume", db_value)
+	AudioServer.set_bus_volume_db(0, _calculate_audio_db(value))
+	save_settings("audio", "master_volume", value)
 
 
 func _on_music_volume_slider_value_changed(value: float) -> void:
-	var db_value : float= _calculate_audio_db(value)
-	AudioServer.set_bus_volume_db(2, db_value)
-	save_settings("audio", "music_volume", db_value)
+	AudioServer.set_bus_volume_db(2, _calculate_audio_db(value))
+	save_settings("audio", "music_volume", value)
 
 
 func _on_sound_volume_slider_value_changed(value: float) -> void:
-	var db_value : float = _calculate_audio_db(value)
-	AudioServer.set_bus_volume_db(1, db_value)
-	save_settings("audio", "sound_volume", db_value)
+	AudioServer.set_bus_volume_db(1, _calculate_audio_db(value))
+	save_settings("audio", "sound_volume", value)
 
 
 func _on_key_bind_button_pressed() -> void:
@@ -167,11 +179,9 @@ func _on_fsr_toggle_toggled(is_button_pressed: bool) -> void:
 	)
 	save_settings("display", "fsr_enabled", is_button_pressed)
 
+
 func _calculate_audio_db(value: float) -> float:
 	if value == 0:
 		return -85.0  # Mute
-	elif value == 100:
-		return 0.0  # Full volume
-	print(value)
 	# Convert a percentage value to decibels
 	return (value / 100) * 85.0 - 85.0
