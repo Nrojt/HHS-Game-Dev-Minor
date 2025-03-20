@@ -63,12 +63,6 @@ func save_settings(section: String, key: String, value: Variant) -> void:
 
 func load_settings() -> void:
 	var config = ConfigFile.new()
-	var error = config.load(CONFIG_PATH)
-
-	if error != OK:
-		print("No settings file found or error loading. Using defaults.")
-		apply_default_settings()
-		return
 
 	# Display settings
 	var resolution_from_save: Vector2i = config.get_value("display", "resolution_index", Vector2i(1920, 1080)) # Defaulting to 1920x1080
@@ -95,36 +89,17 @@ func load_settings() -> void:
 	get_viewport().scaling_3d_mode = Viewport.SCALING_3D_MODE_FSR if fsr_enabled else Viewport.SCALING_3D_MODE_BILINEAR
 
 	# Audio settings
-	var master_vol = config.get_value("audio", "master_volume", 80.0)
+	var master_vol = config.get_value("audio", "master_volume", 100.0)
 	master_volume_slider.slider.value = master_vol
-	AudioServer.set_bus_volume_db(0, (master_vol / 100) * 85 - 85)
+	AudioServer.set_bus_volume_db(0, _calculate_audio_db(master_vol))
 
-	var music_vol = config.get_value("audio", "music_volume", 80.0)
+	var music_vol = config.get_value("audio", "music_volume", 100.0)
 	music_volume_slider.slider.value = music_vol
-	AudioServer.set_bus_volume_db(2, (music_vol / 100) * 85 - 85)
+	AudioServer.set_bus_volume_db(2, _calculate_audio_db(music_vol))
 
-	var sound_vol = config.get_value("audio", "sound_volume", 80.0)
+	var sound_vol = config.get_value("audio", "sound_volume", 100.0)
 	sound_volume_slider.slider.value = sound_vol
-	AudioServer.set_bus_volume_db(1, (sound_vol / 100) * 85 - 85)
-
-
-func apply_default_settings() -> void:
-	resolutions_drop_down.options_dropdown.select(2) # TODO: Make this dynamic, get the current resolution
-	get_window().set_size(resolutions[2])
-	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-	_update_screen_type_selection()
-	v_sync_toggle.check_box.button_pressed = true
-	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
-	scaling_resolution.slider.value = 100
-	get_window().scaling_3d_scale = 1.0
-	fsr_toggle.check_box.button_pressed = false
-	get_viewport().scaling_3d_mode = Viewport.SCALING_3D_MODE_BILINEAR
-	master_volume_slider.slider.value = 80
-	AudioServer.set_bus_volume_db(0, -17)
-	music_volume_slider.slider.value = 80
-	AudioServer.set_bus_volume_db(2, -17)
-	sound_volume_slider.slider.value = 80
-	AudioServer.set_bus_volume_db(1, -17)
+	AudioServer.set_bus_volume_db(1, _calculate_audio_db(sound_vol))
 
 
 func _on_resolutions_dropdown_option_selected(index: int) -> void:
@@ -148,19 +123,19 @@ func _update_screen_type_selection() -> void:
 
 
 func _on_master_volume_slider_value_changed(value: float) -> void:
-	var db_value := (value / 100) * 85 - 85
+	var db_value : float= _calculate_audio_db(value)
 	AudioServer.set_bus_volume_db(0, db_value)
 	save_settings("audio", "master_volume", db_value)
 
 
 func _on_music_volume_slider_value_changed(value: float) -> void:
-	var db_value := (value / 100) * 85 - 85
+	var db_value : float= _calculate_audio_db(value)
 	AudioServer.set_bus_volume_db(2, db_value)
 	save_settings("audio", "music_volume", db_value)
 
 
 func _on_sound_volume_slider_value_changed(value: float) -> void:
-	var db_value := (value / 100) * 85 - 85
+	var db_value : float = _calculate_audio_db(value)
 	AudioServer.set_bus_volume_db(1, db_value)
 	save_settings("audio", "sound_volume", db_value)
 
@@ -191,3 +166,12 @@ func _on_fsr_toggle_toggled(is_button_pressed: bool) -> void:
 	Viewport.SCALING_3D_MODE_FSR if is_button_pressed else Viewport.SCALING_3D_MODE_BILINEAR
 	)
 	save_settings("display", "fsr_enabled", is_button_pressed)
+
+func _calculate_audio_db(value: float) -> float:
+	if value == 0:
+		return -85.0  # Mute
+	elif value == 100:
+		return 0.0  # Full volume
+	print(value)
+	# Convert a percentage value to decibels
+	return (value / 100) * 85.0 - 85.0
