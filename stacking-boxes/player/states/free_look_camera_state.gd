@@ -12,7 +12,6 @@ extends CameraState
 func enter() -> void:
 	# Resetting the camera_transformer to its initial position and rotation
 	camera_transformer.global_position = camera_transformer_location + Vector3(0, 0.5, 0)
-	clamp( camera_transformer.global_position,camera_transformer_location ,GameManager.max_height)
 	camera_transformer.global_rotation = camera_transformer_initial_rotation
 
 

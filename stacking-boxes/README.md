@@ -23,6 +23,7 @@ By pressing TAB, you can switch between the free look camera and the player came
 
 - [Food](https://kenney.nl/assets/food-kit)
 - [Level Assets](https://kaylousberg.itch.io/kaykit-dungeon-remastered) - Free version
+- [Sky](https://polyhaven.com/a/autumn_field_puresky)
 
 ### Scripts
 
