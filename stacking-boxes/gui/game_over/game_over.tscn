@@ -44,6 +44,12 @@ layout_mode = 2
 text = "Score:"
 horizontal_alignment = 1
 
+[node name="HighScoreLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "HighScore:"
+horizontal_alignment = 1
+
 [node name="ButtonsVBox" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_g43vs")]
 layout_mode = 2
 size_flags_horizontal = 4
