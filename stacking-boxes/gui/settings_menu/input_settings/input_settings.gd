@@ -4,7 +4,6 @@ extends Control
 @onready var action_list: GridContainer = %ActionList
 @onready var error_text: Label = %ErrorText
 
-var config_path: String = "user://input_settings.cfg"
 var config_heading: String = "input"
 
 
@@ -51,14 +50,14 @@ func _save_input_settings():
 
 		config.set_value(config_heading, action, InputMap.action_get_events(action))
 
-	config.save(config_path)
+	config.save(SaveManager.CONFIG_PATH)
 
 
 func _load_input_settings():
 	InputMap.load_from_project_settings()
 	var config = ConfigFile.new()
 
-	if config.load(config_path) == OK:
+	if config.load(SaveManager.CONFIG_PATH) == OK:
 		for action in config.get_section_keys(config_heading):
 			InputMap.action_erase_events(action)
 			for event in config.get_value(config_heading, action):
@@ -125,8 +124,8 @@ func _on_reset_button_pressed():
 	SaveManager.action_to_remap = ""
 	InputMap.load_from_project_settings()
 
-	if FileAccess.file_exists(config_path):
-		DirAccess.remove_absolute(config_path)
+	if FileAccess.file_exists(SaveManager.CONFIG_PATH):
+		DirAccess.remove_absolute(SaveManager.CONFIG_PATH)
 
 	_create_action_list()
 
