@@ -1,8 +1,5 @@
 extends Control
 
-# TODO: fix issue with resolutions, it only applies to the window, not the viewport itself
-
-
 @onready var resolutions_drop_down: SettingsDropDown = %ResolutionsDropdown
 @onready var screen_type_drop_down: SettingsDropDown = %ScreenTypeDropdown
 @onready var master_volume_slider: SliderHbox = %MasterVolumeSlider
@@ -14,24 +11,24 @@ extends Control
 
 # Resolutions
 var resolutions: Array[Vector2i] = [
-								   Vector2i(3840, 2160),
-								   Vector2i(2560, 1440),
-	Vector2i(2440, 1400),
-								   Vector2i(1920, 1080),
-								   Vector2i(1280, 720),
-								   Vector2i(1600, 900),
-								   Vector2i(1440, 900),
-								   Vector2i(1280, 720),
-								   Vector2i(854, 480)
-								   ]
+Vector2i(3840, 2160),
+Vector2i(2560, 1440),
+Vector2i(2440, 1400),
+Vector2i(1920, 1080),
+Vector2i(1280, 720),
+Vector2i(1600, 900),
+Vector2i(1440, 900),
+Vector2i(1280, 720),
+Vector2i(854, 480)
+]
 
 # Screen type options
 var screen_types: Dictionary = {
-								   "Windowed": DisplayServer.WINDOW_MODE_WINDOWED,
-								   "Fullscreen": DisplayServer.WINDOW_MODE_FULLSCREEN,
-								   "Exclusive Fullscreen": DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN,
-								   "Maximized": DisplayServer.WINDOW_MODE_MAXIMIZED
-							   }
+	"Windowed": DisplayServer.WINDOW_MODE_WINDOWED,
+	"Fullscreen": DisplayServer.WINDOW_MODE_FULLSCREEN,
+	"Exclusive Fullscreen": DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN,
+	"Maximized": DisplayServer.WINDOW_MODE_MAXIMIZED
+}
 
 
 func _ready():
@@ -53,7 +50,7 @@ func _populate_screen_types() -> void:
 
 
 func save_settings(section: String, key: String, value: Variant) -> void:
-	var config   : ConfigFile  = SaveManager.get_config()
+	var config: ConfigFile = SaveManager.get_config()
 	config.set_value(section, key, value)
 	var save_error: int = config.save(SaveManager.CONFIG_PATH)
 	if save_error != OK:
@@ -61,7 +58,7 @@ func save_settings(section: String, key: String, value: Variant) -> void:
 
 
 func load_settings() -> void:
-	var config  : ConfigFile   = SaveManager.get_config()
+	var config: ConfigFile = SaveManager.get_config()
 
 	# Display settings												
 	var resolution_from_save: Vector2i = config.get_value("display", "resolution_index", Vector2i(1920, 1080)) # Defaulting to 1920x1080
@@ -72,7 +69,7 @@ func load_settings() -> void:
 	resolutions_drop_down.options_dropdown.select(resolution_index)
 
 	_update_screen_type_selection()
-	
+
 	v_sync_toggle.check_box.button_pressed = config.get_value("display", "vsync", true)
 
 	scaling_resolution.value = config.get_value("display", "scaling_resolution", 100.0)
@@ -81,16 +78,16 @@ func load_settings() -> void:
 
 	# Audio settings
 	master_volume_slider.value = config.get_value("audio", "master_volume", 100.0)
-	
+
 	music_volume_slider.value = config.get_value("audio", "music_volume", 100.0)
-	
+
 	sound_volume_slider.value = config.get_value("audio", "sound_volume", 100.0)
 
 
 func _on_resolutions_dropdown_option_selected(index: int) -> void:
 	var resolution: Vector2i = resolutions[index]
 	get_window().set_size(resolution)
-	save_settings("display", "resolution_index", resolution)  # Save index instead of Vector2
+	save_settings("display", "resolution_index", resolution)
 
 
 func _on_screen_type_dropdown_option_selected(index: int) -> void:
@@ -102,7 +99,7 @@ func _on_screen_type_dropdown_option_selected(index: int) -> void:
 
 func _update_screen_type_selection() -> void:
 	var current_mode: int = DisplayServer.window_get_mode()
-	var index: int        = screen_types.values().find(current_mode)
+	var index: int = screen_types.values().find(current_mode)
 	if index >= 0:
 		screen_type_drop_down.options_dropdown.select(index)
 
