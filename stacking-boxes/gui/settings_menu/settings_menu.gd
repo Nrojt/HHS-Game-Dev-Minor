@@ -32,6 +32,7 @@ var screen_types: Dictionary = {
 
 
 func _ready():
+	SignalManager.set_button_visibility.emit(false)
 	_populate_resolutions()
 	_populate_screen_types()
 	load_settings()
@@ -124,10 +125,12 @@ func _on_key_bind_button_pressed() -> void:
 
 
 func _on_back_button_pressed() -> void:
+	SignalManager.set_button_visibility.emit(true)
 	queue_free()
 
 
 func _on_v_sync_toggle_toggled(is_button_pressed: bool) -> void:
+	print("vsync")
 	DisplayServer.window_set_vsync_mode(
 		DisplayServer.VSYNC_ENABLED if is_button_pressed else DisplayServer.VSYNC_DISABLED
 	)

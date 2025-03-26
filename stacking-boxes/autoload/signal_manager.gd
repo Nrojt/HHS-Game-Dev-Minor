@@ -13,3 +13,5 @@ signal add_child_scene(path: String, clear_other: bool)
 signal reload_children(caller: Node, delete_caller: bool)
 # Game signals
 signal resume_game()
+# Ui signals
+signal set_button_visibility(visible: bool)

@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://bwox3q508ewxc"]
+[gd_scene load_steps=3 format=3 uid="uid://bwox3q508ewxc"]
 
 [ext_resource type="Script" uid="uid://bfibpwpakip6s" path="res://gui/settings_menu/input_settings/input_settings.gd" id="1_v41sd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nmdhe"]
+bg_color = Color(0.337255, 0.537255, 0.733333, 0.898039)
 
 [node name="InputSettings" type="Control"]
 process_mode = 3
@@ -10,6 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
 script = ExtResource("1_v41sd")
 
 [node name="Panel" type="Panel" parent="."]
@@ -17,12 +21,9 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 33.0
-offset_top = 22.0
-offset_right = -33.0
-offset_bottom = -22.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nmdhe")
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel"]
 layout_mode = 1
