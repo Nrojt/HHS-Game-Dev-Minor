@@ -1,7 +1,5 @@
 extends Control
 
-# TODO: changing input resets the other settings back to default
-
 @onready var input_button_scene: PackedScene = preload("uid://c742rhgrg2wc2")
 @onready var action_list: GridContainer = %ActionList
 @onready var error_text: Label = %ErrorText
@@ -44,7 +42,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _save_input_settings():
-	var config: ConfigFile = SaveManager.get_config()
+	var config: ConfigFile = SaveManager.config
 
 	for action in InputMap.get_actions():
 		if action.begins_with("ui_"):
@@ -57,7 +55,7 @@ func _save_input_settings():
 
 func _load_input_settings():
 	InputMap.load_from_project_settings()
-	var config: ConfigFile = SaveManager.get_config()
+	var config: ConfigFile = SaveManager.config
 
 	if config.load(SaveManager.CONFIG_PATH) == OK:
 		for action in config.get_section_keys(config_heading):

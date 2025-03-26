@@ -51,7 +51,7 @@ func _populate_screen_types() -> void:
 
 
 func save_settings(section: String, key: String, value: Variant) -> void:
-	var config: ConfigFile = SaveManager.get_config()
+	var config: ConfigFile = SaveManager.config
 	config.set_value(section, key, value)
 	var save_error: int = config.save(SaveManager.CONFIG_PATH)
 	if save_error != OK:
@@ -59,7 +59,7 @@ func save_settings(section: String, key: String, value: Variant) -> void:
 
 
 func load_settings() -> void:
-	var config: ConfigFile = SaveManager.get_config()
+	var config: ConfigFile = SaveManager.config
 
 	# Display settings												
 	var resolution_from_save: Vector2i = config.get_value("display", "resolution_index", Vector2i(1920, 1080)) # Defaulting to 1920x1080
