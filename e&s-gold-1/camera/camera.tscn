@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnvmqefj4hkqr"]
+
+[ext_resource type="Script" uid="uid://wce8ff3mubsk" path="res://addons/Free fly camera/Src/free_fly_startup.gd" id="1_lw1ob"]
+
+[node name="Camera" type="CharacterBody3D" node_paths=PackedStringArray("camera")]
+script = ExtResource("1_lw1ob")
+camera = NodePath("Camera3D")
+KEY_ESCAPE = "escape"
+
+[node name="Camera3D" type="Camera3D" parent="."]

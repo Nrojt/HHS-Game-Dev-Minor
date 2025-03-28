@@ -1,0 +1,42 @@
+[gd_scene load_steps=9 format=3 uid="uid://dwfoqhmbljxdd"]
+
+[ext_resource type="PackedScene" uid="uid://cnvmqefj4hkqr" path="res://camera/camera.tscn" id="1_xn4rw"]
+[ext_resource type="Shader" uid="uid://djlam5532vf3l" path="res://world/ground.gdshader" id="2_b6vxq"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_b6vxq"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_egslr"]
+noise = SubResource("FastNoiseLite_b6vxq")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_egslr"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wiyi0"]
+as_normal_map = true
+noise = SubResource("FastNoiseLite_egslr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_egslr"]
+render_priority = 0
+shader = ExtResource("2_b6vxq")
+shader_parameter/noise = SubResource("NoiseTexture2D_egslr")
+shader_parameter/normal_map = SubResource("NoiseTexture2D_wiyi0")
+shader_parameter/height_scale = 1.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xn4rw"]
+material = SubResource("ShaderMaterial_egslr")
+size = Vector2(50, 50)
+subdivide_width = 256
+subdivide_depth = 256
+
+[node name="WorldEnv" type="Node3D"]
+
+[node name="Camera" parent="." instance=ExtResource("1_xn4rw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.08587, 3.04558)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.32343, -5.10118)
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_xn4rw")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.841086, 0.540901, 0, -0.540901, 0.841086, -3.09629, 15.4119, 15.2313)
