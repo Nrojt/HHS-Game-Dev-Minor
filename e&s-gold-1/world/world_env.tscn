@@ -1,22 +1,25 @@
-[gd_scene load_steps=9 format=3 uid="uid://dwfoqhmbljxdd"]
+[gd_scene load_steps=8 format=3 uid="uid://dwfoqhmbljxdd"]
 
 [ext_resource type="PackedScene" uid="uid://cnvmqefj4hkqr" path="res://camera/camera.tscn" id="1_xn4rw"]
 [ext_resource type="Shader" uid="uid://djlam5532vf3l" path="res://world/ground.gdshader" id="2_b6vxq"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_b6vxq"]
+[ext_resource type="FastNoiseLite" uid="uid://bymwks3hyn3i7" path="res://world/ground_noise.tres" id="3_egslr"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_egslr"]
-noise = SubResource("FastNoiseLite_b6vxq")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_egslr"]
+width = 256
+height = 256
+noise = ExtResource("3_egslr")
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wiyi0"]
 as_normal_map = true
-noise = SubResource("FastNoiseLite_egslr")
+noise = ExtResource("3_egslr")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_egslr"]
 render_priority = 0
 shader = ExtResource("2_b6vxq")
+shader_parameter/grass_color = Color(0.1, 0.6, 0.1, 1)
+shader_parameter/dirt_color = Color(0.4, 0.25, 0.1, 1)
+shader_parameter/transition_start = 0.4
+shader_parameter/transition_end = 0.6
 shader_parameter/noise = SubResource("NoiseTexture2D_egslr")
 shader_parameter/normal_map = SubResource("NoiseTexture2D_wiyi0")
 shader_parameter/height_scale = 1.0
@@ -36,6 +39,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.08587, 3.04558)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.32343, -5.10118)
 
 [node name="Ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.330073, 0.171846, 0.726982)
 mesh = SubResource("PlaneMesh_xn4rw")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
