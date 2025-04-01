@@ -18,8 +18,8 @@ render_priority = 0
 shader = ExtResource("2_b6vxq")
 shader_parameter/grass_color = Color(0.1, 0.6, 0.1, 1)
 shader_parameter/dirt_color = Color(0.4, 0.25, 0.1, 1)
-shader_parameter/transition_start = 0.4
-shader_parameter/transition_end = 0.6
+shader_parameter/transition_start = 0.3
+shader_parameter/transition_end = 0.8
 shader_parameter/noise = SubResource("NoiseTexture2D_egslr")
 shader_parameter/normal_map = SubResource("NoiseTexture2D_wiyi0")
 shader_parameter/height_scale = 1.0
@@ -33,15 +33,16 @@ subdivide_depth = 256
 [node name="WorldEnv" type="Node3D"]
 
 [node name="Camera" parent="." instance=ExtResource("1_xn4rw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.08587, 3.04558)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.86576, 3.04558)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.32343, -5.10118)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.71248, -5.10118)
 
 [node name="Ground" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.330073, 0.171846, 0.726982)
 mesh = SubResource("PlaneMesh_xn4rw")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.841086, 0.540901, 0, -0.540901, 0.841086, -3.09629, 15.4119, 15.2313)
+transform = Transform3D(0.83228, -0.463658, 0.303861, 0.267291, 0.81585, 0.512781, -0.48566, -0.345558, 0.802947, 5.28616, 6.38299, 25.8173)
 light_energy = 2.0
+shadow_enabled = true
