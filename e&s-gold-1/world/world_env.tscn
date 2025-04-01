@@ -44,3 +44,4 @@ mesh = SubResource("PlaneMesh_xn4rw")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.841086, 0.540901, 0, -0.540901, 0.841086, -3.09629, 15.4119, 15.2313)
+light_energy = 2.0

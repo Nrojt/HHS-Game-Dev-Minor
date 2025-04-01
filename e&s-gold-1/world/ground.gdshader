@@ -1,9 +1,9 @@
 shader_type spatial;
 
-uniform vec4 grass_color : source_color = vec4(0.1, 0.6, 0.1, 0.8);
-uniform vec4 dirt_color : source_color = vec4(0.4, 0.25, 0.1, 1.0);
+uniform vec3 grass_color : source_color = vec3(0.1, 0.6, 0.1);
+uniform vec3 dirt_color : source_color = vec3(0.4, 0.25, 0.1);
 // vars for blending the grass and dirt
-uniform float transition_start : hint_range(0.0, 1.0) = 0.4;
+uniform float transition_start : hint_range(0.0, 1.0) = 0.0;
 uniform float transition_end : hint_range(0.0, 1.0) = 0.6;
 
 uniform sampler2D noise;
@@ -30,9 +30,8 @@ void fragment() {
 	// Interpolate between the dirt and the grass colour using the mix_factor.
 	vec3 final_color = mix(dirt_color.rgb, grass_color.rgb, mix_factor);
 	
-	// colour and aplha
+	// colour the fragment
 	ALBEDO = final_color;
-	ALPHA = mix(dirt_color.a, grass_color.a, mix_factor);
 
 	// Apply the normal map
 	NORMAL_MAP = texture(normal_map, tex_position).xyz;
