@@ -39,7 +39,7 @@ void light() {
     // Calculate shadow softness
     float shadow_softness = 1.0 - smoothstep(transition_start, transition_end, v_noise_height);
     
-    // Apply shadow softness, based on the terrain
+    // Apply shadow, based on the terrain
     vec3 light_contrib = LIGHT_COLOR * ATTENUATION * max(0.0, dot(NORMAL, LIGHT));
     light_contrib *= mix(grass_shadow, dirt_shadow, shadow_softness);
     

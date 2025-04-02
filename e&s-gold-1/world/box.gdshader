@@ -1,5 +1,5 @@
 shader_type spatial;
-uniform vec3 color_a = vec3(1.0, 0.0, 0.0);
+uniform vec3 color_a = vec3(1.0, 0.0, 0.4);
 uniform vec3 color_b = vec3(0.0, 1.0, 0.0);
 uniform float speed = 1.0;
 uniform float wave_amplitude = 0.2;

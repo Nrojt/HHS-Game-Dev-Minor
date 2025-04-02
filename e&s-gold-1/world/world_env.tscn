@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dwfoqhmbljxdd"]
+[gd_scene load_steps=16 format=3 uid="uid://dwfoqhmbljxdd"]
 
 [ext_resource type="PackedScene" uid="uid://cnvmqefj4hkqr" path="res://camera/camera.tscn" id="1_xn4rw"]
 [ext_resource type="Shader" uid="uid://djlam5532vf3l" path="res://world/ground.gdshader" id="2_b6vxq"]
 [ext_resource type="Shader" uid="uid://ckdmss2qmaw3w" path="res://world/box.gdshader" id="2_wiyi0"]
 [ext_resource type="FastNoiseLite" uid="uid://bymwks3hyn3i7" path="res://world/ground_noise.tres" id="3_egslr"]
+[ext_resource type="Shader" uid="uid://i1kvu66txled" path="res://world/sky.gdshader" id="5_0kqbf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0kqbf"]
 render_priority = 0
@@ -42,6 +43,27 @@ size = Vector2(50, 50)
 subdivide_width = 256
 subdivide_depth = 256
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0kqbf"]
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_w0god"]
+noise = SubResource("FastNoiseLite_0kqbf")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w0god"]
+shader = ExtResource("5_0kqbf")
+shader_parameter/sky_color_a = Vector3(1, 0, 0.4)
+shader_parameter/sky_color_b = Vector3(0, 1, 0)
+shader_parameter/cloud_color = Vector3(1, 1, 1)
+shader_parameter/cloud_speed = 0.1
+shader_parameter/cloud_noise = SubResource("NoiseTexture2D_w0god")
+
+[sub_resource type="Sky" id="Sky_nwawl"]
+sky_material = SubResource("ShaderMaterial_w0god")
+
+[sub_resource type="Environment" id="Environment_hwemy"]
+background_mode = 2
+sky = SubResource("Sky_nwawl")
+
 [node name="WorldEnv" type="Node3D"]
 
 [node name="Camera" parent="." instance=ExtResource("1_xn4rw")]
@@ -59,3 +81,6 @@ mesh = SubResource("PlaneMesh_xn4rw")
 transform = Transform3D(0.83228, -0.463658, 0.303861, 0.267291, 0.81585, 0.512781, -0.48566, -0.345558, 0.802947, 5.28616, 6.38299, 25.8173)
 light_energy = 2.0
 shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_hwemy")
