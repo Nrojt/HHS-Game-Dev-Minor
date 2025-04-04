@@ -37,7 +37,6 @@ func calculate_max_height(item: PhysicsBody3D) -> float:
 	return max_height
 
 
-# TODO: figure out his math
 # Method generated using generative AI (Deepseek, 2025a) (Deepseek, 2025b)
 func get_object_height(item: Node3D) -> float:
 	var item_max_height: float = 0.0

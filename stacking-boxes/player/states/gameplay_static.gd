@@ -7,8 +7,6 @@ extends CameraState
 # Store initial rotation for reference
 var initial_rotation : Vector3
 
-# TODO: droppable movement
-
 func enter() -> void:
 	camera_transformer.global_position = camera_location
 	camera_transformer.global_rotation = Vector3(0, 0, 0)

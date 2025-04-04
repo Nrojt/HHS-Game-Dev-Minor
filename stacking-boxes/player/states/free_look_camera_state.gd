@@ -1,6 +1,5 @@
 extends CameraState
 
-# TODO move these over to a settings menu
 @export_range(0, 10, 0.01) var sensitivity: float = 3
 
 @export_range(1, 100, 0.1) var boost_speed_multiplier: float = 3.0
