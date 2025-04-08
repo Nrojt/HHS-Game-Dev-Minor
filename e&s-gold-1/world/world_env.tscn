@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://dwfoqhmbljxdd"]
+[gd_scene load_steps=17 format=3 uid="uid://dwfoqhmbljxdd"]
 
 [ext_resource type="PackedScene" uid="uid://cnvmqefj4hkqr" path="res://camera/camera.tscn" id="1_xn4rw"]
 [ext_resource type="Shader" uid="uid://djlam5532vf3l" path="res://world/ground.gdshader" id="2_b6vxq"]
 [ext_resource type="Shader" uid="uid://ckdmss2qmaw3w" path="res://world/box.gdshader" id="2_wiyi0"]
 [ext_resource type="FastNoiseLite" uid="uid://bymwks3hyn3i7" path="res://world/ground_noise.tres" id="3_egslr"]
+[ext_resource type="Script" uid="uid://c5ml62uaeukvx" path="res://world/csg_box_3d.gd" id="3_w0god"]
 [ext_resource type="Shader" uid="uid://i1kvu66txled" path="res://world/sky.gdshader" id="5_0kqbf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0kqbf"]
@@ -14,6 +15,8 @@ shader_parameter/color_b = Vector3(0, 1, 0)
 shader_parameter/speed = 1.0
 shader_parameter/wave_amplitude = 0.2
 shader_parameter/wave_frequency = 4.0
+shader_parameter/flash_colour = Vector3(1, 1, 1)
+shader_parameter/flash = false
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_egslr"]
 width = 256
@@ -47,6 +50,8 @@ subdivide_depth = 256
 domain_warp_enabled = true
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_w0god"]
+seamless = true
+seamless_blend_skirt = 0.5
 noise = SubResource("FastNoiseLite_0kqbf")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w0god"]
@@ -54,6 +59,8 @@ shader = ExtResource("5_0kqbf")
 shader_parameter/sky_color_a = Vector3(1, 0, 0.4)
 shader_parameter/sky_color_b = Vector3(0, 1, 0)
 shader_parameter/cloud_color = Vector3(1, 1, 1)
+shader_parameter/cloud_min = 0.3
+shader_parameter/cloud_max = 0.6
 shader_parameter/cloud_speed = 0.1
 shader_parameter/cloud_noise = SubResource("NoiseTexture2D_w0god")
 
@@ -72,6 +79,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.86576, 3.04558)
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.71248, -5.10118)
 material = SubResource("ShaderMaterial_0kqbf")
+script = ExtResource("3_w0god")
+
+[node name="IntervalTimer" type="Timer" parent="CSGBox3D"]
+one_shot = true
+autostart = true
+
+[node name="DurationTimer" type="Timer" parent="CSGBox3D"]
+one_shot = true
 
 [node name="Ground" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.330073, 0.171846, 0.726982)
@@ -84,3 +99,6 @@ shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_hwemy")
+
+[connection signal="timeout" from="CSGBox3D/IntervalTimer" to="CSGBox3D" method="_on_timer_timeout"]
+[connection signal="timeout" from="CSGBox3D/DurationTimer" to="CSGBox3D" method="_on_duration_timer_timeout"]

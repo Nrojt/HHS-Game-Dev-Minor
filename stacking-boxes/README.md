@@ -15,7 +15,15 @@ Mouse and keyboard controls are standard WASD and mouse look.
 Drop the droppable by pressing the left mouse button (Bottom button on controller, 'A' on Xbox, 'X' on Playstation).
 Pause the game with the escape key (Start button on controller).
 There is a debug menu available by clicking F3, using an asset.
-By pressing TAB, you can switch between the free look camera and the player camera.
+By pressing TAB, you can switch between the three camera modes.
+
+## Saving
+The options, keybinds and high score are saved in the `user://` folder. Depending on operating system, this is located in:
+* Windows: %APPDATA%\Godot\app_userdata\stacking_boxes
+* Linux: ~/.local/share/godot/app_userdata/stacking_boxes
+
+The keybinds can be reset to default. To reset the high score and options, delete the `.cfg` files in the above mentioned folder.
+
 
 ## Assets
 
