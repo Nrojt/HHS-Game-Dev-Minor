@@ -45,5 +45,5 @@ void fragment() {
 	ALPHA = final_color.a;
 
 	// Make it glow a little
-	EMISSION = final_color.rgb; 
+	EMISSION = final_color.rgb;
 }

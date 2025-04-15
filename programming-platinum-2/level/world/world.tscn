@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b2p8n8xyq6oj8" path="res://level/empty_section/empty_section.tscn" id="1_xb7be"]
 [ext_resource type="Shader" uid="uid://deecj4irdpysy" path="res://level/world/shaders/sky.gdshader" id="2_o4ss6"]
-[ext_resource type="PackedScene" uid="uid://7p7ercjif3ja" path="res://level/draggables/stairs/stairs.tscn" id="3_iqtr3"]
+[ext_resource type="Script" uid="uid://f4nyesxkeshq" path="res://level/world/draggable_spawner.gd" id="3_iqtr3"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_o4ss6"]
 
@@ -41,4 +41,5 @@ environment = SubResource("Environment_dg7ox")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.995113, 0.0667833, 0.0727384, -0.0987466, 0.673005, 0.733017, 0, -0.736617, 0.67631, 0, 8.57328, 7.02314)
 
-[node name="Stairs" parent="." instance=ExtResource("3_iqtr3")]
+[node name="DraggableSpawner" type="Node" parent="."]
+script = ExtResource("3_iqtr3")

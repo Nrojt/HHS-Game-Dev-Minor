@@ -5,6 +5,6 @@
 [node name="Stairs" instance=ExtResource("1_633ba")]
 
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="." index="1"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.4, 0, 5)
 polygon = PackedVector2Array(0, 0, 0, 0, 10, 4, 10, 0)
 depth = 2.8
