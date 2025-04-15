@@ -10,8 +10,8 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0kqbf"]
 render_priority = 0
 shader = ExtResource("2_wiyi0")
-shader_parameter/color_a = Vector3(1, 0, 0)
-shader_parameter/color_b = Vector3(0, 1, 0)
+shader_parameter/color_a = Color(1, 0, 0.4, 1)
+shader_parameter/color_b = Color(0, 1, 0, 1)
 shader_parameter/speed = 1.0
 shader_parameter/wave_amplitude = 0.2
 shader_parameter/wave_frequency = 4.0
@@ -56,9 +56,9 @@ noise = SubResource("FastNoiseLite_0kqbf")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w0god"]
 shader = ExtResource("5_0kqbf")
-shader_parameter/sky_color_a = Vector3(1, 0, 0.4)
-shader_parameter/sky_color_b = Vector3(0, 1, 0)
-shader_parameter/cloud_color = Vector3(1, 1, 1)
+shader_parameter/sky_color_a = Color(0.4, 0, 1, 1)
+shader_parameter/sky_color_b = Color(0, 0.4, 1, 1)
+shader_parameter/cloud_color = Color(1, 1, 1, 1)
 shader_parameter/cloud_min = 0.3
 shader_parameter/cloud_max = 0.6
 shader_parameter/cloud_speed = 0.1

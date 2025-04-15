@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cw0qsuegdcpi7"]
+
+[ext_resource type="Script" uid="uid://ck5in027sosld" path="res://level/draggables/draggable_base/draggable_base.gd" id="1_i7p4y"]
+
+[node name="DraggableBase" type="Node3D"]
+script = ExtResource("1_i7p4y")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+disabled = true

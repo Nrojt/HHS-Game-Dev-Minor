@@ -1,0 +1,44 @@
+[gd_scene load_steps=9 format=3 uid="uid://dx4ve307ych15"]
+
+[ext_resource type="PackedScene" uid="uid://b2p8n8xyq6oj8" path="res://level/empty_section/empty_section.tscn" id="1_xb7be"]
+[ext_resource type="Shader" uid="uid://deecj4irdpysy" path="res://level/world/shaders/sky.gdshader" id="2_o4ss6"]
+[ext_resource type="PackedScene" uid="uid://7p7ercjif3ja" path="res://level/draggables/stairs/stairs.tscn" id="3_iqtr3"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_o4ss6"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_iqtr3"]
+seamless = true
+noise = SubResource("FastNoiseLite_o4ss6")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iqtr3"]
+shader = ExtResource("2_o4ss6")
+shader_parameter/sky_color_a = Color(0.362133, 0.549573, 0.820056, 1)
+shader_parameter/sky_color_b = Color(0.271844, 0.383072, 1, 1)
+shader_parameter/cloud_color = Color(0.972035, 0.990518, 1, 1)
+shader_parameter/cloud_min = 0.3
+shader_parameter/cloud_max = 0.8
+shader_parameter/cloud_speed = 0.01
+shader_parameter/cloud_noise = SubResource("NoiseTexture2D_iqtr3")
+
+[sub_resource type="Sky" id="Sky_831b6"]
+sky_material = SubResource("ShaderMaterial_iqtr3")
+
+[sub_resource type="Environment" id="Environment_dg7ox"]
+background_mode = 2
+background_energy_multiplier = 0.2
+sky = SubResource("Sky_831b6")
+
+[node name="World" type="Node3D"]
+
+[node name="EmptySection" parent="." instance=ExtResource("1_xb7be")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.724929, 0.688823, 0, -0.688823, 0.724929, 0, 9.37802, 8.89875)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dg7ox")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.995113, 0.0667833, 0.0727384, -0.0987466, 0.673005, 0.733017, 0, -0.736617, 0.67631, 0, 8.57328, 7.02314)
+
+[node name="Stairs" parent="." instance=ExtResource("3_iqtr3")]
