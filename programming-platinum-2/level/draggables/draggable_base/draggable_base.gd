@@ -20,6 +20,9 @@ func _process(delta: float) -> void:
 		if not follow_mouse_with_raycast(camera, mouse_pos):
 			# Fall back to plane projection if no collision
 			follow_mouse_on_plane(camera, mouse_pos)
+			
+		# Setting the global Y a bit higher
+		global_position.y += 1.5
 
 func follow_mouse_on_plane(camera: Camera3D, mouse_pos: Vector2) -> void:
 	var ray_origin := camera.project_ray_origin(mouse_pos)
@@ -29,7 +32,6 @@ func follow_mouse_on_plane(camera: Camera3D, mouse_pos: Vector2) -> void:
 	if intersection_point != null:
 		global_position = intersection_point
 	else:
-		print("falling back for global position")
 		# Fallback: Use default distance when no plane intersection
 		global_position = ray_origin + ray_normal * default_ray_distance
 

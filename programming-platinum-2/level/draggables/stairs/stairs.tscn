@@ -1,10 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://7p7ercjif3ja"]
+[gd_scene load_steps=3 format=3 uid="uid://7p7ercjif3ja"]
 
 [ext_resource type="PackedScene" uid="uid://cw0qsuegdcpi7" path="res://level/draggables/draggable_base/draggable_base.tscn" id="1_633ba"]
 
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_633ba"]
+points = PackedVector3Array(-1.4, 2, -5, 1.4, -2, -5, -1.4, -2, 5, 1.4, -2, 5)
+
 [node name="Stairs" instance=ExtResource("1_633ba")]
 
+[node name="StaticBody3D" parent="." index="0"]
+visible = true
+
+[node name="CollisionShape3D" parent="StaticBody3D" index="0"]
+shape = SubResource("ConvexPolygonShape3D_633ba")
+
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="." index="1"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.4, -2, 5)
-polygon = PackedVector2Array(0, 0, 0, 0, 10, 4, 10, 0)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.4, 0, 0)
+visible = false
+polygon = PackedVector2Array(-5, -2, 0, 0, 5, 2, 5, -2)
 depth = 2.8

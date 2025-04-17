@@ -33,7 +33,7 @@ sky = SubResource("Sky_831b6")
 [node name="EmptySection" parent="." instance=ExtResource("1_xb7be")]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.724929, 0.688823, 0, -0.688823, 0.724929, 0, 9.37802, 8.89875)
+transform = Transform3D(1, 0, 0, 0, 0.724929, 0.688823, 0, -0.688823, 0.724929, 0, 14.3661, 13.8898)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_dg7ox")
