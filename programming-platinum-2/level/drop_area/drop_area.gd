@@ -1,7 +1,5 @@
 extends Area3D
 
-# TODO: after placing draggable, the other dropareas dont function anymore? dropping doesnt work for them
-
 @onready var visualization : MeshInstance3D = $Visualization
 
 var hover_draggable : Draggable
@@ -12,7 +10,7 @@ func _input(event: InputEvent) -> void:
 		print("holding released")
 		placed_draggable = hover_draggable
 		hover_draggable = null
-		GameManager.current_draggable = null
+		GameManager.placed_draggable.emit(GameManager.current_draggable)
 		visualization.hide()
 
 func _mouse_enter() -> void:

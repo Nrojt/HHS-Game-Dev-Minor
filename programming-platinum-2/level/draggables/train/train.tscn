@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://buutu78g1kur"]
+
+[ext_resource type="PackedScene" uid="uid://cw0qsuegdcpi7" path="res://level/draggables/draggable_base/draggable_base.tscn" id="1_je8uy"]
+
+[node name="Train" instance=ExtResource("1_je8uy")]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." index="1"]
+size = Vector3(2.8, 4, 10)

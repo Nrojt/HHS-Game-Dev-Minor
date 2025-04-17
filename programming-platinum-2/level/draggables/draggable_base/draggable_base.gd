@@ -29,6 +29,7 @@ func follow_mouse_on_plane(camera: Camera3D, mouse_pos: Vector2) -> void:
 	if intersection_point != null:
 		global_position = intersection_point
 	else:
+		print("falling back for global position")
 		# Fallback: Use default distance when no plane intersection
 		global_position = ray_origin + ray_normal * default_ray_distance
 
