@@ -15,9 +15,10 @@ func _input(event: InputEvent) -> void:
 
 func _mouse_enter() -> void:
 	if enabled:
-		visualization.show()
 		if Input.is_action_pressed("hold_draggable") && GameManager.current_draggable:
+			visualization.show()
 			hover_draggable = GameManager.current_draggable.duplicate()
+			GameManager.current_draggable.hide()
 			hover_draggable.placed = true
 			add_child(hover_draggable)
 			hover_draggable.position = Vector3.ZERO
@@ -25,6 +26,7 @@ func _mouse_enter() -> void:
 func _mouse_exit() -> void:
 	if enabled:
 		visualization.hide()
+		GameManager.current_draggable.show()
 		if hover_draggable:
 			remove_child(hover_draggable)
 			hover_draggable = null

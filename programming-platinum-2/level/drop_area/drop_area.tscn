@@ -15,8 +15,8 @@ noise = SubResource("FastNoiseLite_o4ni8")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g2vcw"]
 render_priority = 0
 shader = ExtResource("2_o4ni8")
-shader_parameter/base_color = Color(0.454954, 0.1243, 0.77137, 0.3)
-shader_parameter/line_color = Color(0.935309, 0.541942, 0.692161, 0.7)
+shader_parameter/base_color = Color(0.454902, 0.12549, 0.772549, 0.156863)
+shader_parameter/line_color = Color(0.937255, 0.541176, 0.694118, 0.215686)
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_g2vcw")
 shader_parameter/noise_scale = 4.0
 shader_parameter/noise_speed = 0.15
@@ -26,7 +26,7 @@ shader_parameter/line_threshold_high = 0.52
 
 [sub_resource type="BoxMesh" id="BoxMesh_85tsa"]
 material = SubResource("ShaderMaterial_g2vcw")
-size = Vector3(2.8, 4, 10)
+size = Vector3(3, 4.2, 10.2)
 
 [node name="DropArea" type="Area3D"]
 monitorable = false

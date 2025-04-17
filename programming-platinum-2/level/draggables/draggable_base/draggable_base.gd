@@ -7,7 +7,7 @@ class_name Draggable extends Node3D
 @export var projection_plane := Plane(Vector3.UP, 0)
 @export var default_ray_distance := 10.0
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if not placed:
 		var camera: Camera3D = get_viewport().get_camera_3d()
 		if not camera:
