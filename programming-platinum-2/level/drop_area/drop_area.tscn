@@ -4,7 +4,7 @@
 [ext_resource type="Shader" uid="uid://cd3ka2cca272q" path="res://level/drop_area/shader/drop_area.gdshader" id="2_o4ni8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tis70"]
-size = Vector3(2.8, 4, 10)
+size = Vector3(2.8, 4, 6)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_o4ni8"]
 
