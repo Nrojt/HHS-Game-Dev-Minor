@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dx4ve307ych15"]
+[gd_scene load_steps=12 format=3 uid="uid://dx4ve307ych15"]
 
 [ext_resource type="PackedScene" uid="uid://b2p8n8xyq6oj8" path="res://level/empty_section/empty_section.tscn" id="1_xb7be"]
 [ext_resource type="Shader" uid="uid://deecj4irdpysy" path="res://level/world/shaders/sky.gdshader" id="2_o4ss6"]
 [ext_resource type="Script" uid="uid://bkc0vc7ndjpeh" path="res://level/world/empty_section_spawner.gd" id="3_831b6"]
 [ext_resource type="Script" uid="uid://f4nyesxkeshq" path="res://level/world/draggable_spawner.gd" id="3_iqtr3"]
+[ext_resource type="PackedScene" uid="uid://1qqdhqh4c8jl" path="res://entity/ai_runner/ai_runner.tscn" id="5_dg7ox"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_o4ss6"]
 
@@ -29,6 +30,9 @@ background_mode = 2
 background_energy_multiplier = 0.2
 sky = SubResource("Sky_831b6")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_831b6"]
+size = Vector3(50, 0.3, 50)
+
 [node name="World" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -48,3 +52,12 @@ script = ExtResource("3_iqtr3")
 [node name="SectionSpawner" type="Node3D" parent="."]
 script = ExtResource("3_831b6")
 section_scene = ExtResource("1_xb7be")
+
+[node name="InvisibleFloor" type="StaticBody3D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InvisibleFloor"]
+shape = SubResource("BoxShape3D_831b6")
+
+[node name="AiRunner" parent="." instance=ExtResource("5_dg7ox")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0)

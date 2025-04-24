@@ -24,6 +24,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_placed_draggable(_placed_draggable: Draggable) -> void:
 	_placed_draggable.set_collision_layer(placed_draggable_collision_layer)
+	_placed_draggable.add_to_group("Obstacles")
 	var placed := 0
 	for area in drop_areas:
 		if not area.enabled:

@@ -8,6 +8,8 @@ class_name Draggable extends Node3D
 @export var default_ray_distance := 10.0
 @export var draggable_y_offset := 2.0
 
+var lane_index := -1
+
 @onready var static_body : StaticBody3D = $StaticBody3D
 
 func _process(_delta: float) -> void:

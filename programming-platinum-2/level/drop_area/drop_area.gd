@@ -1,5 +1,7 @@
 class_name DropArea extends Area3D
 
+@export_range(0.0, 3.0, 1.0) var lane_index := 1
+
 @onready var visualization : MeshInstance3D = $Visualization
 
 var hover_draggable : Draggable
@@ -10,6 +12,7 @@ func _input(event: InputEvent) -> void:
 		print("holding released")
 		hover_draggable = null
 		enabled = false
+		GameManager.current_draggable.lane_index = lane_index
 		GameManager.placed_draggable.emit(GameManager.current_draggable)
 		visualization.hide()
 
