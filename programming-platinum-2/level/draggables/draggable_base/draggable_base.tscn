@@ -4,6 +4,7 @@
 
 [node name="DraggableBase" type="Node3D"]
 script = ExtResource("1_i7p4y")
+collision_mask = 3
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 visible = false

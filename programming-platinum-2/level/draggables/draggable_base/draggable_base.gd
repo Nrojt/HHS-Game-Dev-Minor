@@ -1,6 +1,5 @@
 class_name Draggable extends Node3D
 
-# TODO: Set appropriate collision masks
 @export_flags_3d_physics var collision_mask := 1
 
 @export var placed := false
@@ -30,7 +29,13 @@ func _process(_delta: float) -> void:
 		global_position.y += draggable_y_offset
 		
 func set_collision_layer(_collision_layer : int):
-	static_body.collision_layer = _collision_layer
+	var collision_shape : CollisionShape3D = static_body.get_node("CollisionShape3D")
+	print(collision_shape.disabled)
+	if collision_shape:
+		collision_shape.disabled = false
+		static_body.collision_layer = _collision_layer
+	else:
+		print("No collision shape found.")
 
 func _follow_mouse_on_plane(camera: Camera3D, mouse_pos: Vector2) -> void:
 	var ray_origin := camera.project_ray_origin(mouse_pos)

@@ -3,7 +3,6 @@ class_name EmptySection extends Node3D
 
 @export_group("draggables")
 @export_range(0, 3) var max_placed: int = 2
-@export_flags_3d_physics var placed_draggable_collision_layer: int = 1
 
 @export_group("movement")
 @export var movement_direction: Vector3 = Vector3.BACK
@@ -23,8 +22,7 @@ func _physics_process(delta: float) -> void:
 	global_position += movement_direction * GameManager.movement_speed * delta
 
 func _on_placed_draggable(_placed_draggable: Draggable) -> void:
-	_placed_draggable.set_collision_layer(placed_draggable_collision_layer)
-	_placed_draggable.add_to_group("Obstacles")
+	
 	var placed := 0
 	for area in drop_areas:
 		if not area.enabled:

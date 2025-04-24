@@ -55,9 +55,10 @@ section_scene = ExtResource("1_xb7be")
 
 [node name="InvisibleFloor" type="StaticBody3D" parent="."]
 collision_layer = 4
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InvisibleFloor"]
 shape = SubResource("BoxShape3D_831b6")
 
 [node name="AiRunner" parent="." instance=ExtResource("5_dg7ox")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
