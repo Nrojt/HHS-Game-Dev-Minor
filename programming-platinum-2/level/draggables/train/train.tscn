@@ -1,11 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://buutu78g1kur"]
+[gd_scene load_steps=4 format=3 uid="uid://buutu78g1kur"]
 
 [ext_resource type="PackedScene" uid="uid://cw0qsuegdcpi7" path="res://level/draggables/draggable_base/draggable_base.tscn" id="1_je8uy"]
+[ext_resource type="Script" uid="uid://b4y6lt7si2oxs" path="res://level/draggables/train/train.gd" id="2_ux8fp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_je8uy"]
 size = Vector3(2.8, 4, 10)
 
 [node name="Train" instance=ExtResource("1_je8uy")]
+script = ExtResource("2_ux8fp")
+collision_mask = 1
 
 [node name="CollisionShape3D" parent="StaticBody3D" index="0"]
 visible = false

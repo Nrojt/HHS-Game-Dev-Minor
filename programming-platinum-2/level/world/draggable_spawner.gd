@@ -27,7 +27,7 @@ func spawn_draggable() -> void:
 	var random_scene: PackedScene = DRAGGABLE_SCENES[random_index]
 
 	# Instantiate the chosen scene
-	var draggable: Draggable = random_scene.instantiate() as Draggable
+	var draggable: Draggable = random_scene.instantiate()
 
 	if draggable:
 		print("Draggable: " + draggable.name)

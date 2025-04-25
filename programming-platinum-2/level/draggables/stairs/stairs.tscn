@@ -1,11 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://7p7ercjif3ja"]
+[gd_scene load_steps=4 format=3 uid="uid://7p7ercjif3ja"]
 
 [ext_resource type="PackedScene" uid="uid://cw0qsuegdcpi7" path="res://level/draggables/draggable_base/draggable_base.tscn" id="1_633ba"]
+[ext_resource type="Script" uid="uid://b1wj2yxi3avun" path="res://level/draggables/stairs/stairs.gd" id="2_8egol"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_633ba"]
 points = PackedVector3Array(-5, -1.4, -2, 1.4, -1.4, 0, 5, -1.4, 2, 5, -1.4, -2, -5, 1.4, -2, 1.4, 1.4, 0, 5, 1.4, 2, 5, 1.4, -2)
 
 [node name="Stairs" instance=ExtResource("1_633ba")]
+script = ExtResource("2_8egol")
+collision_mask = 1
 
 [node name="StaticBody3D" parent="." index="0"]
 visible = true

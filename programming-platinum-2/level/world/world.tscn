@@ -1,10 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://dx4ve307ych15"]
+[gd_scene load_steps=15 format=3 uid="uid://dx4ve307ych15"]
 
 [ext_resource type="PackedScene" uid="uid://b2p8n8xyq6oj8" path="res://level/empty_section/empty_section.tscn" id="1_xb7be"]
 [ext_resource type="Shader" uid="uid://deecj4irdpysy" path="res://level/world/shaders/sky.gdshader" id="2_o4ss6"]
+[ext_resource type="PackedScene" uid="uid://bkmpcsxb0jjy0" path="res://level/draggables/gate/gate.tscn" id="3_4iyvw"]
 [ext_resource type="Script" uid="uid://bkc0vc7ndjpeh" path="res://level/world/empty_section_spawner.gd" id="3_831b6"]
 [ext_resource type="Script" uid="uid://f4nyesxkeshq" path="res://level/world/draggable_spawner.gd" id="3_iqtr3"]
-[ext_resource type="PackedScene" uid="uid://1qqdhqh4c8jl" path="res://entity/ai_runner/ai_runner.tscn" id="5_dg7ox"]
+[ext_resource type="PackedScene" uid="uid://7p7ercjif3ja" path="res://level/draggables/stairs/stairs.tscn" id="4_0r72i"]
+[ext_resource type="PackedScene" uid="uid://1qqdhqh4c8jl" path="res://entities/ai_runner/ai_runner.tscn" id="5_dg7ox"]
+[ext_resource type="PackedScene" uid="uid://buutu78g1kur" path="res://level/draggables/train/train.tscn" id="5_xi42q"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_o4ss6"]
 
@@ -48,6 +51,7 @@ shadow_enabled = true
 
 [node name="DraggableSpawner" type="Node" parent="."]
 script = ExtResource("3_iqtr3")
+DRAGGABLE_SCENES = Array[PackedScene]([ExtResource("3_4iyvw"), ExtResource("4_0r72i"), ExtResource("5_xi42q")])
 
 [node name="SectionSpawner" type="Node3D" parent="."]
 script = ExtResource("3_831b6")

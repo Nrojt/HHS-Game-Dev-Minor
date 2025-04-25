@@ -1,0 +1,83 @@
+[gd_resource type="BehaviorTree" load_steps=23 format=3 uid="uid://cyslk348qobi4"]
+
+[ext_resource type="Script" uid="uid://o5i7laxhk2hh" path="res://entities/ai_runner/tasks/scan_obstacles.gd" id="1_umm33"]
+[ext_resource type="Script" uid="uid://djmfjnm8in14l" path="res://entities/ai_runner/tasks/engage_stairs.gd" id="2_cba86"]
+[ext_resource type="Script" uid="uid://dug2qdiwwf20" path="res://entities/ai_runner/tasks/perform_jump.gd" id="3_yytq1"]
+[ext_resource type="Script" uid="uid://btusdtsm7j3v3" path="res://entities/ai_runner/tasks/change_lanes.gd" id="4_faa3p"]
+[ext_resource type="Script" uid="uid://c588uyydegymb" path="res://entities/ai_runner/tasks/analyze_obstacles.gd" id="5_3c6of"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_wayxx"]
+var/required_action/name = &"required_action"
+var/required_action/type = 4
+var/required_action/value = ""
+var/required_action/hint = 0
+var/required_action/hint_string = ""
+
+[sub_resource type="BTAction" id="BTAction_hu1is"]
+script = ExtResource("1_umm33")
+lookahead_distance_var_name = &"lookahead_distance"
+obstacle_data_var_name = &"obstacle_data"
+
+[sub_resource type="BTAction" id="BTAction_xmkae"]
+script = ExtResource("5_3c6of")
+obstacle_data_var_name = &"obstacle_data"
+required_action_var_name = &"required_action"
+target_lane_var_name = &"target_lane"
+scan_distance = 10.0
+
+[sub_resource type="BBVariant" id="BBVariant_cba86"]
+type = 4
+saved_value = "UseStairs"
+resource_name = "UseStairs"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_yytq1"]
+variable = &"required_action"
+value = SubResource("BBVariant_cba86")
+
+[sub_resource type="BTAction" id="BTAction_4s8dd"]
+script = ExtResource("2_cba86")
+upper_level_height = 4.0
+
+[sub_resource type="BTSequence" id="BTSequence_faa3p"]
+children = [SubResource("BTCheckVar_yytq1"), SubResource("BTAction_4s8dd")]
+
+[sub_resource type="BBVariant" id="BBVariant_3c6of"]
+type = 4
+saved_value = "ChangeLane"
+resource_name = "ChangeLane"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_4s8dd"]
+variable = &"required_action"
+value = SubResource("BBVariant_3c6of")
+
+[sub_resource type="BTAction" id="BTAction_lpmw2"]
+script = ExtResource("4_faa3p")
+target_lane_var_name = &"target_lane"
+
+[sub_resource type="BTSequence" id="BTSequence_nskos"]
+children = [SubResource("BTCheckVar_4s8dd"), SubResource("BTAction_lpmw2")]
+
+[sub_resource type="BBVariant" id="BBVariant_yytq1"]
+type = 4
+saved_value = "Jump"
+resource_name = "Jump"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_lpmw2"]
+variable = &"required_action"
+value = SubResource("BBVariant_yytq1")
+
+[sub_resource type="BTAction" id="BTAction_nskos"]
+script = ExtResource("3_yytq1")
+
+[sub_resource type="BTSequence" id="BTSequence_ofo4b"]
+children = [SubResource("BTCheckVar_lpmw2"), SubResource("BTAction_nskos")]
+
+[sub_resource type="BTSelector" id="BTSelector_ofo4b"]
+children = [SubResource("BTSequence_faa3p"), SubResource("BTSequence_nskos"), SubResource("BTSequence_ofo4b")]
+
+[sub_resource type="BTSequence" id="BTSequence_ljq21"]
+children = [SubResource("BTAction_hu1is"), SubResource("BTAction_xmkae"), SubResource("BTSelector_ofo4b")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_wayxx")
+root_task = SubResource("BTSequence_ljq21")
