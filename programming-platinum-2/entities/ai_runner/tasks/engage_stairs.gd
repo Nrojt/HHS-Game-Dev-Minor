@@ -9,6 +9,7 @@ func _tick(_delta: float) -> Status:
 	if not ai:
 		return FAILURE
 	ai.using_stairs = true
+	# Bit hacky, but works
 	if ai.global_position.y >= upper_level_height:
 		print("upper_level")
 		ai.is_on_upper_level = true

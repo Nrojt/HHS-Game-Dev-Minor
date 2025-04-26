@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://7p7ercjif3ja"]
+[gd_scene load_steps=5 format=3 uid="uid://7p7ercjif3ja"]
 
 [ext_resource type="PackedScene" uid="uid://cw0qsuegdcpi7" path="res://level/draggables/draggable_base/draggable_base.tscn" id="1_633ba"]
 [ext_resource type="Script" uid="uid://b1wj2yxi3avun" path="res://level/draggables/stairs/stairs.gd" id="2_8egol"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_633ba"]
 points = PackedVector3Array(-5, -1.4, -2, 1.4, -1.4, 0, 5, -1.4, 2, 5, -1.4, -2, -5, 1.4, -2, 1.4, 1.4, 0, 5, 1.4, 2, 5, 1.4, -2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8egol"]
+albedo_color = Color(0.425336, 0.191152, 0.133271, 1)
 
 [node name="Stairs" instance=ExtResource("1_633ba")]
 script = ExtResource("2_8egol")
@@ -19,5 +22,6 @@ shape = SubResource("ConvexPolygonShape3D_633ba")
 
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="." index="1"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.4, 0, 0)
+material_override = SubResource("StandardMaterial3D_8egol")
 polygon = PackedVector2Array(-5, -2, 0, 0, 5, 2, 5, -2)
 depth = 2.8

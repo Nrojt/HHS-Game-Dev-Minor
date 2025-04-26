@@ -1,12 +1,12 @@
 extends Node
 
+signal game_started
 signal placed_draggable(placed_draggable : Draggable)
 
 var _default_movement_speed := 0.4
 
 var current_draggable : Draggable = null :
 	set(value):
-		print("Draggable in gameManager: " + value.name)
 		current_draggable = value
 var movement_speed: float = _default_movement_speed
 var time_played: float = 0.0
@@ -14,7 +14,20 @@ var time_played: float = 0.0
 var movement_speed_increase_interval: float = 1.0
 var time_since_last_speed_increase: float = 0.0
 
-var game_active := true
+var game_active := false :
+	set(value):
+		game_active = value
+		if game_active:
+			# Reset the time played and speed increase timer when the game starts
+			time_played = 0.0
+			time_since_last_speed_increase = 0.0
+			movement_speed = _default_movement_speed
+			game_started.emit()
+		else:
+			current_draggable.queue_free()
+			current_draggable = null
+			UiManager.ui_state_changed.emit(UiManager.UIState.GAME_OVER)
+			print("Game stopped")
 
 func _process(delta):
 	if game_active:

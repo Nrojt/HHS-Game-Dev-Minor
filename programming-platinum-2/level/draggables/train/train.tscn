@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://buutu78g1kur"]
+[gd_scene load_steps=5 format=3 uid="uid://buutu78g1kur"]
 
 [ext_resource type="PackedScene" uid="uid://cw0qsuegdcpi7" path="res://level/draggables/draggable_base/draggable_base.tscn" id="1_je8uy"]
 [ext_resource type="Script" uid="uid://b4y6lt7si2oxs" path="res://level/draggables/train/train.gd" id="2_ux8fp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_je8uy"]
 size = Vector3(2.8, 4, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ux8fp"]
+albedo_color = Color(0.453581, 0.552607, 0.340386, 1)
 
 [node name="Train" instance=ExtResource("1_je8uy")]
 script = ExtResource("2_ux8fp")
@@ -15,4 +18,5 @@ visible = false
 shape = SubResource("BoxShape3D_je8uy")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." index="1"]
+material_override = SubResource("StandardMaterial3D_ux8fp")
 size = Vector3(2.8, 4, 10)

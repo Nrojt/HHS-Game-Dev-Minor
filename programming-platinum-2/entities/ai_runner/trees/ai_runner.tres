@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=23 format=3 uid="uid://cyslk348qobi4"]
+[gd_resource type="BehaviorTree" load_steps=24 format=3 uid="uid://cyslk348qobi4"]
 
 [ext_resource type="Script" uid="uid://o5i7laxhk2hh" path="res://entities/ai_runner/tasks/scan_obstacles.gd" id="1_umm33"]
 [ext_resource type="Script" uid="uid://djmfjnm8in14l" path="res://entities/ai_runner/tasks/engage_stairs.gd" id="2_cba86"]
@@ -23,7 +23,12 @@ script = ExtResource("5_3c6of")
 obstacle_data_var_name = &"obstacle_data"
 required_action_var_name = &"required_action"
 target_lane_var_name = &"target_lane"
+nearest_object_var_name = &"nearest_object_distance"
 scan_distance = 10.0
+
+[sub_resource type="BTDelay" id="BTDelay_cba86"]
+seconds = 0.8
+children = [SubResource("BTAction_xmkae")]
 
 [sub_resource type="BBVariant" id="BBVariant_cba86"]
 type = 4
@@ -68,6 +73,8 @@ value = SubResource("BBVariant_yytq1")
 
 [sub_resource type="BTAction" id="BTAction_nskos"]
 script = ExtResource("3_yytq1")
+nearest_object_var_name = &"nearest_object_distance"
+nearest_object_jump_start_distance = 4.0
 
 [sub_resource type="BTSequence" id="BTSequence_ofo4b"]
 children = [SubResource("BTCheckVar_lpmw2"), SubResource("BTAction_nskos")]
@@ -76,7 +83,7 @@ children = [SubResource("BTCheckVar_lpmw2"), SubResource("BTAction_nskos")]
 children = [SubResource("BTSequence_faa3p"), SubResource("BTSequence_nskos"), SubResource("BTSequence_ofo4b")]
 
 [sub_resource type="BTSequence" id="BTSequence_ljq21"]
-children = [SubResource("BTAction_hu1is"), SubResource("BTAction_xmkae"), SubResource("BTSelector_ofo4b")]
+children = [SubResource("BTAction_hu1is"), SubResource("BTDelay_cba86"), SubResource("BTSelector_ofo4b")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_wayxx")

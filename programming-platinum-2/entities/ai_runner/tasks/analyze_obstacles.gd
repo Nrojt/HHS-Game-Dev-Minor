@@ -4,6 +4,7 @@ extends BTAction
 @export var obstacle_data_var_name: StringName = "obstacle_data"
 @export var required_action_var_name: StringName = "required_action"
 @export var target_lane_var_name: StringName = "target_lane"
+@export var nearest_object_var_name: StringName = "nearest_object_distance"
 @export var scan_distance : float = 10.0
 
 func _tick(_delta: float) -> Status:
@@ -36,6 +37,7 @@ func _tick(_delta: float) -> Status:
 		return SUCCESS
 
 	if closest.node is Gate:
+		blackboard.set_var(nearest_object_var_name, closest)
 		blackboard.set_var(required_action_var_name, "Jump")
 		return SUCCESS
 	if closest.node is Stairs:
@@ -48,7 +50,7 @@ func _tick(_delta: float) -> Status:
 				if obs.node is Train:
 					found_train = true
 					break
-		# Use stairs if a train is found, or if there is empty space (no obstacle in range)
+		# Use stairs if a train is found, or if there is empty space
 		if found_train or not found_any_obstacle:
 			blackboard.set_var(required_action_var_name, "UseStairs")
 			blackboard.set_var(target_lane_var_name, current_lane)

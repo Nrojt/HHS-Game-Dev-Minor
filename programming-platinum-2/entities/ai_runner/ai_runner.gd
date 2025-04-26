@@ -30,6 +30,7 @@ func _physics_process(delta: float) -> void:
 	if global_position.z >= (initial_z_pos + z_death_difference):
 		print("player died")
 		GameManager.game_active = false
+		global_position = Vector3(0,2,0)
 		
 	if !is_on_floor():
 		is_on_upper_level = false

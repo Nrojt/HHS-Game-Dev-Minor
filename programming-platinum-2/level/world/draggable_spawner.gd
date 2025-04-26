@@ -8,7 +8,7 @@ extends Node
 ]
 
 func _ready():
-	spawn_draggable()
+	GameManager.game_started.connect(spawn_draggable)
 	GameManager.placed_draggable.connect(
 		func(drag: Draggable):
 			if drag and drag.is_inside_tree():
