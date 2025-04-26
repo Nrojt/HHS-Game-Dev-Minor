@@ -4,8 +4,8 @@ class_name AiRunner extends CharacterBody3D
 # AI Configuration
 @export_group("ai variables")
 @export var lanes_x : Array[float]= [-2.5, 0.0, 2.5] # x positions of the lanes
-@export var lane_switch_speed := 8.0
-@export var jump_velocity := 12.0
+@export var lane_switch_speed := 10.0
+@export var jump_velocity := 8.0
 @export var slide_duration := 0.5
 @export var lookahead_distance := 25.0
 @export var jump_clearance_height := 1.5

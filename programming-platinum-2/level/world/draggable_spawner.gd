@@ -23,10 +23,7 @@ func spawn_draggable() -> void:
 
 	# Pick a random index from the array
 	var random_index: int = randi_range(0, DRAGGABLE_SCENES.size() - 1)
-	# Get the scene using the random index
 	var random_scene: PackedScene = DRAGGABLE_SCENES[random_index]
-
-	# Instantiate the chosen scene
 	var draggable: Draggable = random_scene.instantiate()
 
 	if draggable:

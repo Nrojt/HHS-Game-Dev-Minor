@@ -74,7 +74,7 @@ value = SubResource("BBVariant_yytq1")
 [sub_resource type="BTAction" id="BTAction_nskos"]
 script = ExtResource("3_yytq1")
 nearest_object_var_name = &"nearest_object_distance"
-nearest_object_jump_start_distance = 4.0
+nearest_object_jump_start_distance = 3.0
 
 [sub_resource type="BTSequence" id="BTSequence_ofo4b"]
 children = [SubResource("BTCheckVar_lpmw2"), SubResource("BTAction_nskos")]

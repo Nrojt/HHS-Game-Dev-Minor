@@ -20,7 +20,7 @@ func _process(_delta: float) -> void:
 
 		var mouse_pos := get_viewport().get_mouse_position()
 		
-		# First try physics raycast
+		# Physics raycast
 		if not _follow_mouse_with_raycast(camera, mouse_pos):
 			# Fall back to plane projection if no collision
 			_follow_mouse_on_plane(camera, mouse_pos)
@@ -37,10 +37,11 @@ func set_collision_layer(_collision_layer : int):
 	else:
 		print("No collision shape found.")
 
+
 func _follow_mouse_on_plane(camera: Camera3D, mouse_pos: Vector2) -> void:
-	var ray_origin := camera.project_ray_origin(mouse_pos)
-	var ray_normal := camera.project_ray_normal(mouse_pos)
-	var intersection_point = projection_plane.intersects_ray(ray_origin, ray_normal)
+	var ray_origin: Vector3 = camera.project_ray_origin(mouse_pos)
+	var ray_normal: Vector3 = camera.project_ray_normal(mouse_pos)
+	var intersection_point  = projection_plane.intersects_ray(ray_origin, ray_normal)
 
 	if intersection_point != null:
 		global_position = intersection_point

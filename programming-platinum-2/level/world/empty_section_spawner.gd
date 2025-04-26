@@ -22,12 +22,10 @@ func _physics_process(_delta: float) -> void:
 		return
 
 	var first_section: EmptySection = _sections[0]
-	var start_pos: Vector3 = first_section.global_position
 	var end_pos: Vector3 = first_section.end_marker.global_position
 
-	# Only remove when both ends are off‐screen or behind the camera
-	if _is_out_of_view(camera, start_pos) and \
-	_is_out_of_view(camera, end_pos):
+	# check if the first section is out of view
+	if 	_is_out_of_view(camera, end_pos):
 		_sections.remove_at(0)
 		first_section.queue_free()
 		_spawn_section()

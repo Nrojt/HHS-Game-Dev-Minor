@@ -2,7 +2,7 @@ class_name PerformJump
 extends BTAction
 
 @export var nearest_object_var_name: StringName = "nearest_object_distance"
-@export var nearest_object_jump_start_distance: float = 4.0
+@export var nearest_object_jump_start_distance: float = 3.0
 
 func _tick(_delta: float) -> Status:
 	var ai: AiRunner = agent as AiRunner
