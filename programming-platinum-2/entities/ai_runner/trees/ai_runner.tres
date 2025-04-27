@@ -20,14 +20,17 @@ obstacle_data_var_name = &"obstacle_data"
 
 [sub_resource type="BTAction" id="BTAction_xmkae"]
 script = ExtResource("5_3c6of")
-obstacle_data_var_name = &"obstacle_data"
-required_action_var_name = &"required_action"
-target_lane_var_name = &"target_lane"
-nearest_object_var_name = &"nearest_object_distance"
-scan_distance = 10.0
+obstacle_data_var_name = null
+required_action_var_name = null
+target_lane_var_name = null
+nearest_object_var_name = null
+scan_distance = null
+lookahead_steps = null
+danger_threshold = null
+lane_change_safety_bias = null
 
 [sub_resource type="BTDelay" id="BTDelay_cba86"]
-seconds = 0.8
+seconds = 0.4
 children = [SubResource("BTAction_xmkae")]
 
 [sub_resource type="BBVariant" id="BBVariant_cba86"]
@@ -57,7 +60,14 @@ value = SubResource("BBVariant_3c6of")
 
 [sub_resource type="BTAction" id="BTAction_lpmw2"]
 script = ExtResource("4_faa3p")
+obstacle_data_var_name = &"obstacle_data"
+required_action_var_name = &"required_action"
 target_lane_var_name = &"target_lane"
+nearest_object_var_name = &"nearest_object_distance"
+scan_distance = 20.0
+lookahead_steps = 3
+danger_threshold = 3.0
+lane_change_safety_bias = 1.5
 
 [sub_resource type="BTSequence" id="BTSequence_nskos"]
 children = [SubResource("BTCheckVar_4s8dd"), SubResource("BTAction_lpmw2")]
@@ -75,6 +85,7 @@ value = SubResource("BBVariant_yytq1")
 script = ExtResource("3_yytq1")
 nearest_object_var_name = &"nearest_object_distance"
 nearest_object_jump_start_distance = 3.0
+jump_after_obstacle_distance = 0.3
 
 [sub_resource type="BTSequence" id="BTSequence_ofo4b"]
 children = [SubResource("BTCheckVar_lpmw2"), SubResource("BTAction_nskos")]
