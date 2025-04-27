@@ -6,12 +6,22 @@ class_name DropArea extends Area3D
 @onready var visualization : MeshInstance3D = $Visualization
 
 var hover_draggable : Draggable
+var placed_draggable : Draggable
 var enabled := true
+
+func _ready():	
+	GameManager.game_ended.connect(
+		func():
+			if placed_draggable:
+				placed_draggable.queue_free()
+			if hover_draggable:
+				hover_draggable.queue_free()
+	)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_released("hold_draggable") && hover_draggable:
 		print("holding released")
-		var placed_draggable := hover_draggable
+		placed_draggable = hover_draggable
 		hover_draggable = null
 		enabled = false
 		placed_draggable.placed = true
