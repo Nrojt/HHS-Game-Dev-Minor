@@ -56,7 +56,7 @@ func _follow_mouse_with_raycast(
 ) -> bool:
 	var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
 	if not space_state:
-		printerr("Cannot get physics space state.")
+		push_error("Cannot get physics space state.")
 		return false
 
 	var ray_origin: Vector3 = camera.project_ray_origin(mouse_pos)
