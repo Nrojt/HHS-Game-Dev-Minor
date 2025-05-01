@@ -10,8 +10,8 @@ signal trigger_zoom(duration: float, target: Node2D)
 @export var trauma_power: float = 1.5
 @export var noise_frequency: float = 5.0
 @export_group("Zoom Effect")
-@export var target_zoom_level: float = 1.4
-@export var zoom_speed: float = 4.0
+@export var target_zoom_level: float = 2.0
+@export var zoom_speed: float = 2.2
 
 var trauma: float         =  0.0
 var _noise                := FastNoiseLite.new()
@@ -54,7 +54,6 @@ func _shake(delta: float) -> void:
 	rotation = shake_rotation
 
 # TODO: if zoom effect gets triggered while already zooming, dont zoom out first
-# TODO: Also, zooming is overwriting the shake effect, since both are triggered at the same time
 func _zoom_effect(duration: float, target: Node2D) -> void:
 	# If a previous tween is still running, kill it.
 	if _zoom_in_tween != null and _zoom_in_tween.is_valid():

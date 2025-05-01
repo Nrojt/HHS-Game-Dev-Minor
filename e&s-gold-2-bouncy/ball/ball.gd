@@ -10,6 +10,8 @@ class_name Ball
 @export var colour_ball_one := Color('#D8D8F6')
 @export var colour_ball_two := Color('#B18FCF')
 @export var speed := 75.0
+@export var shrink_scale: Vector2 = Vector2(0.66, 0.66)
+@export var shrink_duration: float = 0.2
 @export_group("trail")
 @export var trail_max_points := 10
 @export var trail_min_distance := 2.0
@@ -27,7 +29,9 @@ class_name Ball
 @export_range(0.1, 1.0) var tile_collision_zoom: float = 0.12
 
 var _last_trail_pos: Vector2
-
+var _scale_tween: Tween
+var _original_scale: Vector2
+var _original_trail_width: float
 
 func _ready() -> void:
 	# Set the position
@@ -59,6 +63,9 @@ func _ready() -> void:
 	hit_particles.emitting = false
 	hit_particles.lifetime = bounce_particle_emit_duration
 
+	# Storing original sizes
+	_original_scale = polygon_2d.scale
+	_original_trail_width = trail.width
 
 func _physics_process(delta: float) -> void:
 	_move_trail()
@@ -79,9 +86,33 @@ func _physics_process(delta: float) -> void:
 				effect_camera.add_trauma(tile_collision_trauma)
 			collision.get_collider().toggle(self)
 		else:
-			if effect_camera:
-				polygon_2d.scale /= 2
+			_shrink_temporarily()
 
+func _shrink_temporarily() -> void:
+	if _scale_tween != null and _scale_tween.is_valid():
+		_scale_tween.kill()
+		polygon_2d.scale = _original_scale
+		trail.width = _original_trail_width
+
+	_scale_tween = create_tween()
+
+	var shrink_width: float = _original_trail_width * shrink_scale.x
+
+	# Animate polygon_2d scale
+	_scale_tween.tween_property(
+		polygon_2d, "scale", shrink_scale, shrink_duration
+	).from(polygon_2d.scale)
+	_scale_tween.tween_property(
+		polygon_2d, "scale", _original_scale, shrink_duration
+	).from(shrink_scale).set_delay(shrink_duration)
+
+	# Animate trail width
+	_scale_tween.tween_property(
+		trail, "width", shrink_width, shrink_duration
+	).from(trail.width)
+	_scale_tween.tween_property(
+		trail, "width", _original_trail_width, shrink_duration
+	).from(shrink_width).set_delay(shrink_duration)
 
 func _move_trail() -> void:
 	# Creating the trail points
@@ -98,7 +129,6 @@ func _move_trail() -> void:
 	if trail.points.size() > trail_max_points  || move_delta == Vector2.ZERO:
 		trail.remove_point(0)
 
-
 func _collision_effect(old_velocity: Vector2) -> void:
 	var delta_v: float = (velocity.bounce(Vector2.UP) - old_velocity).length()
 	hit_particles.initial_velocity_min = delta_v * min_velocity_multiplier
@@ -106,7 +136,6 @@ func _collision_effect(old_velocity: Vector2) -> void:
 	hit_particles.angular_velocity_max = delta_v
 
 	hit_particles.emitting = true
-
 
 func _get_collision_layer() -> int:
 	return collision_layer
