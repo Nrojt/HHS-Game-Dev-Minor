@@ -5,7 +5,7 @@ _Game Dev Minor at The Hague University of Applied Sciences_
 ### Specified
 - **Trail Effect** - A trail effect that follows the ball.
 - **Tile Toggle Effect** - On toggle, the Tile rotates and becomes bigger temporarily.
-- **Particle on Bounce** - When the ball bounces of a tile, a particle effect is created shooting out tiny particles in 360 degrees. Particle speed is based on velocity of the ball.
+- **Particle on Bounce** - When the ball bounces of a somethin, a particle effect is created shooting out tiny particles in 360 degrees. Particle speed is based on velocity of the ball.
 - **Screen Shake** - When the ball hits a tile, the screen shakes for a short amount of time.
 
 ### Two own
