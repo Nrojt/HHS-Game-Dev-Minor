@@ -51,17 +51,19 @@ domain_warp_enabled = true
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_w0god"]
 seamless = true
-seamless_blend_skirt = 0.5
+seamless_blend_skirt = 1.0
+normalize = false
 noise = SubResource("FastNoiseLite_0kqbf")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w0god"]
 shader = ExtResource("5_0kqbf")
-shader_parameter/sky_color_a = Color(0.4, 0, 1, 1)
-shader_parameter/sky_color_b = Color(0, 0.4, 1, 1)
+shader_parameter/sky_color_horizon = Color(0.4, 0, 1, 1)
+shader_parameter/sky_color_zenith = Color(0, 0.4, 1, 1)
 shader_parameter/cloud_color = Color(1, 1, 1, 1)
 shader_parameter/cloud_min = 0.3
 shader_parameter/cloud_max = 0.6
 shader_parameter/cloud_speed = 0.1
+shader_parameter/cloud_transparency = 0.7
 shader_parameter/cloud_noise = SubResource("NoiseTexture2D_w0god")
 
 [sub_resource type="Sky" id="Sky_nwawl"]
