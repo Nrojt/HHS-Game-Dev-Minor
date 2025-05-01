@@ -1,21 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://dy6iv0x8udb1v"]
+[gd_scene load_steps=4 format=3 uid="uid://dy6iv0x8udb1v"]
 
 [ext_resource type="Script" uid="uid://m5xls5w4tpf6" path="res://ball.gd" id="1_b2blh"]
+
+[sub_resource type="Curve" id="Curve_x8fbi"]
+_data = [Vector2(0, 0.4), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rw2ro"]
 radius = 4.0
 
 [node name="Ball" type="CharacterBody2D"]
-position = Vector2(-4, -4)
 collision_layer = 2
 collision_mask = 13
 motion_mode = 1
 script = ExtResource("1_b2blh")
 
+[node name="Trail" type="Line2D" parent="."]
+width = 6.5
+width_curve = SubResource("Curve_x8fbi")
+joint_mode = 2
+antialiased = true
+
 [node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(-4, -4)
 color = Color(1, 1, 0, 1)
 polygon = PackedVector2Array(1, 1, 3, 0, 5, 0, 7, 1, 8, 3, 8, 4, 8, 5, 7, 7, 5, 8, 4, 8, 3, 8, 1, 7, 0, 5, 0, 4, 0, 3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(4, 4)
 shape = SubResource("CircleShape2D_rw2ro")
