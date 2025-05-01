@@ -19,7 +19,7 @@ class_name Ball
 @export_range(1.0, 2.0) var max_velocity_multiplier  : float = 1.2
 @export_group("camera")
 @export var effect_camera : EffectCamera
-@export_range(0.1, 1.0) var tile_collision_trauma : float = 0.1
+@export_range(0.1, 1.0) var tile_collision_trauma : float = 0.2
 
 var _last_trail_pos: Vector2
 
