@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://d2uopcpeaxl8o"]
+[gd_scene load_steps=6 format=3 uid="uid://d2uopcpeaxl8o"]
 
-[ext_resource type="PackedScene" uid="uid://dy6iv0x8udb1v" path="res://ball.tscn" id="2_u88ny"]
-[ext_resource type="PackedScene" uid="uid://8u50fc06u2ye" path="res://tile.tscn" id="3_twn5j"]
+[ext_resource type="PackedScene" uid="uid://dy6iv0x8udb1v" path="res://ball/ball.tscn" id="2_u88ny"]
+[ext_resource type="Script" uid="uid://dwk30yu70p0nc" path="res://game/camera_2d.gd" id="3_feb5d"]
+[ext_resource type="PackedScene" uid="uid://8u50fc06u2ye" path="res://tile/tile.tscn" id="3_twn5j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ar8xm"]
 size = Vector2(160, 16)
@@ -672,24 +673,29 @@ position = Vector2(64, 56)
 collision_layer = 16
 ball = NodePath("../../Ball1")
 
-[node name="Ball1" parent="." instance=ExtResource("2_u88ny")]
+[node name="Ball1" parent="." node_paths=PackedStringArray("effect_camera") instance=ExtResource("2_u88ny")]
 unique_name_in_owner = true
 position = Vector2(104, 24)
 collision_layer = 16
 collision_mask = 36
 is_ball_one = true
+effect_camera = NodePath("../Camera2D")
 
-[node name="Polygon2D" parent="Ball1" index="0"]
+[node name="Polygon2D" parent="Ball1" index="1"]
 color = Color(1, 0, 0, 1)
 
-[node name="Ball2" parent="." instance=ExtResource("2_u88ny")]
+[node name="Ball2" parent="." node_paths=PackedStringArray("effect_camera") instance=ExtResource("2_u88ny")]
 unique_name_in_owner = true
-position = Vector2(0, 0)
 collision_layer = 32
 collision_mask = 20
+effect_camera = NodePath("../Camera2D")
 
-[node name="Polygon2D" parent="Ball2" index="0"]
+[node name="Polygon2D" parent="Ball2" index="1"]
 color = Color(0, 0, 1, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(64, 32)
+script = ExtResource("3_feb5d")
 
 [editable path="Ball1"]
 [editable path="Ball2"]
