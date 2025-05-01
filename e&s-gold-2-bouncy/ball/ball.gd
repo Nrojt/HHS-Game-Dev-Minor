@@ -23,7 +23,7 @@ class_name Ball
 @export_group("camera")
 @export var effect_camera: EffectCamera
 
-@export_range(0.1, 1.0) var tile_collision_trauma: float = 0.2
+@export_range(0.1, 1.0) var tile_collision_trauma: float = 0.5
 @export_range(0.1, 1.0) var tile_collision_zoom: float = 0.12
 
 var _last_trail_pos: Vector2
@@ -75,9 +75,12 @@ func _physics_process(delta: float) -> void:
 		# If the collision is with a tile, toggle it
 		if collision.get_collider() is Tile:
 			if effect_camera:
-				effect_camera.add_trauma(tile_collision_trauma)
 				effect_camera.trigger_zoom.emit(tile_collision_zoom, self)
+				effect_camera.add_trauma(tile_collision_trauma)
 			collision.get_collider().toggle(self)
+		else:
+			if effect_camera:
+				polygon_2d.scale /= 2
 
 
 func _move_trail() -> void:
