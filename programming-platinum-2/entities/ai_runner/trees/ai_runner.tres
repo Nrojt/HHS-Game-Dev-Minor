@@ -12,6 +12,11 @@ var/required_action/type = 4
 var/required_action/value = ""
 var/required_action/hint = 0
 var/required_action/hint_string = ""
+var/is_changing_lanes/name = &"is_changing_lanes"
+var/is_changing_lanes/type = 1
+var/is_changing_lanes/value = false
+var/is_changing_lanes/hint = 0
+var/is_changing_lanes/hint_string = ""
 
 [sub_resource type="BTAction" id="BTAction_hu1is"]
 script = ExtResource("1_umm33")

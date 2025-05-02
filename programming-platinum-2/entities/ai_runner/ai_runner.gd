@@ -25,7 +25,13 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if !GameManager.game_active : return
+	if !GameManager.game_active:
+		if bt_player.is_processing():
+			bt_player.set_process(false)
+		return
+	else:
+		if !bt_player.is_processing():
+			bt_player.set_process(true)
 	if global_position.z >= (initial_z_pos + z_death_difference):
 		print("player died")
 		GameManager.game_active = false

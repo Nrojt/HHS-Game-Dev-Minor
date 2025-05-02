@@ -53,6 +53,10 @@ func _get_lane_safety(lane: int, obstacles: Array, ai: AiRunner) -> float:
 	_sort_obstacles_by_distance(obs)
 	for i in range(min(lookahead_steps, obs.size())):
 		var o = obs[i]
+		if !is_instance_valid(o):
+			return FAILURE
+		if o["distance"] > scan_distance:
+			return scan_distance # No danger found, return max safety
 		# An obstacle is dangerous if it's too close OR it's a train and AI is on ground level
 		if o["distance"] < danger_threshold or (o.node is Train and !ai.is_on_upper_level):
 			return o["distance"] # Safety is distance to first danger
@@ -170,8 +174,9 @@ func _tick(_delta: float) -> Status:
 			if max_other_safety > safety[current_lane] + lane_change_safety_bias:
 				should_consider_change = true
 
+	var is_changing_lanes = blackboard.get_var("is_changing_lanes", false)
 	# Execute change only if considered AND the target lane is safe enough
-	if should_consider_change and max_other_safety > danger_threshold:
+	if should_consider_change and max_other_safety > danger_threshold and not is_changing_lanes:
 		action = "ChangeLane"
 		target_lane = best_other_lane
 
@@ -184,7 +189,6 @@ func _tick(_delta: float) -> Status:
 	elif action == "UseStairs":
 		blackboard.set_var(target_lane_var_name, current_lane)
 
-	# Debug
 	var final_target = target_lane if action == "ChangeLane" else current_lane
 	if action == "UseStairs":
 		final_target = current_lane # Explicitly show current lane for stairs
