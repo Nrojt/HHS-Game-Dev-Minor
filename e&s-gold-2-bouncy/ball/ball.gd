@@ -25,7 +25,7 @@ class_name Ball
 @export_group("camera")
 @export var effect_camera: EffectCamera
 
-@export_range(0.1, 1.0) var tile_collision_trauma: float = 0.5
+@export_range(0.1, 1.0) var tile_collision_trauma: float = 1.0
 @export_range(0.1, 1.0) var tile_collision_zoom: float = 0.12
 
 var _last_trail_pos: Vector2
