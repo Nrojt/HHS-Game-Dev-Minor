@@ -26,15 +26,16 @@ shader_parameter/line_threshold_high = 0.52
 
 [sub_resource type="BoxMesh" id="BoxMesh_85tsa"]
 material = SubResource("ShaderMaterial_g2vcw")
-size = Vector3(3, 4.2, 10.2)
+size = Vector3(3, 4.2, 8)
 
 [node name="DropArea" type="Area3D"]
 monitorable = false
 script = ExtResource("1_xgt2g")
+base_visualization_color_available = Color(0.545098, 0.87451, 0.227451, 0.0196078)
+line_visualization_color_available = Color(0.0627451, 0.458824, 0.305882, 0.117647)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_tis70")
 
 [node name="Visualization" type="MeshInstance3D" parent="."]
-visible = false
 mesh = SubResource("BoxMesh_85tsa")
