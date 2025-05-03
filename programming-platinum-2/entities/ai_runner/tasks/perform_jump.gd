@@ -39,9 +39,8 @@ func _tick(_delta: float) -> Status:
 			ai.velocity.y = ai.jump_velocity
 			jumping = true
 			jump_target_z = closest_pos.z + jump_after_obstacle_distance
-			# Set horizontal velocity towards the jump target
-			var direction = sign(jump_target_z - ai_pos.z)
-			ai.velocity.z = direction * jump_horizontal_speed
+			# Always jump forward
+			ai.velocity.z = jump_horizontal_speed
 			return RUNNING
 		else:
 			# Not on floor, can't jump, do nothing
@@ -51,9 +50,9 @@ func _tick(_delta: float) -> Status:
 	if jumping:
 		# Only set horizontal velocity if in the air
 		if not ai.is_on_floor():
-			var direction = sign(jump_target_z - ai.global_position.z)
-			ai.velocity.z = direction * jump_horizontal_speed
-		# Consider "cleared" if AI's z is ahead of the obstacle and is on the floor
+			# Keep moving forward while in the air
+			ai.velocity.z = jump_horizontal_speed
+		# Consider "cleared" if AI's z is ahead of the target and is on the floor
 		if ai.global_position.z > jump_target_z and ai.is_on_floor():
 			jumping = false
 			ai.velocity.z = 0.0 # Stop horizontal movement after landing

@@ -43,6 +43,17 @@ func _ready():
 		visualization.show()
 	else:
 		visualization.hide()
+		
+	GameManager.game_started.connect(
+		func(): 
+			enabled = true
+			visualization.show()
+	)
+	GameManager.game_ended.connect(
+		func(): 
+			enabled = false
+			visualization.hide()
+	)
 
 
 func _exit_tree():
