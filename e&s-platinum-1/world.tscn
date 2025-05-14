@@ -55,7 +55,7 @@ shader_parameter/dither_hue_shift = 0.7954
 shader_parameter/alpha = 1.0
 shader_parameter/scale = 1.291
 shader_parameter/border_mask = 2.0
-shader_parameter/pixel_size = 4
+shader_parameter/pixel_size = 2
 
 [sub_resource type="Environment" id="Environment_eewsi"]
 background_mode = 1
