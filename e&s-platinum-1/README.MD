@@ -16,3 +16,6 @@ _Game Dev Minor at The Hague University of Applied Sciences_
 
 ## Showcase Video
 For showcase video's, see the `showcase_video` folder.
+
+## Design Document
+See `DESIGN_DOCUMENT.MD`
