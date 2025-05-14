@@ -1,0 +1,215 @@
+[gd_scene load_steps=46 format=3 uid="uid://bkohuupeknj2i"]
+
+[ext_resource type="Script" uid="uid://c4nd3ih0a2lyw" path="res://shader.gd" id="1_7htu6"]
+[ext_resource type="Script" uid="uid://cshaopk4rgg30" path="res://addons/Free fly camera/Src/free_fly_startup.gd" id="1_ytpkv"]
+[ext_resource type="Shader" uid="uid://dqa5caliskt7" path="res://post_process.gdshader" id="2_7qk3m"]
+[ext_resource type="PackedScene" uid="uid://ddldosunb0q4t" path="res://Fantasy_Free/nodes/bag_001.tscn" id="2_jas3d"]
+[ext_resource type="PackedScene" uid="uid://blevx8i5rs008" path="res://Fantasy_Free/nodes/bag_002.tscn" id="3_7htu6"]
+[ext_resource type="PackedScene" uid="uid://cam7fu7a5usjf" path="res://Fantasy_Free/nodes/bag_003.tscn" id="4_7qk3m"]
+[ext_resource type="PackedScene" uid="uid://dpl4tkj1ssc7f" path="res://Fantasy_Free/nodes/bag_004.tscn" id="5_xpnt2"]
+[ext_resource type="PackedScene" uid="uid://rhnfrh6gow28" path="res://Fantasy_Free/nodes/barrel_001.tscn" id="6_ruyqm"]
+[ext_resource type="PackedScene" uid="uid://bnhc03fpjju53" path="res://Fantasy_Free/nodes/big_fabulous_tree_001.tscn" id="7_fnoqa"]
+[ext_resource type="PackedScene" uid="uid://c1pcau1f1fsa4" path="res://Fantasy_Free/nodes/box_001.tscn" id="8_nx736"]
+[ext_resource type="PackedScene" uid="uid://cttukn07ojlu5" path="res://Fantasy_Free/nodes/box_001_001.tscn" id="9_55kwu"]
+[ext_resource type="PackedScene" uid="uid://b7d2x5ov8gl7v" path="res://Fantasy_Free/nodes/box_002.tscn" id="10_f3o6s"]
+[ext_resource type="PackedScene" uid="uid://7q27d7w572g1" path="res://Fantasy_Free/nodes/box_003.tscn" id="11_w4lh7"]
+[ext_resource type="PackedScene" uid="uid://2is765vq6m86" path="res://Fantasy_Free/nodes/bucket_001.tscn" id="12_k3lar"]
+[ext_resource type="PackedScene" uid="uid://dts2lna54s34q" path="res://Fantasy_Free/nodes/cactus_001.tscn" id="13_olr1q"]
+[ext_resource type="PackedScene" uid="uid://c5j3wvw46le62" path="res://Fantasy_Free/nodes/cart_001.tscn" id="14_q42o5"]
+[ext_resource type="PackedScene" uid="uid://clblo4uu1xcd6" path="res://Fantasy_Free/nodes/crane_001.tscn" id="15_b7btk"]
+[ext_resource type="PackedScene" uid="uid://dyplsnpgicp7y" path="res://Fantasy_Free/nodes/fabulous_mushroom_001.tscn" id="16_kkgr2"]
+[ext_resource type="PackedScene" uid="uid://cx18si7h2hsh3" path="res://Fantasy_Free/nodes/fabulous_mushroom_002.tscn" id="17_iett8"]
+[ext_resource type="PackedScene" uid="uid://lnl3x1hhnmvc" path="res://Fantasy_Free/nodes/fabulous_mushroom_004.tscn" id="18_r5m4j"]
+[ext_resource type="PackedScene" uid="uid://daibdkn16jgh8" path="res://Fantasy_Free/nodes/fabulous_tree_001.tscn" id="19_e77ka"]
+[ext_resource type="PackedScene" uid="uid://dnurx7wj0jbv7" path="res://Fantasy_Free/nodes/fir_001.tscn" id="20_c0wax"]
+[ext_resource type="PackedScene" uid="uid://bl08kl586iut4" path="res://Fantasy_Free/nodes/holder_001.tscn" id="21_sedwk"]
+[ext_resource type="PackedScene" uid="uid://pkbnx6nvoro2" path="res://Fantasy_Free/nodes/house_001.tscn" id="22_37ykd"]
+[ext_resource type="PackedScene" uid="uid://dnx6lqql7o1pq" path="res://Fantasy_Free/nodes/house_002.tscn" id="23_1hvhf"]
+[ext_resource type="PackedScene" uid="uid://b7fdkincckcoe" path="res://Fantasy_Free/nodes/house_003.tscn" id="24_75cpn"]
+[ext_resource type="PackedScene" uid="uid://o16t32wb3as4" path="res://Fantasy_Free/nodes/jug_001.tscn" id="25_ct3wn"]
+[ext_resource type="PackedScene" uid="uid://ckv7ex8qg2gjv" path="res://Fantasy_Free/nodes/jug_002.tscn" id="26_ynm8w"]
+[ext_resource type="PackedScene" uid="uid://d6pwk7mcv8o1" path="res://Fantasy_Free/nodes/jug_003.tscn" id="27_rakx2"]
+[ext_resource type="PackedScene" uid="uid://2fwk4ir5ax1g" path="res://Fantasy_Free/nodes/jug_004.tscn" id="28_3fh52"]
+[ext_resource type="PackedScene" uid="uid://dqqrks1xxabs3" path="res://Fantasy_Free/nodes/jug_005.tscn" id="29_8f1f8"]
+[ext_resource type="PackedScene" uid="uid://baw18qyqh8c71" path="res://Fantasy_Free/nodes/log_001.tscn" id="30_lxwtw"]
+[ext_resource type="PackedScene" uid="uid://dxifvn7k4i06q" path="res://Fantasy_Free/nodes/log_002.tscn" id="31_ir1d4"]
+[ext_resource type="PackedScene" uid="uid://gkipqfrqna2k" path="res://Fantasy_Free/nodes/log_003.tscn" id="32_tj74d"]
+[ext_resource type="PackedScene" uid="uid://boyabl1lrfadf" path="res://Fantasy_Free/nodes/log_004.tscn" id="33_yy5nj"]
+[ext_resource type="PackedScene" uid="uid://bm0wqm1gjluan" path="res://Fantasy_Free/nodes/plate_001.tscn" id="34_p5g01"]
+[ext_resource type="PackedScene" uid="uid://cgj1jm507051n" path="res://Fantasy_Free/nodes/plate_002.tscn" id="35_fl6gn"]
+[ext_resource type="PackedScene" uid="uid://k1jsmyxxpcq3" path="res://Fantasy_Free/nodes/plate_003.tscn" id="36_gjwlp"]
+[ext_resource type="PackedScene" uid="uid://chj664a3jvwuk" path="res://Fantasy_Free/nodes/pointer_001.tscn" id="37_yfwfa"]
+[ext_resource type="PackedScene" uid="uid://c3h3gen7unoln" path="res://Fantasy_Free/nodes/stall_001.tscn" id="38_qm10a"]
+[ext_resource type="PackedScene" uid="uid://6jkbg1pvv5iw" path="res://Fantasy_Free/nodes/stall_table_001.tscn" id="39_7fs00"]
+[ext_resource type="PackedScene" uid="uid://twcljam2n3co" path="res://Fantasy_Free/nodes/table_001.tscn" id="40_e0aah"]
+[ext_resource type="PackedScene" uid="uid://xde0pg52c7rm" path="res://Fantasy_Free/nodes/tree_001.tscn" id="41_415my"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xpnt2"]
+shader = ExtResource("2_7qk3m")
+shader_parameter/screen_size = Vector2(1152, 648)
+shader_parameter/colors = 12
+shader_parameter/dither_size = 1
+shader_parameter/dither_shift = 0.1
+shader_parameter/dither_strength = 0.804
+shader_parameter/dither_hue_shift = 0.7954
+shader_parameter/alpha = 1.0
+shader_parameter/scale = 1.291
+shader_parameter/border_mask = 2.0
+shader_parameter/pixel_size = 4
+
+[sub_resource type="Environment" id="Environment_eewsi"]
+background_mode = 1
+background_color = Color(0.246615, 0.690164, 0.504719, 1)
+background_energy_multiplier = 2.0
+ambient_light_source = 2
+ambient_light_color = Color(0.994744, 0.995629, 0.997509, 1)
+ambient_light_energy = 0.2
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.01
+
+[node name="World" type="Node3D"]
+
+[node name="Shader" type="CanvasLayer" parent="."]
+script = ExtResource("1_7htu6")
+
+[node name="ColorRect" type="ColorRect" parent="Shader"]
+material = SubResource("ShaderMaterial_xpnt2")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Character" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera")]
+script = ExtResource("1_ytpkv")
+CLAMP_HEAD_ROTATION = false
+camera = NodePath("Camera3D")
+
+[node name="Camera3D" type="Camera3D" parent="Character"]
+
+[node name="Level" type="Node3D" parent="."]
+
+[node name="bag_001" parent="Level" instance=ExtResource("2_jas3d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+
+[node name="bag_002" parent="Level" instance=ExtResource("3_7htu6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
+
+[node name="bag_003" parent="Level" instance=ExtResource("4_7qk3m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+
+[node name="bag_004" parent="Level" instance=ExtResource("5_xpnt2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="barrel_001" parent="Level" instance=ExtResource("6_ruyqm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="big_fabulous_tree_001" parent="Level" instance=ExtResource("7_fnoqa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -8)
+
+[node name="box_001" parent="Level" instance=ExtResource("8_nx736")]
+
+[node name="box_001_001" parent="Level" instance=ExtResource("9_55kwu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -1)
+
+[node name="box_002" parent="Level" instance=ExtResource("10_f3o6s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -1)
+
+[node name="box_003" parent="Level" instance=ExtResource("11_w4lh7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -1)
+
+[node name="bucket_001" parent="Level" instance=ExtResource("12_k3lar")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -1)
+
+[node name="cactus_001" parent="Level" instance=ExtResource("13_olr1q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+
+[node name="cart_001" parent="Level" instance=ExtResource("14_q42o5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -3)
+
+[node name="crane_001" parent="Level" instance=ExtResource("15_b7btk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -2)
+
+[node name="fabulous_mushroom_001" parent="Level" instance=ExtResource("16_kkgr2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+
+[node name="fabulous_mushroom_002" parent="Level" instance=ExtResource("17_iett8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4, 0, -8)
+
+[node name="fabulous_mushroom_004" parent="Level" instance=ExtResource("18_r5m4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
+
+[node name="fabulous_tree_001" parent="Level" instance=ExtResource("19_e77ka")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -3)
+
+[node name="fir_001" parent="Level" instance=ExtResource("20_c0wax")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -5)
+
+[node name="holder_001" parent="Level" instance=ExtResource("21_sedwk")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 0, 0)
+
+[node name="house_001" parent="Level" instance=ExtResource("22_37ykd")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -12, 0, -2)
+
+[node name="house_002" parent="Level" instance=ExtResource("23_1hvhf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, -2)
+
+[node name="house_003" parent="Level" instance=ExtResource("24_75cpn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -8)
+
+[node name="jug_001" parent="Level" instance=ExtResource("25_ct3wn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 0)
+
+[node name="jug_002" parent="Level" instance=ExtResource("26_ynm8w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 0)
+
+[node name="jug_003" parent="Level" instance=ExtResource("27_rakx2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+
+[node name="jug_004" parent="Level" instance=ExtResource("28_3fh52")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -1)
+
+[node name="jug_005" parent="Level" instance=ExtResource("29_8f1f8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -1)
+
+[node name="log_001" parent="Level" instance=ExtResource("30_lxwtw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -7)
+
+[node name="log_002" parent="Level" instance=ExtResource("31_ir1d4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -4)
+
+[node name="log_003" parent="Level" instance=ExtResource("32_tj74d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -4)
+
+[node name="log_004" parent="Level" instance=ExtResource("33_yy5nj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -4)
+
+[node name="plate_001" parent="Level" instance=ExtResource("34_p5g01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -1)
+
+[node name="plate_002" parent="Level" instance=ExtResource("35_fl6gn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -2)
+
+[node name="plate_003" parent="Level" instance=ExtResource("36_gjwlp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -2)
+
+[node name="pointer_001" parent="Level" instance=ExtResource("37_yfwfa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
+
+[node name="stall_001" parent="Level" instance=ExtResource("38_qm10a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -3)
+
+[node name="stall_table_001" parent="Level" instance=ExtResource("39_7fs00")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -3)
+
+[node name="table_001" parent="Level" instance=ExtResource("40_e0aah")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -2)
+
+[node name="tree_001" parent="Level" instance=ExtResource("41_415my")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -10)
+
+[node name="showcase_platfrom" type="CSGBox3D" parent="Level"]
+transform = Transform3D(50, 0, 0, 0, 1, 0, 0, 0, 20, 0, -1, -3)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_eewsi")
