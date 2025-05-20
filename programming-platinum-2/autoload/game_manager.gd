@@ -3,6 +3,8 @@ extends Node
 signal game_started
 signal game_ended
 signal placed_draggable(placed_draggable : Draggable)
+signal start_dragging_draggable(preview_draggable : Draggable)
+signal end_dragging_draggable(preview_draggable : Draggable)
 
 var _default_movement_speed := 0.4
 
@@ -25,8 +27,9 @@ var game_active := false :
 			movement_speed = _default_movement_speed
 			game_started.emit()
 		else:
-			current_draggable.queue_free()
-			current_draggable = null
+			if current_draggable:
+				current_draggable.queue_free()
+				current_draggable = null
 			game_ended.emit()
 			UiManager.ui_state_changed.emit(UiManager.UIState.GAME_OVER)
 			print("Game stopped")

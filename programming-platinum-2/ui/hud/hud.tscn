@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c8p4y13l4wjft"]
+[gd_scene load_steps=3 format=3 uid="uid://c8p4y13l4wjft"]
 
 [ext_resource type="Script" uid="uid://dd33swv17emau" path="res://ui/hud/hud.gd" id="1_rbyyf"]
+[ext_resource type="PackedScene" uid="uid://bhpx3a7ome13w" path="res://level/draggables/draggable_cards/draggable_card.tscn" id="2_4d6w6"]
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -12,21 +13,59 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_rbyyf")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="TimeLabel" type="Label" parent="MarginContainer"]
+[node name="TimeLabel" type="Label" parent="HBoxContainer/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "Placeholder"
+
+[node name="Control" type="Control" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(156, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+size_flags_stretch_ratio = 0.0
+theme_override_constants/separation = 15
+
+[node name="DraggableCard" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_4d6w6")]
+layout_mode = 2
+
+[node name="DraggableCard2" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_4d6w6")]
+layout_mode = 2
