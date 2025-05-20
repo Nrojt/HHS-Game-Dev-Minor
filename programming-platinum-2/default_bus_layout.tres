@@ -1,0 +1,44 @@
+[gd_resource type="AudioBusLayout" load_steps=4 format=3 uid="uid://cjim2mhynjf4l"]
+
+[sub_resource type="AudioEffectPhaser" id="AudioEffectPhaser_j3pel"]
+resource_name = "Phaser"
+range_max_hz = 610.891
+rate_hz = 0.1
+feedback = 0.1
+depth = 0.5
+
+[sub_resource type="AudioEffectPitchShift" id="AudioEffectPitchShift_j3pel"]
+resource_name = "PitchShift"
+pitch_scale = 0.95
+oversampling = 32
+fft_size = 4
+
+[sub_resource type="AudioEffectEQ21" id="AudioEffectEQ21_j3pel"]
+resource_name = "EQ21"
+band_db/350_hz = -15.0
+band_db/500_hz = -60.0
+band_db/700_hz = -60.0
+band_db/1000_hz = -60.0
+band_db/1400_hz = -60.0
+band_db/2000_hz = -60.0
+band_db/2800_hz = -60.0
+band_db/4000_hz = -60.0
+band_db/5600_hz = -60.0
+band_db/8000_hz = -60.0
+band_db/11000_hz = -60.0
+band_db/16000_hz = -60.0
+band_db/22000_hz = -60.0
+
+[resource]
+bus/1/name = &"Music"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = 0.0
+bus/1/send = &"Master"
+bus/1/effect/0/effect = SubResource("AudioEffectPhaser_j3pel")
+bus/1/effect/0/enabled = true
+bus/1/effect/1/effect = SubResource("AudioEffectPitchShift_j3pel")
+bus/1/effect/1/enabled = true
+bus/1/effect/2/effect = SubResource("AudioEffectEQ21_j3pel")
+bus/1/effect/2/enabled = true

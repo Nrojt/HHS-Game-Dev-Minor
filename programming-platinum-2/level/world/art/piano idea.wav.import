@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://obpgvy7p2nxb"
+path="res://.godot/imported/piano idea.wav-4c7658a1df26dec7d96a3cd933a40b19.sample"
+
+[deps]
+
+source_file="res://level/world/art/piano idea.wav"
+dest_files=["res://.godot/imported/piano idea.wav-4c7658a1df26dec7d96a3cd933a40b19.sample"]
+
+[params]
+
+force/8_bit=true
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
