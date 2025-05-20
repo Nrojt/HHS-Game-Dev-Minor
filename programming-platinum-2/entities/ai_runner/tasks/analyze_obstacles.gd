@@ -6,6 +6,7 @@ extends BTAction
 @export var target_lane_var_name: StringName = "target_lane"
 @export var nearest_object_var_name: StringName = "nearest_object_distance"
 @export var scan_distance: float = 20.0
+@export var unit_safety_check_size : float = 5.0
 @export var lookahead_steps: int = 3
 @export var danger_threshold: float = 3.0
 @export var lane_change_safety_bias: float = 1.5
@@ -32,7 +33,7 @@ func _is_train_ahead(obstacles: Array, lane: int, z: float) -> bool:
 		if (
 		o["lane"] == lane
 		and o["position"].z > z
-		and o["position"].z - z < 5.0
+		and o["position"].z - z < unit_safety_check_size
 		and o.node is Train
 		):
 			return true
@@ -42,7 +43,7 @@ func _is_train_ahead(obstacles: Array, lane: int, z: float) -> bool:
 # Returns true if there is any obstacle ahead of position z in the given lane.
 func _is_any_obstacle_ahead(obstacles: Array, lane: int, z: float) -> bool:
 	for o in obstacles:
-		if o["lane"] == lane and o["position"].z > z and o["position"].z - z < 5.0:
+		if o["lane"] == lane and o["position"].z > z and o["position"].z - z < unit_safety_check_size:
 			return true
 	return false
 

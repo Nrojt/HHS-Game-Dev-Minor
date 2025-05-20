@@ -5,7 +5,6 @@ class_name AiRunner extends CharacterBody3D
 @export var lanes_x : Array[float]= [-2.5, 0.0, 2.5] # x positions of the lanes
 @export var lane_switch_speed := 10.0
 @export var jump_velocity := 12.0
-@export var slide_duration := 0.5
 @export var lookahead_distance := 25.0
 @export var jump_clearance_height := 1.5
 @export var z_death_difference := 10.0

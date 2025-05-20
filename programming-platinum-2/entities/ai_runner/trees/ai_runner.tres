@@ -30,6 +30,7 @@ required_action_var_name = &"required_action"
 target_lane_var_name = &"target_lane"
 nearest_object_var_name = &"nearest_object_distance"
 scan_distance = 20.0
+unit_safety_check_size = 5.0
 lookahead_steps = 3
 danger_threshold = 3.0
 lane_change_safety_bias = 1.5
@@ -84,6 +85,7 @@ script = ExtResource("3_yytq1")
 nearest_object_var_name = &"nearest_object_distance"
 nearest_object_jump_start_distance = 3.0
 jump_after_obstacle_distance = 0.3
+max_jump_air_time = 2.0
 
 [sub_resource type="BTSequence" id="BTSequence_ofo4b"]
 children = [SubResource("BTCheckVar_lpmw2"), SubResource("BTAction_nskos")]
