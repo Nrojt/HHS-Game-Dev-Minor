@@ -15,8 +15,8 @@ static var all_drop_areas: Array     = []
 
 @onready var visualization: MeshInstance3D = $Visualization
 
-var hover_draggable: Draggable
-var placed_draggable: Draggable
+var hover_draggable: DraggableBase
+var placed_draggable: DraggableBase
 var enabled : bool = GameManager.game_active
 
 

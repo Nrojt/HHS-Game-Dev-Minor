@@ -21,7 +21,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	global_position += movement_direction * GameManager.movement_speed * delta
 
-func _on_placed_draggable(_placed_draggable: Draggable) -> void:
+func _on_placed_draggable(_placed_draggable: DraggableBase) -> void:
 	
 	var placed := 0
 	for area in drop_areas:

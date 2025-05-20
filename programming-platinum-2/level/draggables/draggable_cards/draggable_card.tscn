@@ -10,6 +10,7 @@ custom_minimum_size = Vector2(128, 160)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_wfha7")
+DRAGGABLE_SCENES = null
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

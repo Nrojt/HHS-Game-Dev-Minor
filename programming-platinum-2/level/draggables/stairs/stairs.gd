@@ -1,1 +1,1 @@
-class_name Stairs extends Draggable
+class_name Stairs extends DraggableBase

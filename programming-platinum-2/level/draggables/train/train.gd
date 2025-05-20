@@ -1,1 +1,1 @@
-class_name Train extends Draggable
+class_name Train extends DraggableBase

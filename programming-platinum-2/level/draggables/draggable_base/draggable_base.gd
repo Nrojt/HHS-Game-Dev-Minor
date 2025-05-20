@@ -1,4 +1,4 @@
-class_name Draggable
+class_name DraggableBase
 extends Node3D
 
 @export_flags_3d_physics var collision_mask := 1
@@ -12,16 +12,16 @@ var lane_index := -1
 
 @onready var static_body : StaticBody3D = $StaticBody3D
 
-# Track previous button state
-var _was_button_held := false
+# Track previous draggable state
+var _was_held := false
 
 func _ready():
-	# Initialize the button state
-	_was_button_held = Input.is_action_pressed("hold_draggable")
+	# Initialize the draggable state
+	_was_held = Input.is_action_pressed("hold_draggable")
 
 func _process(_delta: float) -> void:
 	if not placed:
-		# --- Dragging logic ---
+		# Dragging logic
 		var camera: Camera3D = get_viewport().get_camera_3d()
 		if not camera:
 			push_error("No 3D camera found in viewport!")
@@ -38,12 +38,12 @@ func _process(_delta: float) -> void:
 		global_position.y += draggable_y_offset
 
 		# Mouse release detection
-		var is_button_held = Input.is_action_pressed("hold_draggable")
-		if _was_button_held and not is_button_held:
-			# Button was just released
+		var is_draggable_held: bool = Input.is_action_pressed("hold_draggable")
+		if _was_held and not is_draggable_held:
+			# Draggable was just released
 			print("Let go of draggable")
 			GameManager.end_dragging_draggable.emit(self)
-		_was_button_held = is_button_held
+		_was_held = is_draggable_held
 
 func set_collision_layer(_collision_layer : int):
 	var collision_shape : CollisionShape3D = static_body.get_node("CollisionShape3D")

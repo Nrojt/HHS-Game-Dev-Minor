@@ -1,1 +1,1 @@
-class_name Gate extends Draggable
+class_name Gate extends DraggableBase

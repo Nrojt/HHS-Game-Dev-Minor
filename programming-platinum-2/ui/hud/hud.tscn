@@ -66,6 +66,8 @@ theme_override_constants/separation = 15
 
 [node name="DraggableCard" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_4d6w6")]
 layout_mode = 2
+DRAGGABLE_SCENES = null
 
 [node name="DraggableCard2" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_4d6w6")]
 layout_mode = 2
+DRAGGABLE_SCENES = null

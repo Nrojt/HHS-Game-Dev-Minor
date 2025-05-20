@@ -2,13 +2,13 @@ extends Node
 
 signal game_started
 signal game_ended
-signal placed_draggable(placed_draggable : Draggable)
-signal start_dragging_draggable(preview_draggable : Draggable)
-signal end_dragging_draggable(preview_draggable : Draggable)
+signal placed_draggable(placed_draggable : DraggableBase)
+signal start_dragging_draggable(preview_draggable : DraggableBase)
+signal end_dragging_draggable(preview_draggable : DraggableBase)
 
 var _default_movement_speed := 0.4
 
-var current_draggable : Draggable = null :
+var current_draggable : DraggableBase = null :
 	set(value):
 		current_draggable = value
 var movement_speed: float = _default_movement_speed

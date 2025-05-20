@@ -11,7 +11,7 @@ extends Control
 
 var is_dragging_card: bool = false
 var drag_start_position: Vector2 = Vector2.ZERO
-var draggable_preview : Draggable
+var draggable_preview : DraggableBase
 
 # Signal to inform another node when this card starts being dragged
 signal card_started_dragging(draggable_scene: PackedScene, card_instance: Control)
