@@ -3,7 +3,7 @@ extends Node
 signal game_started
 signal game_ended
 signal placed_draggable(placed_draggable : DraggableBase)
-signal start_dragging_draggable(preview_draggable : DraggableBase)
+signal start_dragging_draggable(drag_card : DraggableCard, preview_draggable : DraggableBase)
 signal end_dragging_draggable(preview_draggable : DraggableBase)
 
 var _default_movement_speed := 0.4

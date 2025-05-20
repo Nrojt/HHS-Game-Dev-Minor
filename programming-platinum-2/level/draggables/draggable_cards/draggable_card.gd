@@ -1,43 +1,28 @@
-extends Control
+class_name DraggableCard extends Control
 
 @onready var title_label: Label = $MarginContainer/VBoxContainer/Label
 
-# Array to hold all draggable scenes
-@export var DRAGGABLE_SCENES: Array[PackedScene] = [
-	preload("uid://7p7ercjif3ja"),
-	preload("uid://buutu78g1kur"),
-	preload("uid://bkmpcsxb0jjy0")
-]
+var draggable_preview : DraggableBase = null
 
 var is_dragging_card: bool = false
 var drag_start_position: Vector2 = Vector2.ZERO
-var draggable_preview : DraggableBase
 
-# Signal to inform another node when this card starts being dragged
-signal card_started_dragging(draggable_scene: PackedScene, card_instance: Control)
-
-func _ready():
-	# Select a random draggable scene for this card to represent
-	select_random_draggable_scene()
-
-func select_random_draggable_scene():
-	if DRAGGABLE_SCENES.is_empty():
-		push_error("Error: No draggable scenes defined in DRAGGABLE_SCENES array.")
-		title_label.text = "Error"
-		return
-
-	var draggable_scene_index = randi_range(0, DRAGGABLE_SCENES.size() - 1)
-	var random_scene: PackedScene = DRAGGABLE_SCENES[draggable_scene_index]
-	draggable_preview = random_scene.instantiate()
-
-	if draggable_preview:
-		title_label.text = draggable_preview.name
+# Function called by the spawner to assign the draggable scene this card represents
+func set_draggable_scene(scene: PackedScene):
+	if scene:
+		var preview_instance: Node = scene.instantiate()
+		if preview_instance:
+			title_label.text = preview_instance.name
+			draggable_preview = preview_instance # Store the instance for use during drag
+		else:
+			title_label.text = "Error Loading"
+			push_error(
+				"Error: Failed to instantiate preview scene: ",
+				scene.resource_path
+			)
 	else:
-		title_label.text = "Error Loading"
-		push_error(
-			"Error: Failed to instantiate preview scene: ",
-			random_scene.resource_path
-		)
+		title_label.text = "No Scene"
+		push_error("Error: set_draggable_scene called with null PackedScene.")
 
 func _gui_input(event: InputEvent):
 	if event is InputEventMouseButton:
@@ -53,10 +38,10 @@ func _gui_input(event: InputEvent):
 
 	if event is InputEventMouseMotion:
 		if is_dragging_card:
-			# Check if the mouse has moved a significant distance to confirm it's a drag
-			if drag_start_position.distance_to(get_global_mouse_position()) > 5: # Use a small threshold
+			# Check if the mouse has moved past a threshold distance to confirm it's a drag
+			if drag_start_position.distance_to(get_global_mouse_position()) > 5:
 				print("Card is being dragged!")
-				# Emit a signal to inform the spawner/manager
+				# Emit a signal with the associated preview
 				if draggable_preview:
-					GameManager.start_dragging_draggable.emit(draggable_preview)
-				is_dragging_card = false # Reset dragging state after emitting the signal
+					GameManager.start_dragging_draggable.emit(self, draggable_preview)
+				is_dragging_card = false

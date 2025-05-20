@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c8p4y13l4wjft"]
 
 [ext_resource type="Script" uid="uid://dd33swv17emau" path="res://ui/hud/hud.gd" id="1_rbyyf"]
-[ext_resource type="PackedScene" uid="uid://bhpx3a7ome13w" path="res://level/draggables/draggable_cards/draggable_card.tscn" id="2_4d6w6"]
+[ext_resource type="Script" uid="uid://daqs4yum0tcu4" path="res://ui/hud/draggable_card_spawner.gd" id="2_e0nub"]
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -57,17 +57,13 @@ theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 24
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer/MarginContainer"]
+[node name="DraggableCardSpawner" type="VBoxContainer" parent="HBoxContainer/PanelContainer/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 size_flags_stretch_ratio = 0.0
-theme_override_constants/separation = 15
+theme_override_constants/separation = 8
+script = ExtResource("2_e0nub")
 
-[node name="DraggableCard" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_4d6w6")]
-layout_mode = 2
-DRAGGABLE_SCENES = null
-
-[node name="DraggableCard2" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_4d6w6")]
-layout_mode = 2
-DRAGGABLE_SCENES = null
+[node name="SpawnTimer" type="Timer" parent="HBoxContainer/PanelContainer/MarginContainer/DraggableCardSpawner"]

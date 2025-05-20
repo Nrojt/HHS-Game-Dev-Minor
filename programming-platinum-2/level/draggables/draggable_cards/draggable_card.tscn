@@ -3,14 +3,13 @@
 [ext_resource type="Script" uid="uid://cx1am7qx1ik5m" path="res://level/draggables/draggable_cards/draggable_card.gd" id="1_wfha7"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_utmnv"]
-size = Vector2(128, 160)
+size = Vector2(120, 148)
 
 [node name="DraggableCard" type="Control"]
-custom_minimum_size = Vector2(128, 160)
+custom_minimum_size = Vector2(120, 148)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_wfha7")
-DRAGGABLE_SCENES = null
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
