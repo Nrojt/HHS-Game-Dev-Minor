@@ -45,9 +45,9 @@ func _ready():
 		visualization.hide()
 		
 	GameManager.game_started.connect(
-		func(): 
+		func():
 			enabled = true
-			visualization.show()
+			_show_all_available_visualizations()
 	)
 	GameManager.game_ended.connect(
 		func(): 

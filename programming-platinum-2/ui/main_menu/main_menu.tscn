@@ -11,6 +11,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_uhj5c")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0214346, 0.0214346, 0.0214346, 0.588235)
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -62,9 +71,10 @@ text = "Quit
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
-text = "[font_size={22}][color=#ff9900][b]Drag and place obstacles using LMB[/b][/color][/font_size][p]
-[font_size={18}][color=#66ccff][i]Kill the enemy AI as quick as possible[/i][/color][/font_size]
-"
+text = "[font_size=22][color=#ff9900][b]Drag obstacles from the cards on the right with LMB[/b][/color][/font_size][p]
+[font_size=18][color=#8BDF3A][b]Drop them onto the green highlighted areas (available zones).[/b][/color][/font_size][p]
+[font_size=18][color=#ff66cc][b]Areas turn pink when you are hovering over them.[/b][/color][/font_size][p]
+[font_size=18][color=#66ccff][i]Defeat the enemy AI as quickly as possible![/i][/color][/font_size]"
 fit_content = true
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/PlayGameButton" to="." method="_on_play_game_button_pressed"]
