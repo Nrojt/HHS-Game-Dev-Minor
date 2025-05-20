@@ -3,7 +3,7 @@ extends Control
 
 @onready var title_label: Label = %TitleLabel
 
-var draggable_preview : DraggableBase = null
+var draggable_preview: DraggableBase = null
 
 var is_dragging_card: bool = false
 var drag_start_position: Vector2 = Vector2.ZERO
@@ -18,18 +18,27 @@ func _ready() -> void:
 func set_draggable_scene(scene: PackedScene):
 	if scene:
 		var preview_instance: Node = scene.instantiate()
-		if preview_instance:
-			title_label.text = preview_instance.name
-			draggable_preview = preview_instance # Store the instance for use during drag
+		if preview_instance is DraggableBase:
+			draggable_preview = preview_instance
+			if draggable_preview.has_method("get_display_name"):
+				title_label.text = draggable_preview.get_display_name()
+			elif draggable_preview.name:
+				title_label.text = draggable_preview.name
+			else:
+				title_label.text = "Unnamed Draggable"
 		else:
 			title_label.text = "Error Loading"
 			push_error(
-				"Error: Failed to instantiate preview scene: ",
+				"Error: Failed to instantiate or wrong type for preview scene: ",
 				scene.resource_path
 			)
+			if preview_instance:
+				preview_instance.queue_free()
+			draggable_preview = null
 	else:
 		title_label.text = "No Scene"
 		push_error("Error: set_draggable_scene called with null PackedScene.")
+		draggable_preview = null
 
 func _gui_input(event: InputEvent):
 	if event is InputEventMouseButton:
@@ -38,7 +47,7 @@ func _gui_input(event: InputEvent):
 				# Start of a potential drag
 				is_dragging_card = true
 				drag_start_position = get_global_mouse_position()
-			elif !event.pressed and is_dragging_card:
+			elif not event.pressed and is_dragging_card:
 				# End of a drag or just a click
 				is_dragging_card = false
 
@@ -51,53 +60,60 @@ func _gui_input(event: InputEvent):
 					GameManager.start_dragging_draggable.emit(self, draggable_preview)
 				is_dragging_card = false
 
+func _restore_z_index():
+	z_index = _original_z_index
+
+func _on_exit_animation_finished():
+	queue_free()
+
+## Animation that plays when the card is added to the scene. Fade in and scale up.
 func play_entry_animation():
-	# Start invisible, small, and slightly above the final position
 	modulate.a = 0.0
-	scale = Vector2(0.85, 0.85)
-	position.y -= 30
+	scale = Vector2(0.7, 0.7)
+	var initial_y_position: float = position.y
+	position.y -= 35.0
 
 	# Raise z_index
 	z_index = 1000
 
 	var tween := create_tween()
+	tween.set_parallel(true)
 	# Fade in
-	tween.tween_property(self, "modulate:a", 1.0, 0.22)\
-		.set_trans(Tween.TRANS_SINE)\
-		.set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "modulate:a", 1.0, 0.3)\
 	# Scale up with a little overshoot, then settle
-	tween.tween_property(self, "scale", Vector2(1.08, 1.08), 0.16)\
-		.set_trans(Tween.TRANS_BACK)\
-		.set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "scale", Vector2(1, 1), 0.10)\
-		.set_trans(Tween.TRANS_SINE)\
-		.set_ease(Tween.EASE_IN)
+		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "scale", Vector2(1.0, 1.0), 0.35)\
+		.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
 	# Move down to the final position
-	tween.tween_property(self, "position:y", position.y + 30, 0.18)\
-		.set_trans(Tween.TRANS_SINE)\
-		.set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "position:y", initial_y_position, 0.3)\
+		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	# Restore z_index after the pop is done
-	tween.tween_callback(Callable(self, "_restore_z_index"))
+	tween.chain().tween_callback(_restore_z_index)
 
-func _restore_z_index():
-	z_index = _original_z_index
-
+## Animation that plays when the card is removed from the scene. Fade out and scale down.
 func play_exit_animation():
 	mouse_filter = MOUSE_FILTER_IGNORE
-	# Raise z_index, no need to restore since we're going to free it
 	z_index = 1000
 
 	var tween := create_tween()
-	tween.tween_property(self, "modulate:a", 0.0, 0.22)\
-		.set_trans(Tween.TRANS_SINE)\
-		.set_ease(Tween.EASE_IN)
-	tween.tween_property(self, "scale", Vector2(0.85, 0.85), 0.22)\
-		.set_trans(Tween.TRANS_SINE)\
-		.set_ease(Tween.EASE_IN)
-	tween.tween_property(self, "position:y", position.y + 20, 0.22)\
-		.set_trans(Tween.TRANS_SINE)\
-		.set_ease(Tween.EASE_IN)
-	tween.tween_callback(Callable(self, "_on_exit_animation_finished"))
+	tween.set_parallel(true)
+	# Fade out
+	tween.tween_property(self, "modulate:a", 0.0, 0.3)\
+		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+	# Scale down with a little overshoot, then settle
+	tween.tween_property(self, "scale", Vector2(0.75, 0.75), 0.3)\
+		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+	# Move up to the final position
+	tween.tween_property(self, "position:y", position.y + 25.0, 0.3)\
+		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+	tween.chain().tween_callback(_on_exit_animation_finished)
 
-func _on_exit_animation_finished():
-	queue_free()
+## Animates the card to the target local position and returns the Tween. To be used in the spawner.
+func animate_to_position(target_local_position: Vector2) -> Tween:
+	var tween := create_tween()
+	if position.is_equal_approx(target_local_position):
+		tween.tween_interval(0.0)
+	else:
+		tween.tween_property(self, "position", target_local_position, 0.35)\
+			.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	return tween
