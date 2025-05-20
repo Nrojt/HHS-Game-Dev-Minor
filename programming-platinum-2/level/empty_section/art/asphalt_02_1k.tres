@@ -1,0 +1,19 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://b2tyk318w6cw1"]
+
+[ext_resource type="Texture2D" uid="uid://ooyi1mahfjf2" path="res://level/empty_section/art/textures/asphalt_02_diff_1k.jpg" id="1_kvv4u"]
+[ext_resource type="Texture2D" uid="uid://dls3qdbvjcabj" path="res://level/empty_section/art/textures/asphalt_02_rough_1k.jpg" id="2_6h7uk"]
+[ext_resource type="Texture2D" uid="uid://32x4mkuccv6v" path="res://level/empty_section/art/textures/asphalt_02_nor_gl_1k.jpg" id="3_mjhor"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mjhor"]
+
+[resource]
+resource_name = "asphalt_02"
+next_pass = SubResource("ShaderMaterial_mjhor")
+cull_mode = 2
+albedo_texture = ExtResource("1_kvv4u")
+metallic_texture = ExtResource("2_6h7uk")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_6h7uk")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_mjhor")

@@ -1,13 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://b2p8n8xyq6oj8"]
+[gd_scene load_steps=4 format=3 uid="uid://b2p8n8xyq6oj8"]
 
 [ext_resource type="PackedScene" uid="uid://rqxeqwm6ym0" path="res://level/drop_area/drop_area.tscn" id="1_f0eyx"]
 [ext_resource type="Script" uid="uid://ceuqysa6l688v" path="res://level/empty_section/empty_section.gd" id="1_v8wm6"]
+[ext_resource type="Material" uid="uid://b2tyk318w6cw1" path="res://level/empty_section/art/asphalt_02_1k.tres" id="2_2cxe1"]
 
 [node name="EmptySection" type="Node3D"]
 script = ExtResource("1_v8wm6")
 
 [node name="floor" type="CSGBox3D" parent="."]
 size = Vector3(10, 0.2, 10)
+material = ExtResource("2_2cxe1")
 
 [node name="DropAreaLeft" parent="." instance=ExtResource("1_f0eyx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2.2, 0)

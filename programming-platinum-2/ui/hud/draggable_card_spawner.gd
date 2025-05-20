@@ -29,6 +29,7 @@ func _ready():
 
 func _on_spawn_timer_timeout() -> void:
 	if _is_reshuffling_cards:
+		spawn_timer.start()
 		return # Don't spawn if cards are moving
 
 	if _get_card_count() < max_cards_at_once:
