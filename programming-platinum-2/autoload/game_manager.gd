@@ -32,7 +32,6 @@ var game_active := false :
 				current_draggable = null
 			game_ended.emit()
 			UiManager.ui_state_changed.emit(UiManager.UIState.GAME_OVER)
-			print("Game stopped")
 
 func _process(delta):
 	if game_active:

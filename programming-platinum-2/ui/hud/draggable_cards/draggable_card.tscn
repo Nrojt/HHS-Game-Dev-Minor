@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bhpx3a7ome13w"]
 
-[ext_resource type="Script" uid="uid://cx1am7qx1ik5m" path="res://level/draggables/draggable_cards/draggable_card.gd" id="1_wfha7"]
+[ext_resource type="Script" uid="uid://cx1am7qx1ik5m" path="res://ui/hud/draggable_cards/draggable_card.gd" id="1_wfha7"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_utmnv"]
 size = Vector2(120, 148)
@@ -38,7 +38,8 @@ layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Stair"

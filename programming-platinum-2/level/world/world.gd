@@ -8,7 +8,6 @@ func _ready():
 	GameManager.start_dragging_draggable.connect(_spawn_draggable)
 
 func _spawn_draggable(drag_card : DraggableCard, draggable : DraggableBase) -> void:
-	print("Spawing")
 	if drag_card: _current_drag_card = drag_card
 	if draggable:
 		print("Draggable: " + draggable.name)
@@ -23,5 +22,5 @@ func _remove_draggable(draggable : DraggableBase) -> void:
 		remove_child(draggable)
 
 func _placed_draggable(placed_draggable : DraggableBase) -> void:
-	if _current_drag_card: _current_drag_card.queue_free()
+	if _current_drag_card: _current_drag_card.play_exit_animation()
 	_remove_draggable(placed_draggable)

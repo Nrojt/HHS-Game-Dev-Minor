@@ -41,13 +41,11 @@ func _process(_delta: float) -> void:
 		var is_draggable_held: bool = Input.is_action_pressed("hold_draggable")
 		if _was_held and not is_draggable_held:
 			# Draggable was just released
-			print("Let go of draggable")
 			GameManager.end_dragging_draggable.emit(self)
 		_was_held = is_draggable_held
 
 func set_collision_layer(_collision_layer : int):
 	var collision_shape : CollisionShape3D = static_body.get_node("CollisionShape3D")
-	print(collision_shape.disabled)
 	if collision_shape:
 		collision_shape.disabled = false
 		static_body.collision_layer = _collision_layer

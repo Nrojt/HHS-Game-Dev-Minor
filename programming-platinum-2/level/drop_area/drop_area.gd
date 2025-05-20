@@ -83,7 +83,6 @@ func _input(event: InputEvent) -> void:
 
 
 func _mouse_enter() -> void:
-	print("entered droparea")
 	if enabled and GameManager.game_active and GameManager.current_draggable:
 		if Input.is_action_pressed("hold_draggable"):
 			if current_hovered and current_hovered != self:

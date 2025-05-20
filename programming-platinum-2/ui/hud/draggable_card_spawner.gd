@@ -76,6 +76,7 @@ func _spawn_card() -> void:
 		add_child(new_card)
 		move_child(new_card, 0)
 		new_card.set_draggable_scene(random_draggable_scene)
+		new_card.play_entry_animation()
 		print("Spawned a new card representing: ", random_draggable_scene.resource_path)
 	else:
 		push_error("Error: Failed to instantiate draggable card scene: ", draggable_card_scene.resource_path)

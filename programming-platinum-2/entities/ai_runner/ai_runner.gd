@@ -32,7 +32,6 @@ func _physics_process(delta: float) -> void:
 		if !bt_player.is_processing():
 			bt_player.set_process(true)
 	if global_position.z >= (initial_z_pos + z_death_difference):
-		print("player died")
 		GameManager.game_active = false
 		global_position = Vector3(0,2,0)
 		

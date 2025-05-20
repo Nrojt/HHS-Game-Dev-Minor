@@ -26,9 +26,6 @@ func _ready():
 	
 	
 func _on_ui_change(new_state : UIState):
-	# Handle the UI state change
-	print("UI state changed to: " + str(new_state))
-	
 	# remove all children
 	for child in get_children():
 		child.queue_free()

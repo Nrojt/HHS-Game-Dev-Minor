@@ -9,7 +9,8 @@ This is a reverse endless runner where the player places obstacles to stop the A
 * While holding, hover over an empty area of the screen to show a placement visualization. 
 * **Release the mouse button** while the visualization is visible to place the draggable.
 
-## Used
+## Assets
 - Sky shader has been based of [the godot sky shader documentation](https://docs.godotengine.org/en/stable/tutorials/shaders/shader_reference/sky_shader.html#doc-sky-shader)
 - Using [LimboAI](https://github.com/limbonaut/limboai) for the enemy ai
 - Draggable follow mouse code based on [a tutorial by NAD Labs](https://www.youtube.com/watch?v=2DWKAqOZPXc)
+- Music made by me
