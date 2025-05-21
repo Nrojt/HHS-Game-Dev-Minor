@@ -24,23 +24,28 @@ func _ready():
 	spawn_timer.timeout.connect(_on_spawn_timer_timeout)
 	self.child_exiting_tree.connect(_on_child_exiting_tree)
 	_update_spawn_timer()
-	spawn_timer.start()
-	_spawn_card()
 
 func _on_spawn_timer_timeout() -> void:
 	_update_spawn_timer()
 	if _is_reshuffling_cards:
+		print("Spawn timer timeout skipped due to reshuffle.")
+		spawn_timer.set_wait_time( spawn_timer.time_left + 1.0)
 		spawn_timer.start()
+		_is_reshuffling_cards = false
 		return # Don't spawn if cards are moving
 
 	if _get_card_count() < max_cards_at_once:
 		_spawn_card()
+	else:
+		print("Card limit reached, not spawning.")
 
 func _update_spawn_timer():
+	print("Updating spawn timer")
 	var movement_speed = GameManager.movement_speed
 	var interval: float = base_spawn_interval / (1.0 + log(1.0 + movement_speed))
 	interval = max(min_spawn_interval, interval)
 	spawn_timer.wait_time = interval
+	spawn_timer.start()
 
 func _get_card_count() -> int:
 	var count: int = 0
@@ -50,7 +55,10 @@ func _get_card_count() -> int:
 	return count
 
 func _spawn_card() -> void:
+	print("Spawning card")
 	if _is_reshuffling_cards:
+		print("Card spawn skipped due to reshuffle.")
+		spawn_timer.start()
 		return
 
 	if DRAGGABLE_SCENES.is_empty():
@@ -92,11 +100,7 @@ func _on_child_exiting_tree(node: Node):
 		else:
 			_is_reshuffling_cards = true
 			call_deferred("_initiate_card_reshuffle_animation")
-		# Always trigger the timer if no cards are left
 		await get_tree().process_frame # Wait for the node to actually exit
-		if _get_card_count() == 0:
-			_update_spawn_timer()
-			spawn_timer.start()
 
 func _initiate_card_reshuffle_animation() -> void:
 	while true:
