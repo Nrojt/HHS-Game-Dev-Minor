@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=24 format=3 uid="uid://cyslk348qobi4"]
+[gd_resource type="BehaviorTree" load_steps=37 format=3 uid="uid://cyslk348qobi4"]
 
 [ext_resource type="Script" uid="uid://o5i7laxhk2hh" path="res://entities/ai_runner/tasks/scan_obstacles.gd" id="1_umm33"]
 [ext_resource type="Script" uid="uid://djmfjnm8in14l" path="res://entities/ai_runner/tasks/engage_stairs.gd" id="2_cba86"]
@@ -17,6 +17,19 @@ var/is_changing_lanes/type = 1
 var/is_changing_lanes/value = false
 var/is_changing_lanes/hint = 0
 var/is_changing_lanes/hint_string = ""
+var/target_lane/name = &"target_lane"
+var/target_lane/type = 3
+var/target_lane/value = 0.0
+var/target_lane/hint = 0
+var/target_lane/hint_string = ""
+
+[sub_resource type="BBNode" id="BBNode_cba86"]
+saved_value = NodePath("Rogue_Hooded/AnimationPlayer")
+resource_name = "Rogue_Hooded/AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_yytq1"]
+animation_player = SubResource("BBNode_cba86")
+animation_name = &"Running_A"
 
 [sub_resource type="BTAction" id="BTAction_hu1is"]
 script = ExtResource("1_umm33")
@@ -65,12 +78,47 @@ resource_name = "ChangeLane"
 variable = &"required_action"
 value = SubResource("BBVariant_3c6of")
 
+[sub_resource type="BBVariant" id="BBVariant_faa3p"]
+value_source = 1
+variable = &"current_lane"
+resource_name = "$current_lane"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_3c6of"]
+variable = &"target_lane"
+check_type = 3
+value = SubResource("BBVariant_faa3p")
+
+[sub_resource type="BBNode" id="BBNode_4s8dd"]
+saved_value = NodePath("Rogue_Hooded/AnimationPlayer")
+resource_name = "Rogue_Hooded/AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_nskos"]
+animation_player = SubResource("BBNode_4s8dd")
+animation_name = &"Dodge_Right"
+
+[sub_resource type="BTSequence" id="BTSequence_lpmw2"]
+children = [SubResource("BTCheckVar_3c6of"), SubResource("BTPlayAnimation_nskos")]
+
+[sub_resource type="BBNode" id="BBNode_yytq1"]
+saved_value = NodePath("Rogue_Hooded/AnimationPlayer")
+resource_name = "Rogue_Hooded/AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_faa3p"]
+animation_player = SubResource("BBNode_yytq1")
+animation_name = &"Dodge_Left"
+
+[sub_resource type="BTSequence" id="BTSequence_xmkae"]
+children = [SubResource("BTPlayAnimation_faa3p")]
+
+[sub_resource type="BTSelector" id="BTSelector_ljq21"]
+children = [SubResource("BTSequence_lpmw2"), SubResource("BTSequence_xmkae")]
+
 [sub_resource type="BTAction" id="BTAction_lpmw2"]
 script = ExtResource("4_faa3p")
 target_lane_var_name = &"target_lane"
 
 [sub_resource type="BTSequence" id="BTSequence_nskos"]
-children = [SubResource("BTCheckVar_4s8dd"), SubResource("BTAction_lpmw2")]
+children = [SubResource("BTCheckVar_4s8dd"), SubResource("BTSelector_ljq21"), SubResource("BTAction_lpmw2")]
 
 [sub_resource type="BBVariant" id="BBVariant_yytq1"]
 type = 4
@@ -81,6 +129,14 @@ resource_name = "Jump"
 variable = &"required_action"
 value = SubResource("BBVariant_yytq1")
 
+[sub_resource type="BBNode" id="BBNode_faa3p"]
+saved_value = NodePath("Rogue_Hooded/AnimationPlayer")
+resource_name = "Rogue_Hooded/AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_3c6of"]
+animation_player = SubResource("BBNode_faa3p")
+animation_name = &"Jump_Full_Long"
+
 [sub_resource type="BTAction" id="BTAction_nskos"]
 script = ExtResource("3_yytq1")
 nearest_object_var_name = &"nearest_object_distance"
@@ -88,13 +144,13 @@ nearest_object_jump_start_distance = 3.0
 jump_after_obstacle_distance = 0.3
 
 [sub_resource type="BTSequence" id="BTSequence_ofo4b"]
-children = [SubResource("BTCheckVar_lpmw2"), SubResource("BTAction_nskos")]
+children = [SubResource("BTCheckVar_lpmw2"), SubResource("BTPlayAnimation_3c6of"), SubResource("BTAction_nskos")]
 
-[sub_resource type="BTSelector" id="BTSelector_ofo4b"]
+[sub_resource type="BTDynamicSelector" id="BTDynamicSelector_6tr4x"]
 children = [SubResource("BTSequence_faa3p"), SubResource("BTSequence_nskos"), SubResource("BTSequence_ofo4b")]
 
 [sub_resource type="BTSequence" id="BTSequence_ljq21"]
-children = [SubResource("BTAction_hu1is"), SubResource("BTDelay_cba86"), SubResource("BTSelector_ofo4b")]
+children = [SubResource("BTPlayAnimation_yytq1"), SubResource("BTAction_hu1is"), SubResource("BTDelay_cba86"), SubResource("BTDynamicSelector_6tr4x")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_wayxx")

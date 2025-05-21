@@ -13,6 +13,7 @@ This is a reverse endless runner where the player places obstacles to stop the A
 ### Objects
 - [Train assets](https://kenney.nl/assets/train-kit)
 - [Ground Asphalt](https://polyhaven.com/a/asphalt_02)
+- [Enemy Character](https://kaylousberg.itch.io/kaykit-adventurers)
 ### Shaders
 - Sky shader has been based of [the godot sky shader documentation](https://docs.godotengine.org/en/stable/tutorials/shaders/shader_reference/sky_shader.html#doc-sky-shader)
 - [LimboAI](https://github.com/limbonaut/limboai) for enemy ai
