@@ -71,7 +71,7 @@ text = "Quit
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
-text = "[font_size=22][color=#ff9900][b]Drag obstacles from the cards on the right with LMB[/b][/color][/font_size][p]
+text = "[font_size=22][color=#ff9900][b]Grab and drag obstacles from the cards on the right by holding Left Mouse Button[/b][/color][/font_size][p]
 [font_size=18][color=#8BDF3A][b]Drop them onto the green highlighted areas (available zones).[/b][/color][/font_size][p]
 [font_size=18][color=#ff66cc][b]Areas turn pink when you are hovering over them.[/b][/color][/font_size][p]
 [font_size=18][color=#66ccff][i]Defeat the enemy AI as quickly as possible![/i][/color][/font_size]"

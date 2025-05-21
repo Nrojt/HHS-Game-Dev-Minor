@@ -10,8 +10,8 @@ extends VBoxContainer
 @export_group("Cards")
 @export var draggable_card_scene: PackedScene = preload("uid://bhpx3a7ome13w")
 @export var max_cards_at_once := 4
-@export var base_spawn_interval := 4.0
-@export var min_spawn_interval := 0.5
+@export var base_spawn_interval := 3.0
+@export var min_spawn_interval := 0.4
 @export var post_reshuffle_spawn_delay: float = 0.25
 
 @onready var spawn_timer: Timer = $SpawnTimer
@@ -24,6 +24,7 @@ func _ready():
 	spawn_timer.timeout.connect(_on_spawn_timer_timeout)
 	self.child_exiting_tree.connect(_on_child_exiting_tree)
 	_update_spawn_timer()
+	_spawn_card()
 
 func _on_spawn_timer_timeout() -> void:
 	_update_spawn_timer()

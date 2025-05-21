@@ -39,7 +39,6 @@ func _ready():
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 
-	# These signals must be connected in the editor or here:
 	mouse_entered.connect(_on_mouse_entered_area_signal)
 	mouse_exited.connect(_on_mouse_exited_area_signal)
 
@@ -91,7 +90,7 @@ func _update_visualization() -> void:
 	else:
 		visualization.hide()
 		if current_hovered == self:
-			_clear_hover_state(false)
+			_clear_hover_state(true)
 
 func set_available_for_placement(is_available: bool) -> void:
 	if is_available_for_placement == is_available:
@@ -105,7 +104,7 @@ func set_parent_section_ai_restricted(is_restricted: bool) -> void:
 	parent_section_ai_restricted = is_restricted
 	_update_visualization()
 
-func _input( event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if check_for_release:
 		# Place on action release
 		if event.is_action_released("hold_draggable") and hover_draggable and is_effectively_enabled():
@@ -162,6 +161,8 @@ func _on_mouse_exited_area_signal() -> void:
 	check_for_release = false
 	if current_hovered == self:
 		_clear_hover_state(true)
+	else:
+		_update_visualization()
 
 func _clear_hover_state(restore_other_visualizations: bool) -> void:
 	if GameManager.current_draggable and hover_draggable:
@@ -190,8 +191,6 @@ func _on_body_entered(body: Node3D) -> void:
 	if body is AiRunner:
 		ai_runner_physically_occupying = true
 		_update_visualization()
-		if current_hovered == self:
-			_clear_hover_state(true)
 
 func _on_body_exited(body: Node3D) -> void:
 	if body is AiRunner:
