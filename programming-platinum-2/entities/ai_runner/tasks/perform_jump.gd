@@ -22,6 +22,15 @@ func _tick(_delta: float) -> Status:
 	var closest_obstacle_data = blackboard.get_var(nearest_object_var_name, null)
 
 	if not is_jumping:
+		if ai.is_on_upper_level:
+			# Already on upper level, no jump needed
+			blackboard.set_var("is_jumping", false)
+			return FAILURE
+		# if ai is in the air, don't jump and fail
+		if not ai.is_on_floor():
+			blackboard.set_var("is_jumping", false)
+			return FAILURE
+			
 		ai.suppress_z_correction = false  # Not jumping, allow correction
 		# Only try to jump if not already jumping
 		if (
@@ -37,18 +46,17 @@ func _tick(_delta: float) -> Status:
 		if z_dist_to_obstacle <= nearest_object_jump_start_distance and ai.is_on_floor():
 			ai.velocity.y = ai.jump_velocity
 			# Move forward (negative Z) to match world/obstacle movement
-			ai.velocity.z = -abs(_jump_horizontal_speed)
+			ai.velocity.z = -abs(_jump_horizontal_speed) # Set forward speed ONCE
 			blackboard.set_var("is_jumping", true)
-			ai.suppress_z_correction = true  # Suppress correction during jump
+			ai.suppress_z_correction = true # Suppress correction during jump
 			return RUNNING
 		else:
 			blackboard.set_var("is_jumping", false)
 			return FAILURE
 
-	# If already jumping, maintain forward momentum in air
+	# If already jumping, do NOT keep setting velocity.z!
 	if not ai.is_on_floor():
-		ai.velocity.z = -abs(_jump_horizontal_speed)
-		ai.suppress_z_correction = true  # Still suppress
+		ai.suppress_z_correction = true
 		return RUNNING
 	else:
 		# Landed, jump is complete

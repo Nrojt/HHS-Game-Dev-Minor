@@ -46,16 +46,19 @@ func _physics_process(delta: float) -> void:
 		global_position = Vector3(0,2,0)
 
 	# Gravity always applies
+	var is_jumping = bt_player.blackboard.get_var("is_jumping", false)
 	if !is_on_floor():
 		running_sound_effect.stop()
 		is_on_upper_level = false
 		velocity.y -= gravity * delta
+		if !is_jumping:
+			velocity.z = 0
 	else:
 		if !running_sound_effect.playing:
 			running_sound_effect.play()
 
 	# Only set velocity.z for lane switching if NOT jumping and not suppressed
-	var is_jumping = bt_player.blackboard.get_var("is_jumping", false)
+	
 	if is_on_floor() and !is_jumping and !suppress_z_correction:
 		# Only move in Z to return to z=0 (if needed), but not during jump
 		var direction: float = 0.0 - global_position.z
