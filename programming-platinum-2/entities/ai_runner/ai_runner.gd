@@ -72,8 +72,8 @@ func _physics_process(delta: float) -> void:
 
 	# Clamp X position to stay within lane boundaries + wiggle_room
 	if lanes_x.size() > 0:
-		var min_x_limit = lanes_x[0] - wiggle_room
-		var max_x_limit = lanes_x[lanes_x.size() - 1] + wiggle_room
+		var min_x_limit: float = lanes_x[0] - wiggle_room
+		var max_x_limit: float = lanes_x[lanes_x.size() - 1] + wiggle_room
 
 		if global_position.x < min_x_limit:
 			global_position.x = min_x_limit
