@@ -16,10 +16,12 @@ func _spawn_draggable(drag_card : DraggableCard, draggable : DraggableBase) -> v
 		add_child(draggable)
 		draggable.show()
 
-func _remove_draggable(draggable : DraggableBase) -> void:
-	if draggable and draggable.is_inside_tree():
+func _remove_draggable(draggable: DraggableBase) -> void:
+	if is_instance_valid(draggable):
 		GameManager.current_draggable = null
-		remove_child(draggable)
+		if draggable.is_inside_tree() and draggable.get_parent() == self:
+			remove_child(draggable)
+
 
 func _placed_draggable(placed_draggable : DraggableBase) -> void:
 	if _current_drag_card: _current_drag_card.play_exit_animation()
