@@ -10,6 +10,9 @@ extends BTAction
 @export var lookahead_steps: int = 3
 @export var danger_threshold: float = 3.0
 @export var lane_change_safety_bias: float = 1.5
+# Threshold for checking immediate obstacles in the target lane for a switch
+@export var immediate_side_collision_threshold: float = 2.0
+
 enum LaneState { CLEAR, JUMP, STAIRS, BLOCKED }
 
 
@@ -60,7 +63,7 @@ func _get_lane_safety(lane: int, obstacles: Array, ai: AiRunner) -> float:
 	_sort_obstacles_by_distance(obs_in_lane)
 
 	# Check for ground-level trains within scan_distance
-	for o in obs_in_lane: # o is a dictionary
+	for o in obs_in_lane:
 		if not is_instance_valid(o["node"]):
 			push_warning(
 				"AnalyzeObstacles: Invalid obstacle node in train check for lane %d."
@@ -76,14 +79,14 @@ func _get_lane_safety(lane: int, obstacles: Array, ai: AiRunner) -> float:
 
 	# If no ground-level train determined safety, check other obstacles up to lookahead_steps or within danger_threshold.
 	for i in range(min(lookahead_steps, obs_in_lane.size())):
-		var o = obs_in_lane[i] # o is a dictionary
+		var o = obs_in_lane[i]
 
 		if not is_instance_valid(o["node"]):
 			push_warning(
 				"AnalyzeObstacles: Invalid obstacle node in general check for lane %d."
 				% lane
 			)
-			return 0.0 # Max danger
+			return 0.0  # Max danger
 
 		# If this obstacle (within lookahead_steps) is beyond scan_distance, and no prior train/dangerous obstacle set the score, lane is clear up to scan_distance.
 		if o["distance"] > scan_distance:
@@ -177,7 +180,7 @@ func _tick(_delta: float) -> Status:
 
 	# Setting the final action
 	var action: String = "None"
-	var target_lane = current_lane # Default target is current lane
+	var target_lane = current_lane  # Default target is current lane
 
 	if state == LaneState.JUMP:
 		action = "Jump"
@@ -185,7 +188,7 @@ func _tick(_delta: float) -> Status:
 	elif state == LaneState.STAIRS:
 		action = "UseStairs"
 		# Target lane for stairs is always the current lane
-		target_lane = current_lane # Explicitly set for clarity
+		target_lane = current_lane
 	elif state == LaneState.BLOCKED:
 		action = "None" # Blocked, default action is None, try to change lanes below
 
@@ -219,11 +222,39 @@ func _tick(_delta: float) -> Status:
 	# Execute change only if considered AND the target lane is safe enough
 	if (
 		should_consider_change
-		and max_other_safety > danger_threshold
+		and max_other_safety > danger_threshold # General long-term safety of target lane
 		and not is_changing_lanes
 	):
-		action = "ChangeLane"
-		target_lane = best_other_lane
+		var is_immediate_switch_safe: bool = true # Assume safe initially
+		# best_other_lane is valid here because should_consider_change is true
+		var closest_obs_in_switch_target = _get_closest_obstacle_in_lane(
+			best_other_lane, obstacles
+		)
+
+		if closest_obs_in_switch_target:
+			if (
+				closest_obs_in_switch_target["distance"]
+				< immediate_side_collision_threshold
+			):
+				var obs_node = closest_obs_in_switch_target["node"]
+				if is_instance_valid(obs_node):
+					# Obstacle is upper if it has "is_upper_level_obstacle" meta set to true
+					var obs_is_upper: bool = obs_node.has_meta("is_upper_level_obstacle") and \
+									   obs_node.get_meta("is_upper_level_obstacle")
+
+					# Collision if AI and obstacle are on the same level
+					if (ai.is_on_upper_level and obs_is_upper) or \
+					   (not ai.is_on_upper_level and not obs_is_upper):
+						is_immediate_switch_safe = false
+				else:
+					# Invalid node in target lane, treat as unsafe to switch
+					is_immediate_switch_safe = false
+		
+		if is_immediate_switch_safe:
+			action = "ChangeLane"
+			target_lane = best_other_lane
+		# If not is_immediate_switch_safe, action remains as determined by current lane state.
+		# The AI will not attempt a lane change into an immediate obstacle.
 
 	# Blackboard variables
 	blackboard.set_var(required_action_var_name, action)

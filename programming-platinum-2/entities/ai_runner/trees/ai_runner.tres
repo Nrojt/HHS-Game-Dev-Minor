@@ -34,6 +34,7 @@ unit_safety_check_size = 5.0
 lookahead_steps = 3
 danger_threshold = 3.0
 lane_change_safety_bias = 1.5
+immediate_side_collision_threshold = 2.0
 
 [sub_resource type="BTDelay" id="BTDelay_cba86"]
 seconds = 0.4

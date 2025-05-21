@@ -28,8 +28,12 @@ sky_material = SubResource("ShaderMaterial_iqtr3")
 
 [sub_resource type="Environment" id="Environment_dg7ox"]
 background_mode = 2
-background_energy_multiplier = 0.2
 sky = SubResource("Sky_831b6")
+reflected_light_source = 2
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0155
+volumetric_fog_albedo = Color(0.451409, 0.816001, 0.746486, 1)
+volumetric_fog_emission = Color(0.567649, 0.652282, 0.814741, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_831b6"]
 size = Vector3(50, 0.3, 50)
@@ -44,8 +48,9 @@ transform = Transform3D(1, 0, 0, 0, 0.724929, 0.688823, 0, -0.688823, 0.724929, 
 environment = SubResource("Environment_dg7ox")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.995113, 0.0667833, 0.0727384, -0.0987466, 0.673005, 0.733017, 0, -0.736617, 0.67631, 0, 8.57328, 7.02314)
+transform = Transform3D(-0.425168, -0.730562, 0.534333, -0.344217, 0.676501, 0.651046, -0.837106, 0.0928772, -0.539099, 42, 18.5733, 52.0231)
 light_color = Color(0.760646, 0.774543, 0.933077, 1)
+light_energy = 5.0
 shadow_enabled = true
 
 [node name="SectionSpawner" type="Node3D" parent="."]
