@@ -2,6 +2,7 @@ class_name DraggableCard
 extends Control
 
 @onready var title_label: Label = %TitleLabel
+@onready var card_icon : TextureRect = %CardIcon
 
 var draggable_preview: DraggableBase = null
 
@@ -20,12 +21,14 @@ func set_draggable_scene(scene: PackedScene):
 		var preview_instance: Node = scene.instantiate()
 		if preview_instance is DraggableBase:
 			draggable_preview = preview_instance
-			if draggable_preview.has_method("get_display_name"):
-				title_label.text = draggable_preview.get_display_name()
-			elif draggable_preview.name:
+			if draggable_preview.name:
 				title_label.text = draggable_preview.name
 			else:
 				title_label.text = "Unnamed Draggable"
+			if draggable_preview.card_icon:
+				card_icon.texture = draggable_preview.card_icon
+			else:
+				card_icon.texture = PlaceholderTexture2D.new()
 		else:
 			title_label.text = "Error Loading"
 			push_error(

@@ -3,60 +3,53 @@ extends BTAction
 
 @export var nearest_object_var_name: StringName = "nearest_object_distance"
 @export var nearest_object_jump_start_distance: float = 3.0
-@export var jump_after_obstacle_distance: float = 0.3
 
-var jumping := false
-var jump_target_z := 0.0
-var jump_horizontal_speed : float
+var _jump_horizontal_speed: float = 0.0
+
+# TODO: sometimes it jumps backwards
+# Note: reversed z axis, so negative z is forward and positive z is backwards in this project
 
 func _setup() -> void:
-	jump_horizontal_speed = GameManager.movement_speed
-	jumping = false
-	jump_target_z = 0.0
+	# Use the world/obstacle movement speed (should be positive)
+	_jump_horizontal_speed = GameManager.movement_speed
 
 func _tick(_delta: float) -> Status:
 	var ai: AiRunner = agent as AiRunner
 	if not ai:
+		blackboard.set_var("is_jumping", false)
 		return FAILURE
 
-	var closest = blackboard.get_var(nearest_object_var_name, null)
-	if closest == null or not closest.has("node"):
-		return FAILURE
+	var is_jumping = blackboard.get_var("is_jumping", false)
+	var closest_obstacle_data = blackboard.get_var(nearest_object_var_name, null)
 
-	var node = closest.node
-	if not node or not node.has_method("get_global_position"):
-		return FAILURE
+	if not is_jumping:
+		# Only try to jump if not already jumping
+		if (
+			closest_obstacle_data == null
+			or not closest_obstacle_data.has("distance")
+		):
+			blackboard.set_var("is_jumping", false)
+			return FAILURE
 
-	var ai_pos: Vector3 = ai.global_position
-	var closest_pos: Vector3 = node.global_position
-	var distance: float = ai_pos.distance_to(closest_pos)
+		var z_dist_to_obstacle: float = closest_obstacle_data["distance"]
 
-	# If not started jumping, check if we should start
-	if not jumping:
-		if distance > nearest_object_jump_start_distance:
-			return RUNNING
-		if ai.is_on_floor():
+		# Start jump if close enough and on floor
+		if z_dist_to_obstacle <= nearest_object_jump_start_distance and ai.is_on_floor():
 			ai.velocity.y = ai.jump_velocity
-			jumping = true
-			jump_target_z = closest_pos.z + jump_after_obstacle_distance
-			# Always jump forward
-			ai.velocity.z = jump_horizontal_speed
+			# Move forward (negative Z) to match world/obstacle movement
+			ai.velocity.z = -abs(_jump_horizontal_speed)
+			blackboard.set_var("is_jumping", true)
 			return RUNNING
 		else:
-			# Not on floor, can't jump, do nothing
-			return RUNNING
+			blackboard.set_var("is_jumping", false)
+			return FAILURE
 
-	# If already jumping, keep moving towards the jump target
-	if jumping:
-		# Only set horizontal velocity if in the air
-		if not ai.is_on_floor():
-			# Keep moving forward while in the air
-			ai.velocity.z = jump_horizontal_speed
-		# Consider "cleared" if AI's z is ahead of the target and is on the floor
-		if ai.global_position.z > jump_target_z and ai.is_on_floor():
-			jumping = false
-			ai.velocity.z = 0.0 # Stop horizontal movement after landing
-			return SUCCESS
+	# If already jumping, maintain forward momentum in air
+	if not ai.is_on_floor():
+		ai.velocity.z = -abs(_jump_horizontal_speed)
 		return RUNNING
-
-	return FAILURE
+	else:
+		# Landed, jump is complete
+		blackboard.set_var("is_jumping", false)
+		ai.velocity.z = 0.0
+		return SUCCESS

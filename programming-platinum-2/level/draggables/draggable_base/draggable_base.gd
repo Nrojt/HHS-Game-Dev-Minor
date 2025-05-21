@@ -7,6 +7,7 @@ extends Node3D
 @export var projection_plane := Plane(Vector3.UP, 0)
 @export var default_ray_distance := 10.0
 @export var draggable_y_offset := 2.0
+@export var card_icon : Texture2D
 
 var lane_index := -1
 

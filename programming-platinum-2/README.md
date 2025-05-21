@@ -20,3 +20,5 @@ This is a reverse endless runner where the player places obstacles to stop the A
 - Draggable follow mouse code based on [a tutorial by NAD Labs](https://www.youtube.com/watch?v=2DWKAqOZPXc)
 ### Sound
 - Music made by me
+- Placement sound effect by me
+- [Enemy Running Sound](https://pixabay.com/sound-effects/running-on-concrete-268478/)

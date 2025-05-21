@@ -74,10 +74,14 @@ func _get_lane_safety(lane: int, obstacles: Array, ai: AiRunner) -> float:
 		if o["distance"] > scan_distance:
 			break # Further obstacles in this sorted list are also > scan_distance
 
+		# Gates don't affect safety, they can be jumped over
+		if o["node"] is Gate:
+			continue  # Skip gates in safety calculation
+
 		if o["node"] is Train and not ai.is_on_upper_level:
 			return o["distance"] # Ground-level train found, its distance is the safety
 
-	# If no ground-level train determined safety, check other obstacles up to lookahead_steps or within danger_threshold.
+	# If no ground-level train determined safety, check other obstacles
 	for i in range(min(lookahead_steps, obs_in_lane.size())):
 		var o = obs_in_lane[i]
 
@@ -92,13 +96,17 @@ func _get_lane_safety(lane: int, obstacles: Array, ai: AiRunner) -> float:
 		if o["distance"] > scan_distance:
 			return scan_distance
 
+		# Skip gates when evaluating danger threshold
+		if o["node"] is Gate:
+			continue
 
 		# Check if it's dangerous due to proximity (closer than danger_threshold).
 		if o["distance"] < danger_threshold:
-			return o["distance"] # Dangerous due to proximity.
+			return o["distance"]  # Dangerous due to proximity.
 
 	# If loop completes: No specific danger found according to the rules above.
 	return scan_distance
+
 
 
 # Returns the closest obstacle in a lane, or null if none.

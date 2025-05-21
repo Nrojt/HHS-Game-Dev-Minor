@@ -15,11 +15,12 @@ static var all_drop_areas: Array = []
 @export var line_visualization_color_available: Color = Color("#10754E37")
 
 @onready var visualization: MeshInstance3D = $Visualization
+@onready var place_sound_player : AudioStreamPlayer3D = $PlaceSoundPlayer
 
 var hover_draggable: DraggableBase
 var placed_draggable: DraggableBase
-var enabled: bool = GameManager.game_active
-var prev_enabled_state = enabled
+var enabled := GameManager.game_active
+var prev_enabled_state : bool = enabled
 
 func _ready():
 	# Saving the instance
@@ -76,6 +77,7 @@ func _input(event: InputEvent) -> void:
 		placed_draggable.lane_index = lane_index
 		placed_draggable.set_collision_layer(placed_draggable_collision_layer)
 		placed_draggable.add_to_group("Obstacles")
+		place_sound_player.play()
 		GameManager.placed_draggable.emit(GameManager.current_draggable)
 		visualization.hide()
 		if current_hovered == self:

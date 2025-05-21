@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://7p7ercjif3ja"]
+[gd_scene load_steps=6 format=3 uid="uid://7p7ercjif3ja"]
 
 [ext_resource type="PackedScene" uid="uid://cw0qsuegdcpi7" path="res://level/draggables/draggable_base/draggable_base.tscn" id="1_633ba"]
 [ext_resource type="Script" uid="uid://b1wj2yxi3avun" path="res://level/draggables/stairs/stairs.gd" id="2_8egol"]
 [ext_resource type="PackedScene" uid="uid://bvmj821fxiaxm" path="res://level/draggables/stairs/art/railroad-straight-hill-complete.glb" id="3_c7vog"]
+[ext_resource type="Texture2D" uid="uid://b5g7cw0l4q460" path="res://level/draggables/stairs/art/stairs_card.png" id="3_tiw22"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_633ba"]
 points = PackedVector3Array(-5, -1.4, -2, 1.4, -1.4, 0, 5, -1.4, 2, 5, -1.4, -2, -5, 1.4, -2, 1.4, 1.4, 0, 5, 1.4, 2, 5, 1.4, -2)
@@ -10,6 +11,7 @@ points = PackedVector3Array(-5, -1.4, -2, 1.4, -1.4, 0, 5, -1.4, 2, 5, -1.4, -2,
 [node name="Stairs" instance=ExtResource("1_633ba")]
 script = ExtResource("2_8egol")
 collision_mask = 1
+card_icon = ExtResource("3_tiw22")
 
 [node name="CollisionShape3D" parent="StaticBody3D" index="0"]
 transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 0, 0, 0)

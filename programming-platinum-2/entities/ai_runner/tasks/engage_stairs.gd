@@ -4,6 +4,9 @@ extends BTAction
 
 @export var upper_level_height : float = 4.0
 
+func _enter():
+	blackboard.set_var("is_jumping", false)
+
 func _tick(_delta: float) -> Status:
 	var ai: AiRunner = agent as AiRunner
 	if not ai:
@@ -13,5 +16,10 @@ func _tick(_delta: float) -> Status:
 	if ai.global_position.y >= upper_level_height:
 		ai.is_on_upper_level = true
 		ai.using_stairs = false
+		# Reset  velocity
+		ai.velocity.z = 0.0
+		ai.velocity.y = 0.0
+	
 		return SUCCESS
 	return RUNNING
+

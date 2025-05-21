@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=37 format=3 uid="uid://cyslk348qobi4"]
+[gd_resource type="BehaviorTree" load_steps=47 format=3 uid="uid://cyslk348qobi4"]
 
 [ext_resource type="Script" uid="uid://o5i7laxhk2hh" path="res://entities/ai_runner/tasks/scan_obstacles.gd" id="1_umm33"]
 [ext_resource type="Script" uid="uid://djmfjnm8in14l" path="res://entities/ai_runner/tasks/engage_stairs.gd" id="2_cba86"]
@@ -62,12 +62,24 @@ resource_name = "UseStairs"
 variable = &"required_action"
 value = SubResource("BBVariant_cba86")
 
+[sub_resource type="BBNode" id="BBNode_lpmw2"]
+saved_value = NodePath("Rogue_Hooded/AnimationPlayer")
+resource_name = "Rogue_Hooded/AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_ofo4b"]
+animation_player = SubResource("BBNode_lpmw2")
+animation_name = &"Running_B"
+
 [sub_resource type="BTAction" id="BTAction_4s8dd"]
 script = ExtResource("2_cba86")
 upper_level_height = 4.0
 
 [sub_resource type="BTSequence" id="BTSequence_faa3p"]
-children = [SubResource("BTCheckVar_yytq1"), SubResource("BTAction_4s8dd")]
+children = [SubResource("BTCheckVar_yytq1"), SubResource("BTPlayAnimation_ofo4b"), SubResource("BTAction_4s8dd")]
+
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_cba86"]
+time_limit = 10.0
+children = [SubResource("BTSequence_faa3p")]
 
 [sub_resource type="BBVariant" id="BBVariant_3c6of"]
 type = 4
@@ -96,8 +108,16 @@ resource_name = "Rogue_Hooded/AnimationPlayer"
 animation_player = SubResource("BBNode_4s8dd")
 animation_name = &"Dodge_Right"
 
+[sub_resource type="BBNode" id="BBNode_3c6of"]
+saved_value = NodePath("Rogue_Hooded/AnimationPlayer")
+resource_name = "Rogue_Hooded/AnimationPlayer"
+
+[sub_resource type="BTAwaitAnimation" id="BTAwaitAnimation_4s8dd"]
+animation_player = SubResource("BBNode_3c6of")
+animation_name = &"Dodge_Right"
+
 [sub_resource type="BTSequence" id="BTSequence_lpmw2"]
-children = [SubResource("BTCheckVar_3c6of"), SubResource("BTPlayAnimation_nskos")]
+children = [SubResource("BTCheckVar_3c6of"), SubResource("BTPlayAnimation_nskos"), SubResource("BTAwaitAnimation_4s8dd")]
 
 [sub_resource type="BBNode" id="BBNode_yytq1"]
 saved_value = NodePath("Rogue_Hooded/AnimationPlayer")
@@ -107,8 +127,16 @@ resource_name = "Rogue_Hooded/AnimationPlayer"
 animation_player = SubResource("BBNode_yytq1")
 animation_name = &"Dodge_Left"
 
+[sub_resource type="BBNode" id="BBNode_nskos"]
+saved_value = NodePath("Rogue_Hooded/AnimationPlayer")
+resource_name = "Rogue_Hooded/AnimationPlayer"
+
+[sub_resource type="BTAwaitAnimation" id="BTAwaitAnimation_lpmw2"]
+animation_player = SubResource("BBNode_nskos")
+animation_name = &"Dodge_Left"
+
 [sub_resource type="BTSequence" id="BTSequence_xmkae"]
-children = [SubResource("BTPlayAnimation_faa3p")]
+children = [SubResource("BTPlayAnimation_faa3p"), SubResource("BTAwaitAnimation_lpmw2")]
 
 [sub_resource type="BTSelector" id="BTSelector_ljq21"]
 children = [SubResource("BTSequence_lpmw2"), SubResource("BTSequence_xmkae")]
@@ -117,8 +145,15 @@ children = [SubResource("BTSequence_lpmw2"), SubResource("BTSequence_xmkae")]
 script = ExtResource("4_faa3p")
 target_lane_var_name = &"target_lane"
 
+[sub_resource type="BTParallel" id="BTParallel_ofo4b"]
+children = [SubResource("BTSelector_ljq21"), SubResource("BTAction_lpmw2")]
+
 [sub_resource type="BTSequence" id="BTSequence_nskos"]
-children = [SubResource("BTCheckVar_4s8dd"), SubResource("BTSelector_ljq21"), SubResource("BTAction_lpmw2")]
+children = [SubResource("BTCheckVar_4s8dd"), SubResource("BTParallel_ofo4b")]
+
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_yytq1"]
+time_limit = 3.0
+children = [SubResource("BTSequence_nskos")]
 
 [sub_resource type="BBVariant" id="BBVariant_yytq1"]
 type = 4
@@ -141,13 +176,16 @@ animation_name = &"Jump_Full_Long"
 script = ExtResource("3_yytq1")
 nearest_object_var_name = &"nearest_object_distance"
 nearest_object_jump_start_distance = 3.0
-jump_after_obstacle_distance = 0.3
 
 [sub_resource type="BTSequence" id="BTSequence_ofo4b"]
 children = [SubResource("BTCheckVar_lpmw2"), SubResource("BTPlayAnimation_3c6of"), SubResource("BTAction_nskos")]
 
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_faa3p"]
+time_limit = 10.0
+children = [SubResource("BTSequence_ofo4b")]
+
 [sub_resource type="BTDynamicSelector" id="BTDynamicSelector_6tr4x"]
-children = [SubResource("BTSequence_faa3p"), SubResource("BTSequence_nskos"), SubResource("BTSequence_ofo4b")]
+children = [SubResource("BTTimeLimit_cba86"), SubResource("BTTimeLimit_yytq1"), SubResource("BTTimeLimit_faa3p")]
 
 [sub_resource type="BTSequence" id="BTSequence_ljq21"]
 children = [SubResource("BTPlayAnimation_yytq1"), SubResource("BTAction_hu1is"), SubResource("BTDelay_cba86"), SubResource("BTDynamicSelector_6tr4x")]
