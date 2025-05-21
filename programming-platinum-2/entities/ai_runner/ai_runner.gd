@@ -9,6 +9,7 @@ extends CharacterBody3D
 @export var lookahead_distance := 25.0
 @export var jump_clearance_height := 1.5
 @export var z_death_difference := 10.0
+@export var wiggle_room := 0.4 # Max deviation from the boundary of the outermost lanes
 @export_group("limbo")
 @export var bt_player: BTPlayer
 
@@ -68,3 +69,15 @@ func _physics_process(delta: float) -> void:
 			velocity.z = 0.0
 
 	move_and_slide()
+
+	# Clamp X position to stay within lane boundaries + wiggle_room
+	if lanes_x.size() > 0:
+		var min_x_limit = lanes_x[0] - wiggle_room
+		var max_x_limit = lanes_x[lanes_x.size() - 1] + wiggle_room
+
+		if global_position.x < min_x_limit:
+			global_position.x = min_x_limit
+		elif global_position.x > max_x_limit:
+			global_position.x = max_x_limit
+	# upping height if it somehow falls off the map
+	if global_position.y < 1.35: global_position.y = 1.4
