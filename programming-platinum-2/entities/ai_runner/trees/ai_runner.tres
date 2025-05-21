@@ -48,6 +48,7 @@ scan_distance = 20.0
 unit_safety_check_size = 5.0
 lookahead_steps = 3
 danger_threshold = 3.0
+immediate_block_threshold = 1.5
 lane_change_safety_bias = 1.5
 immediate_side_collision_threshold = 2.0
 
