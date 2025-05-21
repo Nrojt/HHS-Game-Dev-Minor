@@ -1,4 +1,5 @@
-class_name AiRunner extends CharacterBody3D
+class_name AiRunner
+extends CharacterBody3D
 
 # AI Configuration
 @export_group("ai variables")
@@ -16,6 +17,8 @@ var initial_z_pos : float
 var is_on_upper_level := false
 var using_stairs := false
 
+var suppress_z_correction := false
+
 @onready var running_sound_effect : AudioStreamPlayer3D = $RunningSoundEffect
 
 func _ready() -> void:
@@ -29,7 +32,6 @@ func _ready() -> void:
 			position = Vector3(0,2,0)
 			velocity = Vector3.ZERO
 	)
-
 
 func _physics_process(delta: float) -> void:
 	if !GameManager.game_active:
@@ -52,9 +54,9 @@ func _physics_process(delta: float) -> void:
 		if !running_sound_effect.playing:
 			running_sound_effect.play()
 
-	# Only set velocity.z for lane switching if NOT jumping 
+	# Only set velocity.z for lane switching if NOT jumping and not suppressed
 	var is_jumping = bt_player.blackboard.get_var("is_jumping", false)
-	if is_on_floor() and !is_jumping:
+	if is_on_floor() and !is_jumping and !suppress_z_correction:
 		# Only move in Z to return to z=0 (if needed), but not during jump
 		var direction: float = 0.0 - global_position.z
 		if abs(direction) > 0.01:

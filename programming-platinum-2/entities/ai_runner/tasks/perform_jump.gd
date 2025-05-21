@@ -6,7 +6,6 @@ extends BTAction
 
 var _jump_horizontal_speed: float = 0.0
 
-# TODO: sometimes it jumps backwards
 # Note: reversed z axis, so negative z is forward and positive z is backwards in this project
 
 func _setup() -> void:
@@ -23,6 +22,7 @@ func _tick(_delta: float) -> Status:
 	var closest_obstacle_data = blackboard.get_var(nearest_object_var_name, null)
 
 	if not is_jumping:
+		ai.suppress_z_correction = false  # Not jumping, allow correction
 		# Only try to jump if not already jumping
 		if (
 			closest_obstacle_data == null
@@ -39,6 +39,7 @@ func _tick(_delta: float) -> Status:
 			# Move forward (negative Z) to match world/obstacle movement
 			ai.velocity.z = -abs(_jump_horizontal_speed)
 			blackboard.set_var("is_jumping", true)
+			ai.suppress_z_correction = true  # Suppress correction during jump
 			return RUNNING
 		else:
 			blackboard.set_var("is_jumping", false)
@@ -47,9 +48,11 @@ func _tick(_delta: float) -> Status:
 	# If already jumping, maintain forward momentum in air
 	if not ai.is_on_floor():
 		ai.velocity.z = -abs(_jump_horizontal_speed)
+		ai.suppress_z_correction = true  # Still suppress
 		return RUNNING
 	else:
 		# Landed, jump is complete
 		blackboard.set_var("is_jumping", false)
 		ai.velocity.z = 0.0
+		ai.suppress_z_correction = false  # Allow correction again
 		return SUCCESS
