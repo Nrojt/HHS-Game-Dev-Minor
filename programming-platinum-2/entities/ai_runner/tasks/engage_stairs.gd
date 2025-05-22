@@ -28,4 +28,3 @@ func _tick(_delta: float) -> Status:
 	
 		return SUCCESS
 	return RUNNING
-

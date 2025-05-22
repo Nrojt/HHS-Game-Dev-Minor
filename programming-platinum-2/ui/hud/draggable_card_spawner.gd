@@ -1,11 +1,11 @@
 extends VBoxContainer
 
 @export_group("Draggables")
-@export var DRAGGABLE_SCENES: Array[PackedScene] = [
-	preload("uid://7p7ercjif3ja"),
-	preload("uid://buutu78g1kur"),
-	preload("uid://bkmpcsxb0jjy0")
-]
+@export var DRAGGABLE_SCENES: Dictionary[PackedScene, float] = {
+preload("uid://7p7ercjif3ja"): 50.0,
+preload("uid://buutu78g1kur"): 50.0,
+preload("uid://bkmpcsxb0jjy0"): 60.0,
+}
 
 @export_group("Cards")
 @export var draggable_card_scene: PackedScene = preload("uid://bhpx3a7ome13w")
@@ -30,7 +30,7 @@ func _on_spawn_timer_timeout() -> void:
 	_update_spawn_timer()
 	if _is_reshuffling_cards:
 		print("Spawn timer timeout skipped due to reshuffle.")
-		spawn_timer.set_wait_time( spawn_timer.time_left + 1.0)
+		spawn_timer.set_wait_time(spawn_timer.time_left + 1.0)
 		spawn_timer.start()
 		_is_reshuffling_cards = false
 		return # Don't spawn if cards are moving
@@ -55,6 +55,41 @@ func _get_card_count() -> int:
 			count += 1
 	return count
 
+func _get_weighted_random_scene() -> PackedScene:
+	var scenes: Array = []
+	var weights: Array = []
+	var total_weight: float = 0.0
+
+	# Filter out the last used scene if possible
+	for scene in DRAGGABLE_SCENES.keys():
+		if (scene != _last_draggable_scene or DRAGGABLE_SCENES.size() == 1) and DRAGGABLE_SCENES[scene] > 0.0:
+			scenes.append(scene)
+			weights.append(DRAGGABLE_SCENES[scene])
+			total_weight += DRAGGABLE_SCENES[scene]
+
+	# If all scenes were filtered out, allow all
+	if scenes.is_empty():
+		for scene in DRAGGABLE_SCENES.keys():
+			if DRAGGABLE_SCENES[scene] > 0.0:
+				scenes.append(scene)
+				weights.append(DRAGGABLE_SCENES[scene])
+				total_weight += DRAGGABLE_SCENES[scene]
+
+	# If still empty, error
+	if scenes.is_empty():
+		push_error("Error: No possible scenes to pick from for spawning.")
+		return null
+
+	# Weighted random selection
+	var r: float = randf() * total_weight
+	var acc: float = 0.0
+	for i in range(scenes.size()):
+		acc += weights[i]
+		if r <= acc:
+			return scenes[i]
+	# Fallback
+	return scenes.back()
+
 func _spawn_card() -> void:
 	print("Spawning card")
 	if _is_reshuffling_cards:
@@ -69,17 +104,10 @@ func _spawn_card() -> void:
 		push_error("Error: Draggable card scene not set in spawner.")
 		return
 
-	var possible_scenes: Array[PackedScene] = []
-	for scene in DRAGGABLE_SCENES:
-		if scene != _last_draggable_scene or DRAGGABLE_SCENES.size() == 1:
-			possible_scenes.append(scene)
-	if possible_scenes.is_empty():
-		possible_scenes = DRAGGABLE_SCENES.duplicate()
-	if possible_scenes.is_empty():
-		push_error("Error: No possible scenes to pick from for spawning.")
+	var random_draggable_scene: PackedScene = _get_weighted_random_scene()
+	if random_draggable_scene == null:
 		return
 
-	var random_draggable_scene: PackedScene = possible_scenes.pick_random()
 	_last_draggable_scene = random_draggable_scene
 
 	var new_card_instance: Node = draggable_card_scene.instantiate()

@@ -11,6 +11,8 @@ var drag_start_position: Vector2 = Vector2.ZERO
 
 var _original_z_index: int = 0
 
+# TODO: change something when dragging the card
+
 func _ready() -> void:
 	mouse_filter = MOUSE_FILTER_STOP
 	_original_z_index = z_index
