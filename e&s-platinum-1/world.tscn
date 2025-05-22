@@ -81,6 +81,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Character" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25451, 5.56938)
 script = ExtResource("1_ytpkv")
 CLAMP_HEAD_ROTATION = false
 camera = NodePath("Camera3D")
