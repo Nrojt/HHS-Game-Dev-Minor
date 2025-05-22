@@ -18,6 +18,7 @@ func _spawn_draggable(drag_card : DraggableCard, draggable : DraggableBase) -> v
 
 func _remove_draggable(draggable: DraggableBase) -> void:
 	if is_instance_valid(draggable):
+		if _current_drag_card: _current_drag_card.show_blur = false
 		GameManager.current_draggable = null
 		if draggable.is_inside_tree() and draggable.get_parent() == self:
 			remove_child(draggable)

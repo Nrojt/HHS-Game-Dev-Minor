@@ -2,20 +2,29 @@ class_name DraggableCard
 extends Control
 
 @onready var title_label: Label = %TitleLabel
-@onready var card_icon : TextureRect = %CardIcon
+@onready var card_icon: TextureRect = %CardIcon
+@onready var blur_rect: ColorRect = %BlurRect
 
 var draggable_preview: DraggableBase = null
 
 var is_dragging_card: bool = false
+
+var show_blur := false:
+	set(value):
+		show_blur = value
+		if blur_rect:
+			blur_rect.visible = value
+
 var drag_start_position: Vector2 = Vector2.ZERO
 
 var _original_z_index: int = 0
 
-# TODO: change something when dragging the card
-
 func _ready() -> void:
 	mouse_filter = MOUSE_FILTER_STOP
 	_original_z_index = z_index
+	# Initialize blur_rect's visibility based on the default value of show_blur.
+	if blur_rect:
+		blur_rect.visible = show_blur
 
 # Function called by the spawner to assign the draggable scene this card represents
 func set_draggable_scene(scene: PackedScene):
@@ -51,18 +60,25 @@ func _gui_input(event: InputEvent):
 			if event.pressed:
 				# Start of a potential drag
 				is_dragging_card = true
+				show_blur = true
 				drag_start_position = get_global_mouse_position()
 			elif not event.pressed and is_dragging_card:
 				# End of a drag or just a click
 				is_dragging_card = false
+				show_blur = false
 
 	if event is InputEventMouseMotion:
 		if is_dragging_card:
 			# Check if the mouse has moved past a threshold distance to confirm it's a drag
-			if drag_start_position.distance_to(get_global_mouse_position()) > 5:
+			if (
+				drag_start_position.distance_to(get_global_mouse_position())
+				> 5
+			):
 				# Emit a signal with the associated preview
 				if draggable_preview:
-					GameManager.start_dragging_draggable.emit(self, draggable_preview)
+					GameManager.start_dragging_draggable.emit(
+						self, draggable_preview
+					)
 				is_dragging_card = false
 
 func _restore_z_index():
@@ -85,8 +101,8 @@ func play_entry_animation():
 	tween.set_parallel(true)
 	# Fade in
 	tween.tween_property(self, "modulate:a", 1.0, 0.3)\
-	# Scale up with a little overshoot, then settle
 		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	# Scale up with a little overshoot, then settle
 	tween.tween_property(self, "scale", Vector2(1.0, 1.0), 0.35)\
 		.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
 	# Move down to the final position
