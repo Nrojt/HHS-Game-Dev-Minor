@@ -64,13 +64,17 @@ func _physics_process(delta: float) -> void:
 
 	# Z-axis correction to return to z=0 when on floor, not jumping, and not suppressed
 	if is_on_floor() and !is_jumping and !suppress_z_correction:
-		var z_target: float = 0.0 # Assuming the neutral Z position is 0
+		var z_target: float = 0.0
 		var z_diff: float = z_target - global_position.z
-		if abs(z_diff) > 0.01: # Threshold to prevent jittering
-			velocity.z = sign(z_diff) * lane_switch_speed
+		var z_correction_threshold: float = 0.05  # Increased threshold
+	
+		if abs(z_diff) > z_correction_threshold:
+			# Use proportional correction speed instead of fixed speed
+			var correction_speed: float = min(abs(z_diff) * 8.0, lane_switch_speed * 0.5)
+			velocity.z = sign(z_diff) * correction_speed
 		else:
 			velocity.z = 0.0
-			global_position.z = z_target # Snap to target Z to ensure precision
+			global_position.z = z_target
 	
 	# Clamp Z velocity
 	velocity.z = clamp(velocity.z, -max_z_velocity, max_z_velocity)
@@ -86,5 +90,13 @@ func _physics_process(delta: float) -> void:
 
 	# upping height if it somehow falls off the map
 	if global_position.y < 1.35: global_position.y = 1.4
+
+	# Add velocity damping for very small movements to reduce jitter
+	var velocity_deadzone: float = 0.1
+	if abs(velocity.x) < velocity_deadzone:
+		velocity.x = 0.0
+	if abs(velocity.z) < velocity_deadzone and is_on_floor() and !is_jumping:
+		velocity.z = 0.0
+		
 	
 	move_and_slide()

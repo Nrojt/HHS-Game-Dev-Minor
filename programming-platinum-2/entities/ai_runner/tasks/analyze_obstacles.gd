@@ -228,10 +228,14 @@ func _tick(_delta: float) -> Status:
 		action = "ChangeLane"
 		target_lane = best_other_lane
 
-	# Set blackboard variables
+	# Clear lane changing state if we're not actually changing lanes
+	if action != "ChangeLane":
+		blackboard.set_var("is_changing_lanes", false)
+	
 	blackboard.set_var(required_action_var_name, action)
 	if action == "ChangeLane":
 		blackboard.set_var(target_lane_var_name, target_lane)
-	elif action == "UseStairs": # Ensure target lane is current for stairs
+		blackboard.set_var("is_changing_lanes", true)
+	elif action == "UseStairs": 
 		blackboard.set_var(target_lane_var_name, current_lane)
 	return SUCCESS

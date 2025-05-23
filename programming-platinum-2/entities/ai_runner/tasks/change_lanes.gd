@@ -13,7 +13,7 @@ func _tick(delta: float) -> Status:
 	var target_x: float = lanes_x[target_lane]
 	var dx: float = target_x - ai.global_position.x
 
-	var arrival_threshold := 0.05
+	var arrival_threshold := 0.1  # Increased from 0.05
 
 	if abs(dx) < arrival_threshold:
 		ai.global_position.x = target_x
@@ -26,8 +26,9 @@ func _tick(delta: float) -> Status:
 	var max_move: float = ai.lane_switch_speed * delta
 
 	# Clamp movement to not overshoot the target
-	if abs(dx) < max_move:
-		ai.velocity.x = dx / delta
+	if abs(dx) < max_move * 2.0:  # Slow down when approaching
+		var approach_speed = abs(dx) / delta * 0.8  # 80% of required speed
+		ai.velocity.x = direction_x * min(approach_speed, ai.lane_switch_speed)
 	else:
 		ai.velocity.x = direction_x * ai.lane_switch_speed
 
