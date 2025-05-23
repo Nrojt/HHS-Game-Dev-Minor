@@ -84,6 +84,7 @@ func _calculate_lane_safety_score(sorted_lane_obstacles: Array, ai: AiRunner) ->
 				break
 			if o["node"] is Train:
 				return o["distance"]
+
 	# Check other obstacles up to lookahead_steps or scan_distance
 	var obstacles_to_check_count = min(lookahead_steps, sorted_lane_obstacles.size())
 	for i in range(obstacles_to_check_count):
@@ -95,6 +96,11 @@ func _calculate_lane_safety_score(sorted_lane_obstacles: Array, ai: AiRunner) ->
 			return scan_distance
 		if o["node"] is Gate:
 			continue
+
+		# NEW: Skip trains when on upper level
+		if o["node"] is Train and ai.is_on_upper_level:
+			continue
+
 		if o["distance"] < danger_threshold:
 			return o["distance"]
 	return scan_distance # Lane is clear or safe enough up to scan_distance
@@ -109,14 +115,21 @@ func _is_switch_to_lane_immediately_safe(target_lane_idx: int, obstacles_by_lane
 			return false
 		if closest_in_target["distance"] < immediate_side_collision_threshold:
 			var obs_node = closest_in_target["node"]
+
+			# Special handling for trains, only dangerous if AI is on ground level
+			if obs_node is Train:
+				return ai.is_on_upper_level  # Safe if on upper level, unsafe if on ground
+
+			# For other obstacles, check metadata
 			var obs_is_upper: bool = (
-				obs_node.has_meta("is_upper_level_obstacle")
-				and obs_node.get_meta("is_upper_level_obstacle")
+			obs_node.has_meta("is_upper_level_obstacle")
+			and obs_node.get_meta("is_upper_level_obstacle")
 			)
 			# Collision if AI and obstacle are on the same level
 			if (ai.is_on_upper_level and obs_is_upper) or (not ai.is_on_upper_level and not obs_is_upper):
 				return false
 	return true
+
 
 func _tick(_delta: float) -> Status:
 	var ai: AiRunner = agent as AiRunner
@@ -151,10 +164,6 @@ func _tick(_delta: float) -> Status:
 	#  Always update nearest_object_var_name with the true closest obstacle
 	if closest_obstacle:
 		blackboard.set_var(nearest_object_var_name, closest_obstacle)
-	else:
-		blackboard.set_var(nearest_object_var_name, null)
-
-	if closest_obstacle:
 		if not is_instance_valid(closest_obstacle["node"]):
 			push_warning("AnalyzeObstacles: Closest obstacle node is invalid.")
 			current_lane_state = LaneState.BLOCKED
@@ -179,13 +188,19 @@ func _tick(_delta: float) -> Status:
 					current_lane_state = LaneState.BLOCKED
 				if current_lane_state == LaneState.BLOCKED and obs_distance >= danger_threshold:
 					current_lane_state = LaneState.CLEAR
-			elif node is Train and not ai.is_on_upper_level:
-				current_lane_state = LaneState.BLOCKED
-			#  Immediate block for any very close obstacle
+			elif node is Train:
+				# Only treat train as blocking if AI is on the same level
+				if not ai.is_on_upper_level:
+					current_lane_state = LaneState.BLOCKED
+				else:
+					# AI is on upper level, train is not a threat
+					current_lane_state = LaneState.CLEAR
 			elif obs_distance < immediate_block_threshold:
 				current_lane_state = LaneState.BLOCKED
 			elif obs_distance < danger_threshold:
-				current_lane_state = LaneState.BLOCKED
+				current_lane_state = LaneState.BLOCKED 
+	else:
+		blackboard.set_var(nearest_object_var_name, null)
 
 	var action: String = "None"
 	var target_lane: int = current_lane

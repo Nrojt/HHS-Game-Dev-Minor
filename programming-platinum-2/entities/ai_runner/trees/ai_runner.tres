@@ -100,6 +100,7 @@ saved_value = NodePath("Rogue_Hooded/AnimationPlayer")
 resource_name = "Rogue_Hooded/AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_nskos"]
+await_completion = 0.1
 animation_player = SubResource("BBNode_4s8dd")
 animation_name = &"Dodge_Right"
 
@@ -118,6 +119,7 @@ saved_value = NodePath("Rogue_Hooded/AnimationPlayer")
 resource_name = "Rogue_Hooded/AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_faa3p"]
+await_completion = 0.1
 animation_player = SubResource("BBNode_yytq1")
 animation_name = &"Dodge_Left"
 
