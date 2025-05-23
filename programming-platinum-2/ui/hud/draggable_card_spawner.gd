@@ -8,7 +8,7 @@ preload("uid://bkmpcsxb0jjy0"): 60.0,
 }
 
 @export_group("Cards")
-@export var draggable_card_scene: PackedScene = preload("uid://bhpx3a7ome13w")
+@export var draggable_card_scene: PackedScene = preload("uid://diqt2cxvvyfqn")
 @export var max_cards_at_once := 4
 @export var base_spawn_interval := 3.0
 @export var min_spawn_interval := 0.4
