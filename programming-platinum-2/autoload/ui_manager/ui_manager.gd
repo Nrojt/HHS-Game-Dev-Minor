@@ -15,6 +15,8 @@ var scenes : Dictionary[UIState, PackedScene] = {
 	UIState.GAME_OVER: preload("uid://tomp5baxqc4m")
 }
 
+@onready var music_player : AudioStreamPlayer = %MusicPlayer
+
 func _ready():
 	# load in main menu scene
 	_on_ui_change(UIState.MAIN_MENU)
@@ -28,6 +30,7 @@ func _ready():
 func _on_ui_change(new_state : UIState):
 	# remove all children
 	for child in get_children():
+		if child == music_player: continue
 		child.queue_free()
 	# Add the new UI scene
 	if new_state in scenes:

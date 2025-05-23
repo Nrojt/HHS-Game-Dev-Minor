@@ -1,11 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://dx4ve307ych15"]
+[gd_scene load_steps=12 format=3 uid="uid://dx4ve307ych15"]
 
 [ext_resource type="Script" uid="uid://cdq5cdbw1a10d" path="res://level/world/world.gd" id="1_dg7ox"]
 [ext_resource type="PackedScene" uid="uid://b2p8n8xyq6oj8" path="res://level/empty_section/empty_section.tscn" id="1_xb7be"]
 [ext_resource type="Shader" uid="uid://deecj4irdpysy" path="res://level/world/shaders/sky.gdshader" id="2_o4ss6"]
 [ext_resource type="Script" uid="uid://bkc0vc7ndjpeh" path="res://level/world/empty_section_spawner.gd" id="3_831b6"]
 [ext_resource type="PackedScene" uid="uid://1qqdhqh4c8jl" path="res://entities/ai_runner/ai_runner.tscn" id="5_dg7ox"]
-[ext_resource type="AudioStream" uid="uid://obpgvy7p2nxb" path="res://level/world/art/piano idea.wav" id="6_c312r"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_o4ss6"]
 
@@ -66,9 +65,3 @@ shape = SubResource("BoxShape3D_831b6")
 
 [node name="AiRunner" parent="." instance=ExtResource("5_dg7ox")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-
-[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_c312r")
-volume_db = -8.0
-autoplay = true
-bus = &"Music"

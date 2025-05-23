@@ -70,7 +70,7 @@ theme_override_constants/separation = 8
 script = ExtResource("2_e0nub")
 DRAGGABLE_SCENES = Dictionary[PackedScene, float]({
 ExtResource("3_imuuq"): 50.0,
-ExtResource("4_kwc50"): 65.0,
+ExtResource("4_kwc50"): 70.0,
 ExtResource("5_o2lis"): 40.0
 })
 

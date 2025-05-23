@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=52 format=3 uid="uid://cyslk348qobi4"]
+[gd_resource type="BehaviorTree" load_steps=49 format=3 uid="uid://cyslk348qobi4"]
 
 [ext_resource type="Script" uid="uid://o5i7laxhk2hh" path="res://entities/ai_runner/tasks/scan_obstacles.gd" id="1_umm33"]
 [ext_resource type="Script" uid="uid://djmfjnm8in14l" path="res://entities/ai_runner/tasks/engage_stairs.gd" id="2_cba86"]
@@ -23,6 +23,15 @@ var/target_lane/type = 3
 var/target_lane/value = 0.0
 var/target_lane/hint = 0
 var/target_lane/hint_string = ""
+
+[sub_resource type="BBNode" id="BBNode_cba86"]
+saved_value = NodePath("Rogue_Hooded/AnimationPlayer")
+resource_name = "Rogue_Hooded/AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_yytq1"]
+animation_player = SubResource("BBNode_cba86")
+animation_name = &"Running_A"
+blend = 0.2
 
 [sub_resource type="BTAction" id="BTAction_hu1is"]
 script = ExtResource("1_umm33")
@@ -174,39 +183,18 @@ script = ExtResource("5_cba86")
 [sub_resource type="BTSequence" id="BTSequence_4s8dd"]
 children = [SubResource("BTAction_ljq21"), SubResource("BTPlayAnimation_3c6of"), SubResource("BTAction_wnjlj")]
 
-[sub_resource type="BBNode" id="BBNode_3c6of"]
-saved_value = NodePath("Rogue_Hooded/AnimationPlayer")
-resource_name = "Rogue_Hooded/AnimationPlayer"
-
-[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_4s8dd"]
-animation_player = SubResource("BBNode_3c6of")
-animation_name = &"Running_B"
-blend = 0.2
-
-[sub_resource type="BTSelector" id="BTSelector_yytq1"]
-children = [SubResource("BTSequence_4s8dd"), SubResource("BTPlayAnimation_4s8dd")]
-
 [sub_resource type="BTTimeLimit" id="BTTimeLimit_nskos"]
 time_limit = 10.0
-children = [SubResource("BTSelector_yytq1")]
+children = [SubResource("BTSequence_4s8dd")]
 
 [sub_resource type="BTSequence" id="BTSequence_ofo4b"]
 children = [SubResource("BTCheckVar_lpmw2"), SubResource("BTTimeLimit_nskos")]
 
-[sub_resource type="BBNode" id="BBNode_cba86"]
-saved_value = NodePath("Rogue_Hooded/AnimationPlayer")
-resource_name = "Rogue_Hooded/AnimationPlayer"
-
-[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_yytq1"]
-animation_player = SubResource("BBNode_cba86")
-animation_name = &"Running_A"
-blend = 0.2
-
 [sub_resource type="BTDynamicSelector" id="BTDynamicSelector_faa3p"]
-children = [SubResource("BTSequence_faa3p"), SubResource("BTSequence_nskos"), SubResource("BTSequence_ofo4b"), SubResource("BTPlayAnimation_yytq1")]
+children = [SubResource("BTSequence_faa3p"), SubResource("BTSequence_nskos"), SubResource("BTSequence_ofo4b")]
 
 [sub_resource type="BTSequence" id="BTSequence_ljq21"]
-children = [SubResource("BTSequence_3c6of"), SubResource("BTDynamicSelector_faa3p")]
+children = [SubResource("BTPlayAnimation_yytq1"), SubResource("BTSequence_3c6of"), SubResource("BTDynamicSelector_faa3p")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_wayxx")

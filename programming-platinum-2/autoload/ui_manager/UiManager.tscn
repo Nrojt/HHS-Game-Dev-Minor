@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dahclmxda7h8b"]
+
+[ext_resource type="Script" uid="uid://dafu4iyvne7o" path="res://autoload/ui_manager/ui_manager.gd" id="1_2xk8l"]
+[ext_resource type="AudioStream" uid="uid://obpgvy7p2nxb" path="res://level/world/art/piano idea.wav" id="2_y4jla"]
+
+[node name="UiManager" type="CanvasLayer"]
+script = ExtResource("1_2xk8l")
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("2_y4jla")
+volume_db = -8.0
+autoplay = true
+bus = &"Music"

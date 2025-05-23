@@ -4,7 +4,7 @@ extends VBoxContainer
 @export var DRAGGABLE_SCENES: Dictionary[PackedScene, float] = {
 preload("uid://7p7ercjif3ja"): 50.0,
 preload("uid://buutu78g1kur"): 50.0,
-preload("uid://bkmpcsxb0jjy0"): 60.0,
+preload("uid://bkmpcsxb0jjy0"): 90.0,
 }
 
 @export_group("Cards")

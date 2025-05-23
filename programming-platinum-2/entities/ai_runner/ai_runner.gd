@@ -34,6 +34,12 @@ func _ready() -> void:
 			position = Vector3(0,2,0)
 			velocity = Vector3.ZERO
 			initial_z_pos = global_position.z # Reset initial_z_pos on game restart
+			bt_player.active = true
+	)
+	GameManager.game_ended.connect(
+		func(): 
+			bt_player.active = false
+			set_process(false)
 	)
 
 func _physics_process(delta: float) -> void:
