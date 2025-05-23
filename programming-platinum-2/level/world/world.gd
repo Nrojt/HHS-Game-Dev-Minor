@@ -3,7 +3,7 @@ extends Node3D
 var _current_drag_card : DraggableCard
 
 func _ready():
-	GameManager.game_started.connect(func(): get_tree().reload_current_scene())
+	GameManager.game_ended.connect(func(): get_tree().reload_current_scene())
 	GameManager.placed_draggable.connect(_placed_draggable)
 	GameManager.end_dragging_draggable.connect(_remove_draggable)
 	GameManager.start_dragging_draggable.connect(_spawn_draggable)

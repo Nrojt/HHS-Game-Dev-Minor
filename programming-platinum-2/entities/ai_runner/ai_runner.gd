@@ -24,6 +24,8 @@ var suppress_z_correction := false
 @onready var running_sound_effect : AudioStreamPlayer3D = $RunningSoundEffect
 
 func _ready() -> void:
+	bt_player.active = false
+	running_sound_effect.stop()
 	initial_z_pos = global_position.z
 	# Initial state variables for the blackboard
 	bt_player.blackboard.set_var("current_lane", 1) # Start in middle lane
@@ -35,15 +37,11 @@ func _ready() -> void:
 			velocity = Vector3.ZERO
 			initial_z_pos = global_position.z # Reset initial_z_pos on game restart
 			bt_player.active = true
-	)
-	GameManager.game_ended.connect(
-		func(): 
-			bt_player.active = false
-			set_process(false)
+			running_sound_effect.play()
 	)
 
 func _physics_process(delta: float) -> void:
-	if !GameManager.game_active:
+	if !GameManager.game_active || !is_inside_tree():
 		if bt_player.is_processing():
 			bt_player.set_process(false)
 		return
