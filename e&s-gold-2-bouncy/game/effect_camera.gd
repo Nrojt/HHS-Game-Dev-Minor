@@ -18,7 +18,6 @@ var _noise                := FastNoiseLite.new()
 var _noise_seed: float    =  0.0
 var _target_zoom: Vector2 =  Vector2.ONE
 
-# To keep track of the tween
 var _zoom_in_tween: Tween
 var _zoom_out_tween: Tween
 var _original_zoom: Vector2
@@ -53,9 +52,8 @@ func _shake(delta: float) -> void:
 	offset = Vector2(shake_x, shake_y)
 	rotation = shake_rotation
 
-# TODO: if zoom effect gets triggered while already zooming, dont zoom out first
+
 func _zoom_effect(duration: float, target: Node2D) -> void:
-	# If a previous tween is still running, kill it.
 	if _zoom_in_tween != null and _zoom_in_tween.is_valid():
 		_zoom_in_tween.kill()
 	if _zoom_out_tween != null and _zoom_out_tween.is_valid():
@@ -63,15 +61,19 @@ func _zoom_effect(duration: float, target: Node2D) -> void:
 		
 	var target_zoom_vector: Vector2 = Vector2(target_zoom_level, target_zoom_level)
 	var target_position: Vector2    = target.global_position
-
+	
+	var is_already_zoomed: bool = zoom.x > _original_zoom.x * 1.01
+	
 	_zoom_in_tween = create_tween()
 	_zoom_in_tween.set_parallel(true)
 	_zoom_in_tween.tween_property(self, "zoom", target_zoom_vector, duration)
 	_zoom_in_tween.tween_property(self, "global_position", target_position, duration)
 
+	var zoom_out_delay: float = duration if not is_already_zoomed else 0.0
+	
 	_zoom_out_tween = create_tween()
-	_zoom_out_tween.tween_property(self, "zoom", _original_zoom, duration).set_delay(duration)
-	_zoom_out_tween.tween_property(self, "global_position", _original_position, duration).set_delay(duration)
+	_zoom_out_tween.tween_property(self, "zoom", _original_zoom, duration).set_delay(duration + zoom_out_delay)
+	_zoom_out_tween.tween_property(self, "global_position", _original_position, duration).set_delay(duration + zoom_out_delay)
 
 
 func add_trauma(amount: float) -> void:
