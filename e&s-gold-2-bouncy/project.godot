@@ -31,8 +31,3 @@ window/stretch/mode="canvas_items"
 2d_physics/layer_4="tile"
 2d_physics/layer_5="ball_1"
 2d_physics/layer_6="ball_2"
-
-[rendering]
-
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"
