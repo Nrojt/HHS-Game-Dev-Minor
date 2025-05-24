@@ -83,9 +83,14 @@ func _physics_process(delta: float) -> void:
 		if collision.get_collider() is Tile:
 			if effect_camera:
 				effect_camera.trigger_zoom.emit(tile_collision_zoom, self)
-				effect_camera.add_trauma(tile_collision_trauma)
+				effect_camera.trigger_trauma.emit(tile_collision_trauma)
+				var colour: Color = colour_ball_one if is_ball_one else colour_ball_two
+				effect_camera.trigger_flash.emit(colour, 0.3)
 			collision.get_collider().toggle(self)
 		else:
+			if effect_camera:
+				effect_camera.trigger_drift.emit(10, 0.2)
+				effect_camera.trigger_elastic_zoom.emit(0.8, 0.5)
 			_shrink_temporarily()
 
 func _shrink_temporarily() -> void:
